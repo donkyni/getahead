@@ -1,6 +1,6 @@
 from django import forms
 
-from affiliation.models import User, CodePays, Poste
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Parent
 
 
 class DateInput(forms.DateInput):
@@ -66,3 +66,27 @@ class CodePaysForm(forms.ModelForm):
     class Meta:
         model = CodePays
         fields = ('pays', 'code_pays',)
+
+
+class NiveauForm(forms.ModelForm):
+    class Meta:
+        model = Niveau
+        fields = ('nom_du_niveau',)
+
+
+class PalierForm(forms.ModelForm):
+    class Meta:
+        model = Palier
+        fields = ('nom_du_palier', 'niveau',)
+
+
+class GroupeForm(forms.ModelForm):
+    class Meta:
+        model = Groupe
+        fields = ('nom_du_groupe', 'manageur_du_groupe',)
+
+
+class ParentForm(forms.ModelForm):
+    class Meta:
+        model = Parent
+        fields = ('nom_du_parent', 'code_du_parent',)

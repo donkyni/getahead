@@ -1,0 +1,30 @@
+{% load static %}
+{% for parent in parents %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ parent.id }}</b>
+  </td>
+  <td>
+      <b class="badge badge-secondary" style="font-size:14px;">{{parent.nom_du_parent}}</b>
+  </td>
+  <td>
+      <b class="badge badge-secondary" style="font-size:14px;">{{parent.code}}</b>
+  </td>
+  <td class="project-actions">
+      <button class="btn btn-info btn-sm show-form-update" data-url="{% url 'updateparent' parent.id %}">
+          <i class="fas fa-pencil-alt">
+          </i>
+          Editer
+      </button>
+      <button class="btn btn-danger btn-sm show-form-delete" data-url="{% url 'deleteparent' parent.id %}">
+          <i class="fas fa-trash">
+          </i>
+          Effacer
+      </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun parent n'est disponible</td>
+</tr>
+{% endfor %}

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head-title %}
-    Pays&nbsp;
+    Parent&nbsp;
 {% endblock %}
 
 {% block head %}
@@ -14,23 +14,23 @@
 active
 {% endblock %}
 
-{% block active-pays %}
+{% block active-parent %}
 active
 {% endblock %}
 
 {% block position %}
-    Pays
+    Parent
 {% endblock %}
 
 {% block chemin %}
-    Pays&nbsp;
+    Parent
 {% endblock %}
 
 {% block content %}
     <!-- Main content -->
     <section class="content">
-        <button type="button" class="btn btn-outline-primary show-form" data-url="{% url 'createcodepays' %}">
-            Ajouter un pays&nbsp;
+        <button type="button" class="btn btn-outline-primary show-form" data-url="{% url 'createparent' %}">
+            Ajouter un parent&nbsp;
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
         <br><br>
@@ -38,7 +38,7 @@ active
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Pays</h3>
+          <h3 class="card-title">Parents</h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -46,7 +46,7 @@ active
           </div>
         </div>
         <div class="card-body p-2">
-          <table id="table-pays" class="text-center table table-striped table-hover projects">
+          <table id="table-parent" class="text-center table table-striped table-hover projects">
               <br>
               <thead>
                   <tr>
@@ -54,10 +54,10 @@ active
                           #
                       </th>
                       <th style="width: 30%;font-size:14px">
-                          Pays
+                          Nom du parent
                       </th>
                       <th style="width: 30%;font-size:14px">
-                          Code pays
+                          Code du parent
                       </th>
                       <th style="width: 30%;font-size:14px">
                           Actions
@@ -65,11 +65,11 @@ active
                   </tr>
               </thead>
               <tbody>
-                {% include "affiliation/code_pays/listecodepays.html" %}
+                {% include "affiliation/parent/listeparent.html" %}
               </tbody>
           </table>
             <!-- Popup ajouter nouvelle personne -->
-            <div class="modal fade" id="modal-pays">
+            <div class="modal fade" id="modal-parent">
                 <div class="modal-dialog">
                     <div class="modal-content"></div>
                 </div>
@@ -84,14 +84,14 @@ active
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'affiliation/js/modalpays.js' %}"></script>
+<script src="{% static 'affiliation/js/modalparent.js' %}"></script>
 <!-- DataTables -->
 <script src="{% static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
 <!-- page script -->
 <script>
   $(function () {
-    $("#table-pays").DataTable();
+    $("#table-parent").DataTable();
   });
 </script>
 {% endblock %}

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   {% block head %}{% endblock %}
-  <title>{% block head-title %}Programme{% endblock %}GET AHEAD</title>
+  <title>{% block head-title %}Programme{% endblock %}| GET AHEAD</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -172,7 +172,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="" class="nav-link {% block active-bord %}{% endblock %}">
+            <a href="{% url 'tableaudebord' %}" class="nav-link {% block active-bord %}{% endblock %}">
               <i class="fas fa-tachometer-alt nav-icon"></i>
               <p><b>Tableau de bord</b></p>
             </a>
@@ -439,19 +439,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.html" class="nav-link {% block active-palier %}{% endblock %}">
+                <a href="{% url 'palier' %}" class="nav-link {% block active-palier %}{% endblock %}">
                   <i class="fas fa-cog nav-icon"></i>
                   <p> <b>Paliers</b></p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.html" class="nav-link {% block active-Groupe %}{% endblock %}">
+                <a href="{% url 'groupe' %}" class="nav-link {% block active-groupe %}{% endblock %}">
                   <i class="fas fa-cog nav-icon"></i>
                   <p> <b>Groupes</b></p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.html" class="nav-link {% block active-niveau %}{% endblock %}">
+                <a href="{% url 'niveau' %}" class="nav-link {% block active-niveau %}{% endblock %}">
                   <i class="fas fa-cog nav-icon"></i>
                   <p> <b>Niveaux</b></p>
                 </a>
@@ -463,7 +463,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.html" class="nav-link {% block active-parent %}{% endblock %}">
+                <a href="{% url 'parent' %}" class="nav-link {% block active-parent %}{% endblock %}">
                   <i class="fas fa-cog nav-icon"></i>
                   <p> <b>Parents</b></p>
                 </a>

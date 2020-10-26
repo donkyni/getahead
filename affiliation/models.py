@@ -24,7 +24,7 @@ class Palier(models.Model):
     archive = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['nom_du_palier']
+        ordering = ['-id']
 
     def __str__(self):
         return self.nom_du_palier

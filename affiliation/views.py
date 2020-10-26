@@ -4,8 +4,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 
-from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm
-from affiliation.models import User, CodePays, Poste
+from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, ParentForm
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Parent
 
 
 def save_all(request, form, template_name, model, template_name2, mycontext):
@@ -171,5 +171,213 @@ def deletecodepays(request, id):
             'code': code
         }
         data['html_form'] = render_to_string('affiliation/code_pays/deletecodepays.html', context, request=request)
+
+    return JsonResponse(data)
+
+
+def niveau(request):
+    niveaux = Niveau.objects.filter(archive=False)
+    mycontext = {
+        'niveaux': niveaux
+    }
+    return render(request, 'affiliation/niveau/niveau.html', mycontext)
+
+
+def createniveau(request):
+    niveaux = Niveau.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = NiveauForm(request.POST)
+    else:
+        form = NiveauForm()
+    mycontext = {'niveaux': niveaux, 'form': form}
+    return save_all(request, form, 'affiliation/niveau/createniveau.html',
+                    'niveau', 'affiliation/niveau/listeniveau.html', mycontext)
+
+
+def updateniveau(request, id):
+    niveaux = Niveau.objects.filter(archive=False)
+    mycontext = {
+        'niveaux': niveaux
+    }
+    niveau = get_object_or_404(Niveau, id=id)
+    if request.method == 'POST':
+        form = NiveauForm(request.POST, instance=niveau)
+    else:
+        form = NiveauForm(instance=niveau)
+
+    return save_all(request, form, 'affiliation/niveau/updateniveau.html',
+                    'niveau', 'affiliation/niveau/listeniveau.html', mycontext)
+
+
+def deleteniveau(request, id):
+    data = dict()
+    niveau = get_object_or_404(Niveau, id=id)
+    if request.method == "POST":
+        niveau.archive = True
+        niveau.save()
+        data['form_is_valid'] = True
+        niveaux = Niveau.objects.filter(archive=False)
+        data['niveau'] = render_to_string('affiliation/niveau/listeniveau.html', {'niveaux': niveaux})
+    else:
+        context = {
+            'niveau': niveau
+        }
+        data['html_form'] = render_to_string('affiliation/niveau/deleteniveau.html', context, request=request)
+
+    return JsonResponse(data)
+
+
+def palier(request):
+    paliers = Palier.objects.filter(archive=False)
+    mycontext = {
+        'paliers': paliers
+    }
+    return render(request, 'affiliation/palier/palier.html', mycontext)
+
+
+def createpalier(request):
+    paliers = Palier.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = PalierForm(request.POST)
+    else:
+        form = PalierForm()
+    mycontext = {'paliers': paliers, 'form': form}
+    return save_all(request, form, 'affiliation/palier/createpalier.html',
+                    'palier', 'affiliation/palier/listepalier.html', mycontext)
+
+
+def updatepalier(request, id):
+    paliers = Palier.objects.filter(archive=False)
+    mycontext = {
+        'paliers': paliers
+    }
+    palier = get_object_or_404(Palier, id=id)
+    if request.method == 'POST':
+        form = PalierForm(request.POST, instance=palier)
+    else:
+        form = PalierForm(instance=palier)
+
+    return save_all(request, form, 'affiliation/palier/updatepalier.html',
+                    'palier', 'affiliation/palier/listepalier.html', mycontext)
+
+
+def deletepalier(request, id):
+    data = dict()
+    palier = get_object_or_404(Palier, id=id)
+    if request.method == "POST":
+        palier.archive = True
+        palier.save()
+        data['form_is_valid'] = True
+        paliers = Palier.objects.filter(archive=False)
+        data['palier'] = render_to_string('affiliation/palier/listepalier.html', {'paliers': paliers})
+    else:
+        context = {
+            'palier': palier
+        }
+        data['html_form'] = render_to_string('affiliation/palier/deletepalier.html', context, request=request)
+
+    return JsonResponse(data)
+
+
+def groupe(request):
+    groupes = Groupe.objects.filter(archive=False)
+    mycontext = {
+        'groupes': groupes
+    }
+    return render(request, 'affiliation/groupe/groupe.html', mycontext)
+
+
+def creategroupe(request):
+    groupes = Groupe.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = GroupeForm(request.POST)
+    else:
+        form = GroupeForm()
+    mycontext = {'groupes': groupes, 'form': form}
+    return save_all(request, form, 'affiliation/groupe/creategroupe.html',
+                    'groupe', 'affiliation/groupe/listegroupe.html', mycontext)
+
+
+def updategroupe(request, id):
+    groupes = Groupe.objects.filter(archive=False)
+    mycontext = {
+        'groupes': groupes
+    }
+    groupe = get_object_or_404(Groupe, id=id)
+    if request.method == 'POST':
+        form = GroupeForm(request.POST, instance=groupe)
+    else:
+        form = GroupeForm(instance=groupe)
+
+    return save_all(request, form, 'affiliation/groupe/updategroupe.html',
+                    'groupe', 'affiliation/groupe/listegroupe.html', mycontext)
+
+
+def deletegroupe(request, id):
+    data = dict()
+    groupe = get_object_or_404(Groupe, id=id)
+    if request.method == "POST":
+        groupe.archive = True
+        groupe.save()
+        data['form_is_valid'] = True
+        groupes = Groupe.objects.filter(archive=False)
+        data['groupe'] = render_to_string('affiliation/groupe/listegroupe.html', {'groupes': groupes})
+    else:
+        context = {
+            'groupe': groupe
+        }
+        data['html_form'] = render_to_string('affiliation/groupe/deletegroupe.html', context, request=request)
+
+    return JsonResponse(data)
+
+
+def parent(request):
+    parents = Parent.objects.filter(archive=False)
+    mycontext = {
+        'parents': parents
+    }
+    return render(request, 'affiliation/parent/parent.html', mycontext)
+
+
+def createparent(request):
+    parents = Parent.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = ParentForm(request.POST)
+    else:
+        form = ParentForm()
+    mycontext = {'parents': parents, 'form': form}
+    return save_all(request, form, 'affiliation/parent/createparent.html',
+                    'parent', 'affiliation/parent/listeparent.html', mycontext)
+
+
+def updateparent(request, id):
+    parents = Parent.objects.filter(archive=False)
+    mycontext = {
+        'parents': parents
+    }
+    parent = get_object_or_404(Parent, id=id)
+    if request.method == 'POST':
+        form = ParentForm(request.POST, instance=parent)
+    else:
+        form = ParentForm(instance=parent)
+
+    return save_all(request, form, 'affiliation/parent/updateparent.html',
+                    'parent', 'affiliation/parent/listeparent.html', mycontext)
+
+
+def deleteparent(request, id):
+    data = dict()
+    parent = get_object_or_404(Parent, id=id)
+    if request.method == "POST":
+        parent.archive = True
+        parent.save()
+        data['form_is_valid'] = True
+        parents = Parent.objects.filter(archive=False)
+        data['parent'] = render_to_string('affiliation/parent/listeparent.html', {'parents': parents})
+    else:
+        context = {
+            'parent': parent
+        }
+        data['html_form'] = render_to_string('affiliation/parent/deleteparent.html', context, request=request)
 
     return JsonResponse(data)
