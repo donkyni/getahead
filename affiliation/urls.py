@@ -4,6 +4,10 @@ from affiliation import views
 
 urlpatterns = [
     url(r'tableaudebord', views.tableaudebord, name="tableaudebord"),
+    url(r'poste', views.poste, name="poste"),
+    url(r'createposte', views.createposte, name="createposte"),
+    url(r'(?P<id>\d+)/deleteposte', views.deleteposte, name="deleteposte"),
+    url(r'(?P<id>\d+)/updateposte', views.updateposte, name="updateposte"),
     url(r'ajouter', views.ajouter, name="ajouter"),
     url(r'liste', views.liste, name="liste"),
     url(r'parcours', views.parcours, name="parcours"),

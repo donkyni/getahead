@@ -64,8 +64,7 @@ class UserManager(auth_models.BaseUserManager):
     def create_user(self, telephone, adresse, nom, prenom, password=None):
         if not telephone:
             raise ValueError('Users must have an telephone number')
-        user = self.model(
-            telephone=self.normalize_email(telephone))
+        user = self.model(telephone=telephone)
         user.adresse = adresse
         user.nom = nom
         user.prenom = prenom

@@ -1,6 +1,6 @@
 from django import forms
 
-from affiliation.models import User, CodePays
+from affiliation.models import User, CodePays, Poste
 
 
 class DateInput(forms.DateInput):
@@ -52,6 +52,12 @@ class UserUpdateForm(forms.ModelForm):
             'nom', 'prenom', 'adresse', 'pays_de_residence', 'telephone',
             'avatar', 'date_de_naissance', 'sexe',
         )
+
+
+class PosteForm(forms.ModelForm):
+    class Meta:
+        model = Poste
+        fields = ('nom_du_poste',)
 
 
 class CodePaysForm(forms.ModelForm):

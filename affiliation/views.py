@@ -4,8 +4,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 
-from affiliation.forms import UserCreationForm, CodePaysForm
-from affiliation.models import User, CodePays
+from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm
+from affiliation.models import User, CodePays, Poste
 
 
 def save_all(request, form, template_name, model, template_name2, mycontext):
@@ -27,6 +27,58 @@ def save_all(request, form, template_name, model, template_name2, mycontext):
 
 def tableaudebord(request):
     return render(request, 'affiliation/tableaudebord.html', locals())
+
+
+def poste(request):
+    postes = Poste.objects.filter(archive=False)
+    mycontext = {
+        'postes': postes
+    }
+    return render(request, 'affiliation/poste/poste.html', mycontext)
+
+
+def createposte(request):
+    postes = Poste.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = PosteForm(request.POST)
+    else:
+        form = PosteForm()
+    mycontext = {'postes': postes}
+    return save_all(request, form, 'affiliation/poste/createposte.html',
+                    'poste', 'affiliation/poste/listeposte.html', mycontext)
+
+
+def updateposte(request, id):
+    postes = CodePays.objects.filter(archive=False)
+    mycontext = {
+        'postes': postes
+    }
+    poste = get_object_or_404(Poste, id=id)
+    if request.method == 'POST':
+        form = PosteForm(request.POST, instance=poste)
+    else:
+        form = PosteForm(instance=poste)
+
+    return save_all(request, form, 'affiliation/poste/updateposte.html',
+                    'poste', 'affiliation/poste/listeposte.html', mycontext)
+
+
+def deleteposte(request, id):
+    data = dict()
+    poste = get_object_or_404(Poste, id=id)
+    if request.method == "POST":
+        poste.archive = True
+        poste.save()
+        data['form_is_valid'] = True
+        postes = Poste.objects.filter(archive=False)
+        data['poste'] = render_to_string('affiliation/poste/listeposte.html', {'postes': postes})
+    else:
+        context = {
+            'poste': poste
+        }
+        data['html_form'] = render_to_string('affiliation/poste/deleteposte.html', context, request=request)
+
+    return JsonResponse(data)
 
 
 def generatepassword(longueur):
