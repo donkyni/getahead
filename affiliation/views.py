@@ -43,7 +43,7 @@ def createposte(request):
         form = PosteForm(request.POST)
     else:
         form = PosteForm()
-    mycontext = {'postes': postes}
+    mycontext = {'postes': postes, 'form': form}
     return save_all(request, form, 'affiliation/poste/createposte.html',
                     'poste', 'affiliation/poste/listeposte.html', mycontext)
 
@@ -132,12 +132,12 @@ def codepays(request):
 
 
 def createcodepays(request):
-    codes = CodePays.objects.all(archive=False)
+    codes = CodePays.objects.filter(archive=False)
     if request.method == 'POST':
         form = CodePaysForm(request.POST)
     else:
         form = CodePaysForm()
-    mycontext = {'codes': codes}
+    mycontext = {'codes': codes, 'form': form}
     return save_all(request, form, 'affiliation/code_pays/createcodepays.html',
                     'code', 'affiliation/code_pays/listecodepays.html', mycontext)
 

@@ -6,10 +6,10 @@ $(document).ready(function(){
             type: 'get',
             dataType: 'json',
             beforeSend: function(){
-                $('#modal-poste').modal('show');
+                $('#modal-pays').modal('show');
             },
             success: function(data){
-                $('#modal-poste .modal-content').html(data.html_form);
+                $('#modal-pays .modal-content').html(data.html_form);
             }
         });
     };
@@ -22,10 +22,10 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data) {
                 if(data.form_is_valid) {
-                    $('#table-poste tbody').html(data.poste);
-                    $('#modal-poste').modal('hide');
+                    $('#table-pays tbody').html(data.code);
+                    $('#modal-pays').modal('hide');
                 } else {
-                    $('#modal-poste .modal-content').html(data.html_form)
+                    $('#modal-pays .modal-content').html(data.html_form)
                 }
             }
         })
@@ -34,14 +34,14 @@ $(document).ready(function(){
 
 // Create a form
 $(".show-form").click(ShowForm);
-$('#modal-poste').on("submit", ".create-form", SaveForm);
+$('#modal-pays').on("submit", ".create-form", SaveForm);
 
 // Update form
-$('#table-poste').on("click", ".show-form-update", ShowForm);
-$('#modal-poste').on("submit", ".update-form", SaveForm);
+$('#table-pays').on("click", ".show-form-update", ShowForm);
+$('#modal-pays').on("submit", ".update-form", SaveForm);
 
 // Delete form
-$('#table-poste').on("click", ".show-form-delete", ShowForm);
-$('#modal-poste').on("submit", ".delete-form", SaveForm);
+$('#table-pays').on("click", ".show-form-delete", ShowForm);
+$('#modal-pays').on("submit", ".delete-form", SaveForm);
 
 });

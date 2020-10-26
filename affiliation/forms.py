@@ -18,7 +18,8 @@ class UserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (
-            'code', 'nom_du_parent', 'nom', 'prenom', 'adresse', 'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
+            'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
+            'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
             'avatar', 'date_de_naissance', 'sexe',
         )
 
@@ -40,7 +41,8 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (
-            'code', 'nom_du_parent', 'nom', 'prenom', 'adresse', 'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
+            'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
+            'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
             'avatar', 'date_de_naissance', 'sexe',
         )
 
@@ -63,4 +65,4 @@ class PosteForm(forms.ModelForm):
 class CodePaysForm(forms.ModelForm):
     class Meta:
         model = CodePays
-        fields = ('pays', 'code_pays', )
+        fields = ('pays', 'code_pays',)
