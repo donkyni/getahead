@@ -13,14 +13,14 @@ class TimeInput(forms.TimeInput):
 
 class UserCreationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    date_de_naissance = forms.DateTimeField(widget=DateInput)
+    annee_de_naissance = forms.DateTimeField(widget=DateInput)
 
     class Meta:
         model = User
         fields = (
             'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
-            'avatar', 'date_de_naissance', 'sexe',
+            'avatar', 'annee_de_naissance', 'sexe',
         )
 
     def clean_password(self):
@@ -36,14 +36,14 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserForm(forms.ModelForm):
-    date_de_naissance = forms.DateTimeField(widget=DateInput)
+    annee_de_naissance = forms.DateTimeField(widget=DateInput)
 
     class Meta:
         model = User
         fields = (
             'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
-            'avatar', 'date_de_naissance', 'sexe',
+            'avatar',  'annee_de_naissance', 'sexe',
         )
 
 
@@ -52,7 +52,7 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = (
             'nom', 'prenom', 'adresse', 'pays_de_residence', 'telephone',
-            'avatar', 'date_de_naissance', 'sexe',
+            'avatar', 'annee_de_naissance', 'sexe',
         )
 
 

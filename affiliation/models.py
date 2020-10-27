@@ -24,7 +24,7 @@ class Palier(models.Model):
     archive = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['id']
 
     def __str__(self):
         return self.nom_du_palier
@@ -94,25 +94,29 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Informations de base
     """
-    code = models.CharField(max_length=255, null=True, blank=False)
+    code = models.CharField(unique=True, max_length=255, null=True, blank=False,
+                            help_text="Ce code servira à se connecter à la plateforme, également pour parrainer un "
+                                      "membre. Ex. 228DS000000001")
     nom_du_parent = models.ForeignKey(Parent, on_delete=models.SET_NULL,
                                       help_text="Indiquez le parent qui l'adhère. S'il est le premier membre de son "
                                                 "groupe, laissez vide", null=True, blank=True)
-    nom = models.CharField(max_length=255)
-    prenom = models.CharField(max_length=255, blank=False, null=True)
+    nom = models.CharField(max_length=255, unique=True)
+    prenom = models.CharField(max_length=255, blank=False, null=True, unique=True)
     adresse = models.CharField(max_length=255, null=True, blank=False)
     pays_de_residence = models.ForeignKey(CodePays, on_delete=models.SET_NULL, null=True, blank=False)
     telephone = models.IntegerField(blank=False, null=True, unique=True)
     poste = models.ForeignKey(Poste, null=True, blank=False, on_delete=models.SET_NULL)
     palier = models.ForeignKey(Palier, null=True, blank=False, on_delete=models.SET_NULL)
-    groupe = models.ForeignKey(Groupe, null=True, blank=False, on_delete=models.SET_NULL)
+    groupe = models.ForeignKey(Groupe, null=True, blank=False, on_delete=models.SET_NULL,
+                               help_text="Le groupe permettra de voir l'ensemble de ses membres")
 
     """
     Informations supplémentaires
     """
     avatar = models.ImageField(blank=True, null=True, upload_to="avatars")
-    date_de_naissance = models.DateField(null=True, blank=True)
-    sexe = models.CharField(choices=SEXE, max_length=120, null=True, blank=True)
+    annee_de_naissance = models.DateField(null=True, blank=True)
+    sexe = models.CharField(choices=SEXE, max_length=120, null=True, blank=True,
+                            help_text="Le sexe servira pour les statistiques")
 
     """
     Données systèmes

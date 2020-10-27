@@ -220,13 +220,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link {% block active-donnee-base %}{% endblock %}">
+                <a href="{% url 'ajouter' %}" class="nav-link {% block active-donnee-base %}{% endblock %}">
                   <i class="fas fa-plus nav-icon"></i>
                   <p><b>Ajouter un adhérent</b></p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{% url 'liste' %}" class="nav-link {% block active-liste-adherent %}{% endblock %}">
                   <i class="fas fa-address-book nav-icon"></i>
                   <p><b>Liste des adhérents</b></p>
                 </a>
@@ -488,8 +488,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">{% block module %}Accueil{% endblock %}</a></li>
-              <li class="breadcrumb-item active">{% block chemin %}Tableau de bord{% endblock %}</li>
+              <li class="breadcrumb-item"><a href="#"><b>{% block module %}Accueil{% endblock %}</b></a></li>
+              <li class="breadcrumb-item active"><b>{% block chemin %}Tableau de bord{% endblock %}</b></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

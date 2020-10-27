@@ -1,0 +1,44 @@
+{% load static %}
+{% for utilisateur in utilisateurs %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ utilisateur.id }}</b>
+  </td>
+  <td>
+      <b style="font-size:14px;">{{utilisateur.nom}}</b>
+  </td>
+  <td>
+      <b style="font-size:14px;">{{utilisateur.prenom}}</b>
+  </td>
+  <td>
+      <b style="font-size:14px;">{{utilisateur.groupe}}</b>
+  </td>
+  <td>
+      <b style="font-size:14px;">{{utilisateur.telephone}}</b><br>
+      <small class="badge badge-secondary">{{utilisateur.adresse}}</small>
+  </td>
+  <td>
+      <b style="font-size:14px;">{{utilisateur.pays_de_residence.pays}}</b>
+  </td>
+  <td>
+      <b style="font-size:14px;">{{utilisateur.palier.niveau}}</b><br>
+      <small class="badge badge-secondary">{{utilisateur.palier}}</small>
+  </td>
+  <td class="project-actions">
+      <button class="btn btn-dark btn-sm show-form-update">
+          <i class="fas fa-pencil-alt">
+          </i>
+          Editer
+      </button>
+      <button class="btn btn-danger btn-sm show-form-delete">
+          <i class="fas fa-trash">
+          </i>
+          Effacer
+      </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="8" class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun utilisateur n'est disponible</td>
+</tr>
+{% endfor %}

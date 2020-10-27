@@ -1,7 +1,7 @@
 from random import shuffle
 
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, ParentForm
@@ -99,11 +99,14 @@ def ajouter(request):
     utilisateurs = User.objects.all()
     if request.method == 'POST':
         form = UserCreationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('ajouter')
     else:
         form = UserCreationForm()
 
     long = 14
-    longueur = 8
+    longueur = 15
     code = generatepassword(long)
     mdp = generatepassword(longueur)
 
@@ -113,11 +116,15 @@ def ajouter(request):
         'code': code,
         'mdp': mdp
     }
-    return render(request, 'affiliation/ajouter_utilisateur.html', context)
+    return render(request, 'affiliation/donnee_base/ajouter.html', context)
 
 
 def liste(request):
-    return render(request, 'affiliation/liste_utilisateur.html', locals())
+    utilisateurs = User.objects.all()
+    context = {
+        "utilisateurs": utilisateurs
+    }
+    return render(request, 'affiliation/donnee_base/liste_adherent/liste_adherent.html', locals())
 
 
 def parcours(request):
