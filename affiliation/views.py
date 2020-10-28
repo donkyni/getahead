@@ -87,7 +87,8 @@ def generatepassword(longueur):
                   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                   '&', '=', '#', '|', '?', '@', '$', '*', 'µ', '%', '!', '/'
-                  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+                                                                         '0', '1', '2', '3', '4', '5', '6', '7', '8',
+                  '9']
     mdp = str()
     shuffle(caracteres)
     for x in range(longueur):
@@ -388,3 +389,38 @@ def deleteparent(request, id):
         data['html_form'] = render_to_string('affiliation/parent/deleteparent.html', context, request=request)
 
     return JsonResponse(data)
+
+
+def bamileke(request):
+    groupes = Groupe.objects.filter(archive=False)
+    niveau1 = get_object_or_404(Niveau, nom_du_niveau="Niveau 1")
+
+    context = {
+        'groupes': groupes,
+        'niveau1': niveau1
+    }
+
+    return render(request, 'affiliation/niveau1/bamileke.html', context)
+
+
+def pyramide(request, id):
+    niveau1 = get_object_or_404(Niveau, nom_du_niveau="Niveau 1")
+    group = get_object_or_404(Groupe, id=id)  # on recupere le groupe dont l'identifiant a été passé en argument
+
+    # Prendre un groupe donnee et voir tous les membres qui y sont present
+
+    dict = {}
+    if group:  # si on a un groupe alors '->
+        membres = User.objects.filter(groupe=group)  # on lance un requete pour recuperer ses membres ou users en
+        # se servant du groupe selectionner
+        dict[group] = membres
+        for membre in membres:
+            print(membre, membre.groupe)
+        print(group.manageur_du_groupe)
+
+    context = {
+        'group': group,
+        'niveau1': niveau1
+    }
+
+    return render(request, 'affiliation/niveau1/pyramide.html', context)

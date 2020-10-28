@@ -5,10 +5,13 @@
       <b class="badge badge-secondary">{{ parent.id }}</b>
   </td>
   <td>
-      <b class="badge badge-secondary" style="font-size:14px;">{{parent.nom_du_parent}}</b>
+      <b style="font-size:14px;">{{parent.nom_du_parrain}}</b>
   </td>
   <td>
-      <b class="badge badge-secondary" style="font-size:14px;">{{parent.code}}</b>
+      <b style="font-size:14px;">{{parent.prenom_du_parrain}}</b>
+  </td>
+  <td>
+      <b class="badge badge-warning" style="font-size:14px;"><i>{{parent.code_du_parrain}}</i></b>
   </td>
   <td class="project-actions">
       <button class="btn btn-info btn-sm show-form-update" data-url="{% url 'updateparent' parent.id %}">
@@ -25,6 +28,6 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun parent n'est disponible</td>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun parrain n'est disponible</td>
 </tr>
 {% endfor %}

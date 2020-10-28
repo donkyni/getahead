@@ -46,4 +46,10 @@ urlpatterns = [
     url(r'^creatgparent$', views.createparent, name="createparent"),
     url(r'^(?P<id>\d+)/deleteparent$', views.deleteparent, name="deleteparent"),
     url(r'^(?P<id>\d+)/updateparent$', views.updateparent, name="updateparent"),
+
+    # url concernant le niveau 1 > Bamileke
+    url(r'^bamileke$', views.bamileke, name="bamileke"),
+
+    # url concernant le niveau 1 > Bamileke > Groupe<id>
+    url(r'^(?P<id>\d+)/pyramide$', views.pyramide, name="pyramide"),
 ]

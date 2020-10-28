@@ -42,12 +42,13 @@ class Groupe(models.Model):
 
 
 class Parent(models.Model):
-    nom_du_parent = models.CharField(max_length=255, null=True, blank=False)
-    code_du_parent = models.CharField(max_length=255, null=True, blank=False)
+    nom_du_parrain = models.CharField(max_length=255, null=True, blank=False)
+    prenom_du_parrain = models.CharField(max_length=255, null=True, blank=False)
+    code_du_parrain = models.CharField(max_length=255, null=True, blank=False)
     archive = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.nom_du_parent
+        return self.nom_du_parrain + ' ' + self.prenom_du_parrain
 
 
 class CodePays(models.Model):
@@ -134,7 +135,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     class Meta:
         verbose_name = 'Utilisateur'
         verbose_name_plural = 'Utilisateur'
-        ordering = ('-id',)
+        ordering = ('id',)
 
     def __str__(self):
         return self.prenom + ' ' + self.nom

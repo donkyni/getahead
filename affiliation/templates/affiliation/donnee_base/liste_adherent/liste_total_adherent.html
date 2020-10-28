@@ -5,35 +5,39 @@
       <b class="badge badge-secondary">{{ utilisateur.id }}</b>
   </td>
   <td>
-      <b style="font-size:14px;">{{utilisateur.nom}}</b>
+      <b style="font-size:14px;">{{utilisateur.nom}}</b><br>
+      {% if utilisateur.nom_du_parent is None %}
+        <small><i>Parrain : <span class="badge badge-info">Aucun</span></i></small>
+      {% elif utilisateur.nom_du_parent is not None %}
+        <small><i>Parrain : <span class="badge badge-success">{{ utilisateur.nom_du_parent }}</span></i></small>
+      {% endif %}
   </td>
   <td>
       <b style="font-size:14px;">{{utilisateur.prenom}}</b>
   </td>
   <td>
-      <b style="font-size:14px;">{{utilisateur.groupe}}</b>
+      <b class="badge badge-warning" style="font-size:14px;"><i>{{utilisateur.groupe}}</i></b>
+      <small class="badge badge-secondary">Manageur : {{utilisateur.groupe.manageur_du_groupe}}</small>
   </td>
   <td>
       <b style="font-size:14px;">{{utilisateur.telephone}}</b><br>
-      <small class="badge badge-secondary">{{utilisateur.adresse}}</small>
+      <small class="badge badge-secondary"><i>{{utilisateur.adresse}}</i></small>
   </td>
   <td>
       <b style="font-size:14px;">{{utilisateur.pays_de_residence.pays}}</b>
   </td>
   <td>
       <b style="font-size:14px;">{{utilisateur.palier.niveau}}</b><br>
-      <small class="badge badge-secondary">{{utilisateur.palier}}</small>
+      <small class="badge badge-secondary"><i>{{utilisateur.palier}}</i></small>
   </td>
   <td class="project-actions">
       <button class="btn btn-dark btn-sm show-form-update">
           <i class="fas fa-pencil-alt">
           </i>
-          Editer
       </button>
       <button class="btn btn-danger btn-sm show-form-delete">
           <i class="fas fa-trash">
           </i>
-          Effacer
       </button>
   </td>
 </tr>

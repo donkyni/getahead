@@ -1,0 +1,19 @@
+{% load static %}
+{% for groupe in groupes %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ groupe.id }}</b>
+  </td>
+  <td>
+      <b style="font-size:14px;"><a href="{% url 'pyramide' groupe.id %}" class="btn btn-sm btn-success text-light">{{groupe.nom_du_groupe}}</a></b><br>
+      <small>Cliquez pour voir tous les membres de ce groupe</small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-primary" style="font-size:14px;">{{groupe.manageur_du_groupe}}</b>
+  </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun groupe n'est disponible</td>
+</tr>
+{% endfor %}
