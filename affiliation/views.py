@@ -117,21 +117,23 @@ def ajouter(request):
                 for membre in membres:  # On parcours les membres afin d'y appliquer les modifications suivantes :
                     # Vérifiez l'état du pied gauche et du pied droit, ceci determinera s'il a parrainé au moins 2
                     # personnes
-                    parrain = membre.nom_du_parent
-                    parrainer_total = User.objects.filter(nom_du_parent=parrain).count()
+                    parrain = membre.nom_du_parent  # Super SONIC
+                    parrainer_total = User.objects.filter(nom_du_parent=parrain).count()  # a 4 parrainer
 
                     # Si le nombre total de parrainer est égale à 1
-                    if parrainer_total == 1:
+                    if parrainer_total == 2 and membre.pied_droit is False and membre.pied_gauche is False:
                         membre.pied_gauche = True
+                        membre.pied_droit = False
 
                         # La MAJ s'applique sur le nombre de point de l'adhérent
                         membre.point += 5
                         systeme.point = 0
                         membre.save()
                         print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                              parrain, '(', parrainer_total, 'en tout)')
+                              parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
+                              'pied droite ', membre.pied_droit)
                     # Sinon si le nombre total de parrainer est égale à 2
-                    elif parrainer_total == 2:
+                    elif parrainer_total == 3 and membre.pied_gauche is True and membre.pied_droit is False:
                         membre.pied_gauche = True
                         membre.pied_droit = True
 
@@ -140,9 +142,10 @@ def ajouter(request):
                         systeme.point = 0
                         membre.save()
                         print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                              parrain, '(', parrainer_total, 'en tout)')
+                              parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
+                              'pied droite ', membre.pied_droit)
                     # Sinon si le nombre total de parrainer est supérieur à 2
-                    elif parrainer_total > 2:
+                    elif parrainer_total > 3 and membre.pied_gauche is True and membre.pied_droit is True:
                         membre.pied_gauche = True
                         membre.pied_droit = True
 
@@ -156,8 +159,10 @@ def ajouter(request):
                             membre.gam += 0
                             systeme.point = 0
                             membre.save()
-                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                                  parrain, '(', parrainer_total, 'en tout)')
+                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe,
+                                  'est parrainer par :',
+                                  parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
+                                  'pied droite ', membre.pied_droit)
                         # Sinon le parrain le(s) met dans un autre groupe
                         # Alors il recevra des GAM (GET AHEAD MONEY) par contre ne recevra aucun point
                         elif systeme.groupe != membre.groupe:
@@ -165,8 +170,10 @@ def ajouter(request):
                             membre.gam += parrainer_total - 2
                             systeme.point = 0
                             membre.save()
-                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                                  parrain, '(', parrainer_total, 'en tout)')
+                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe,
+                                  'est parrainer par :',
+                                  parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
+                                  'pied droite ', membre.pied_droit)
                     # Sinon
                     else:
                         membre.pied_gauche = False
@@ -177,7 +184,9 @@ def ajouter(request):
                         systeme.point = 0
                         membre.save()
                         print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                              parrain, '(', parrainer_total, 'en tout)')
+                              parrain, '(', parrainer_total, 'en tout) | Je suis ici', ' pied gauche: ',
+                              membre.pied_gauche,
+                              'pied droite ', membre.pied_droit)
 
                 systeme.save()
 
