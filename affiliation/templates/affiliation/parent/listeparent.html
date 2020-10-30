@@ -10,9 +10,6 @@
   <td>
       <b style="font-size:14px;">{{parent.prenom_du_parrain}}</b>
   </td>
-  <td>
-      <b class="badge badge-warning" style="font-size:14px;"><i>{{parent.code_du_parrain}}</i></b>
-  </td>
   <td class="project-actions">
       <button class="btn btn-info btn-sm show-form-update" data-url="{% url 'updateparent' parent.id %}">
           <i class="fas fa-pencil-alt">
@@ -28,6 +25,6 @@
 </tr>
 {% empty %}
 <tr>
-    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun parrain n'est disponible</td>
+    <td colspan="4 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun parrain n'est disponible</td>
 </tr>
 {% endfor %}

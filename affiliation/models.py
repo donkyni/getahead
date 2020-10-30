@@ -44,7 +44,6 @@ class Groupe(models.Model):
 class Parent(models.Model):
     nom_du_parrain = models.CharField(max_length=255, null=True, blank=False)
     prenom_du_parrain = models.CharField(max_length=255, null=True, blank=False)
-    code_du_parrain = models.CharField(max_length=255, null=True, blank=False)
     archive = models.BooleanField(default=False)
 
     def __str__(self):
@@ -122,6 +121,10 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Données systèmes
     """
+    pied_gauche = models.BooleanField(default=False, null=True, blank=False)
+    pied_droite = models.BooleanField(default=False, null=True, blank=False)
+    point = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
+    gam = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     date_d_ajout = models.DateTimeField(auto_now_add=True, null=True,

@@ -1,5 +1,6 @@
 from random import shuffle
 
+from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -97,11 +98,89 @@ def generatepassword(longueur):
 
 
 def ajouter(request):
+    dict = {}
     utilisateurs = User.objects.all()
     if request.method == 'POST':
         form = UserCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            form.save(commit=False)
+            systeme = form.save()
+            messages.success(request, "Données existantes ou informations incorrectes")
+
+            # Faire une MAJ par rapport au groupe de l'adhérent, donc de retrouver le groupe de ce dernier
+            group = systeme.groupe
+            groupe = get_object_or_404(Groupe, nom_du_groupe=group)
+            if groupe:  # Si on a le groupe recherché alors '->
+                membres = User.objects.filter(groupe=group)  # On recupère tous ses membres
+                dict[groupe] = membres
+
+                for membre in membres:  # On parcours les membres afin d'y appliquer les modifications suivantes :
+                    # Vérifiez l'état du pied gauche et du pied droit, ceci determinera s'il a parrainé au moins 2
+                    # personnes
+                    parrain = membre.nom_du_parent
+                    parrainer_total = User.objects.filter(nom_du_parent=parrain).count()
+
+                    # Si le nombre total de parrainer est égale à 1
+                    if parrainer_total == 1:
+                        membre.pied_gauche = True
+
+                        # La MAJ s'applique sur le nombre de point de l'adhérent
+                        membre.point += 5
+                        systeme.point = 0
+                        membre.save()
+                        print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
+                              parrain, '(', parrainer_total, 'en tout)')
+                    # Sinon si le nombre total de parrainer est égale à 2
+                    elif parrainer_total == 2:
+                        membre.pied_gauche = True
+                        membre.pied_droit = True
+
+                        # La MAJ s'applique sur le nombre de point de l'adhérent
+                        membre.point += 5
+                        systeme.point = 0
+                        membre.save()
+                        print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
+                              parrain, '(', parrainer_total, 'en tout)')
+                    # Sinon si le nombre total de parrainer est supérieur à 2
+                    elif parrainer_total > 2:
+                        membre.pied_gauche = True
+                        membre.pied_droit = True
+
+                        # Dans ce cas 2 possibilités s'offre au parrain:
+                        # Si il le place dans son réseau pour vite avoir ses points et passer au palier suivant
+                        # Alors il n'a pas de GAM mais a des points
+
+                        if systeme.groupe == membre.groupe:
+                            # La MAJ s'applique sur le nombre de point de l'adhérent
+                            membre.point += 5
+                            membre.gam += 0
+                            systeme.point = 0
+                            membre.save()
+                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
+                                  parrain, '(', parrainer_total, 'en tout)')
+                        # Sinon le parrain le(s) met dans un autre groupe
+                        # Alors il recevra des GAM (GET AHEAD MONEY) par contre ne recevra aucun point
+                        elif systeme.groupe != membre.groupe:
+                            membre.point += 0
+                            membre.gam += parrainer_total - 2
+                            systeme.point = 0
+                            membre.save()
+                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
+                                  parrain, '(', parrainer_total, 'en tout)')
+                    # Sinon
+                    else:
+                        membre.pied_gauche = False
+                        membre.pied_droit = False
+
+                        # La MAJ s'applique sur le nombre de point de l'adhérent
+                        membre.point += 0
+                        systeme.point = 0
+                        membre.save()
+                        print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
+                              parrain, '(', parrainer_total, 'en tout)')
+
+                systeme.save()
+
             return redirect('ajouter')
     else:
         form = UserCreationForm()
@@ -115,7 +194,8 @@ def ajouter(request):
         'utilisateurs': utilisateurs,
         'form': form,
         'code': code,
-        'mdp': mdp
+        'mdp': mdp,
+        'messages': messages
     }
     return render(request, 'affiliation/donnee_base/ajouter.html', context)
 

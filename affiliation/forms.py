@@ -89,4 +89,4 @@ class GroupeForm(forms.ModelForm):
 class ParentForm(forms.ModelForm):
     class Meta:
         model = Parent
-        fields = ('nom_du_parrain', 'prenom_du_parrain', 'code_du_parrain',)
+        fields = ('nom_du_parrain', 'prenom_du_parrain',)

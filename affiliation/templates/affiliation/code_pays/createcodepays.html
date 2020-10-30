@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-<form method="post" action="{% url 'createcodepays' %}" class="create-form">
+<form method="post" data-url="{% url 'createcodepays' %}" class="create-form">
 	{% csrf_token %}
 		<div class="modal-header">
 			<h5 class="modal-title">Ajouter le code du pays</h5>

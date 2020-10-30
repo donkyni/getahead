@@ -29,6 +29,21 @@ active
 {% block content %}
 <div class="content">
     <div class="container-fluid">
+        {% if form.errors %}
+           <div class=" text-center col-lg-8 alert alert-danger">
+               <b>
+                   <a class="btn btn-dark btn-sm close" href="#" data-dismiss="alert">×</a>
+                   <p>Formulaire non valide, informations non enrégistré. VERIFIEZ VOS DONNEES</p>
+               </b>
+           </div>
+        {% elif messages %}
+            <div class=" text-center col-lg-8 alert alert-success">
+               <b>
+                   <a class="btn btn-dark btn-sm close" href="#" data-dismiss="alert">×</a>
+                   <p>Formulaire envoyé. Vos données seront traitées correctement</p>
+               </b>
+           </div>
+       {% endif %}
         <div class="row">
             <div class="col-lg-8">
             <div class="card">
