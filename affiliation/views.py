@@ -5,8 +5,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 
-from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, ParentForm
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Parent
+from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe
 
 
 def save_all(request, form, template_name, model, template_name2, mycontext):
@@ -87,9 +87,8 @@ def generatepassword(longueur):
                   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-                  '&', '=', '#', '|', '?', '@', '$', '*', 'µ', '%', '!', '/'
-                                                                         '0', '1', '2', '3', '4', '5', '6', '7', '8',
-                  '9']
+                  '&', '=', '#', '|', '?', '@', '$', '*', 'µ', '%', '!', '/',
+                  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     mdp = str()
     shuffle(caracteres)
     for x in range(longueur):
@@ -105,90 +104,195 @@ def ajouter(request):
         if form.is_valid():
             form.save(commit=False)
             systeme = form.save()
-            messages.success(request, "Données existantes ou informations incorrectes")
 
             # Faire une MAJ par rapport au groupe de l'adhérent, donc de retrouver le groupe de ce dernier
             group = systeme.groupe
             groupe = get_object_or_404(Groupe, nom_du_groupe=group)
+
             if groupe:  # Si on a le groupe recherché alors '->
                 membres = User.objects.filter(groupe=group)  # On recupère tous ses membres
                 dict[groupe] = membres
 
-                for membre in membres:  # On parcours les membres afin d'y appliquer les modifications suivantes :
-                    # Vérifiez l'état du pied gauche et du pied droit, ceci determinera s'il a parrainé au moins 2
-                    # personnes
-                    parrain = membre.nom_du_parent  # Super SONIC
-                    parrainer_total = User.objects.filter(nom_du_parent=parrain).count()  # a 4 parrainer
+                code = systeme.code
+                membre = get_object_or_404(User, code=code)
+                if membre.nom_du_parent is None:
+                    print(membre.nom_du_parent)
+                    print("C'est le plus haut parent")
+                    systeme.save()
+                elif membre.nom_du_parent is not None:
+                    while membre.nom_du_parent is not None:
+                        membre = get_object_or_404(User, id=membre.nom_du_parent.id)
+                        # membre.point += 5
+                        total_parrainages = User.objects.filter(nom_du_parent=membre).count()
+                        membre.nb_pers_amene = total_parrainages
+                        if total_parrainages > 2 and membre == systeme.nom_du_parent:
+                            if groupe == membre.groupe:
+                                membre.point += 5
+                            elif groupe != membre.groupe and membre == systeme.nom_du_parent:
+                                membre.gam += 1
+                        else:
+                            if membre.palier.nom_du_palier == "Bamiléké":
 
-                    # Si le nombre total de parrainer est égale à 1
-                    if parrainer_total == 2 and membre.pied_droit is False and membre.pied_gauche is False:
-                        membre.pied_gauche = True
-                        membre.pied_droit = False
+                                membre.point += 5   # ce n'est qu'a ce palier qu'on donne du point aux parents
+                                # lors de l'enregistrement de l'un de ses filleuls
 
-                        # La MAJ s'applique sur le nombre de point de l'adhérent
-                        membre.point += 5
-                        systeme.point = 0
+                                if 0 <= membre.point < 10:
+                                    poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                    membre.poste = poste_invite
+                                    print("Vous etes un invité, recruter 2 membres pour devenir un colibri")
+                                elif membre.point == 10:
+                                    poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                    membre.poste = poste_colibri
+                                    print("Vous etes un colibri")
+                                elif 10 < membre.point <= 30:
+                                    poste_animateur = get_object_or_404(Poste, nom_du_poste="Animateur")
+                                    membre.poste = poste_animateur
+                                    print("Vous etes un animateur")
+                                elif 30 < membre.point <= 70:
+                                    poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                    membre.poste = poste_manageur
+                                    print("Vous avez fini ce palier, Voulez-vous continuer pour le palier suviant ou "
+                                          "arreter ?")
+                                elif membre.point == 75:
+                                    membre.point = 0
+                                    poste = get_object_or_404(Poste, nom_du_poste="Invité")
+                                    membre.poste = poste
+                                    palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
+                                    membre.palier = palier_zoulou
+
+                            elif membre.palier.nom_du_palier == "Zoulou":
+                                parraines = User.objects.filter(nom_du_parent=membre)
+                                for parraine in parraines:
+                                    if parraine.point != 0:     # Ici on verifie que le parrainé est bien devenu
+                                        # un manageur reconnu et donc qu'il est pret a rejoindre son parrain au second
+                                        # palier
+                                        membre.point += 0
+                                    elif parraine.point == 0:
+                                        membre.point += 5
+                                if 5 <= membre.point < 10:
+                                    poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                    membre.poste = poste_invite
+                                elif membre.point == 10:
+                                    poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                    membre.poste = poste_colibri
+                                elif 10 < membre.point <= 30:
+                                    poste_animateur = get_object_or_404(Poste, nom_du_poste="Animateur")
+                                    membre.poste = poste_animateur
+                                elif 30 < membre.point <= 70:
+                                    poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                    membre.poste = poste_manageur
+                                    print("Vous avez fini ce palier, Voulez-vous continuer pour le palier suviant ou "
+                                          "arreter ?")
+                                elif membre.point == 75:
+                                    membre.point = 0
+                                    palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
+                                    membre.palier = palier_maya
+
+                            elif membre.palier.nom_du_palier == "Maya":
+                                parraines = User.objects.filter(nom_du_parent=membre)
+                                for parraine in parraines:
+                                    if parraine.point != 0:
+                                        membre.point += 0
+                                    elif parraine.point == 0:
+                                        membre.point += 5
+                                if 5 <= membre.point < 10:
+                                    poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                    membre.poste = poste_invite
+                                elif membre.point == 10:
+                                    poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                    membre.poste = poste_colibri
+                                elif 10 < membre.point <= 30:
+                                    poste_animateur = get_object_or_404(Poste, nom_du_poste="Animateur")
+                                    membre.poste = poste_animateur
+                                elif 30 < membre.point <= 70:
+                                    poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                    membre.poste = poste_manageur
+                                    print("Vous avez fini ce palier, Voulez-vous continuer pour le palier suviant ou "
+                                          "arreter ?")
+                                elif membre.point == 75:
+                                    membre.point = 0
+                                    palier_gladiateurs = get_object_or_404(Palier, nom_du_palier="Gladiateurs")
+                                    membre.palier = palier_gladiateurs
+
+                            elif membre.palier.nom_du_palier == "Gladiateurs":
+                                parraines = User.objects.filter(nom_du_parent=membre)
+                                for parraine in parraines:
+                                    if parraine.point != 0:
+                                        membre.point += 0
+                                    elif parraine.point == 0:
+                                        membre.point += 5
+                                if 5 <= membre.point < 10:
+                                    poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                    membre.poste = poste_invite
+                                elif membre.point == 10:
+                                    poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                    membre.poste = poste_colibri
+                                elif 10 < membre.point <= 30:
+                                    poste_animateur = get_object_or_404(Poste, nom_du_poste="Animateur")
+                                    membre.poste = poste_animateur
+                                elif 30 < membre.point <= 70:
+                                    poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                    membre.poste = poste_manageur
+                                    print("Vous avez fini ce palier, Voulez-vous continuer pour le palier suviant ou "
+                                          "arreter ?")
+                                elif membre.point == 75:
+                                    membre.point = 0
+                                    palier_samourails = get_object_or_404(Palier, nom_du_palier="Samourails")
+                                    membre.palier = palier_samourails
+
+                            elif membre.palier.nom_du_palier == "Samourails":
+                                parraines = User.objects.filter(nom_du_parent=membre)
+                                for parraine in parraines:
+                                    if parraine.point != 0:
+                                        membre.point += 0
+                                    elif parraine.point == 0:
+                                        membre.point += 5
+                                if 5 <= membre.point < 10:
+                                    poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                    membre.poste = poste_invite
+                                elif membre.point == 10:
+                                    poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                    membre.poste = poste_colibri
+                                elif 10 < membre.point <= 30:
+                                    poste_animateur = get_object_or_404(Poste, nom_du_poste="Animateur")
+                                    membre.poste = poste_animateur
+                                elif 30 < membre.point <= 70:
+                                    poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                    membre.poste = poste_manageur
+                                    print("Vous avez fini ce palier, Voulez-vous continuer pour le palier suviant ou "
+                                          "arreter ?")
+                                elif membre.point == 75:
+                                    membre.point = 5
+                                    palier_mandingues = get_object_or_404(Palier, nom_du_palier="Mandingues")
+                                    membre.palier = palier_mandingues
+
+                            elif membre.palier.nom_du_palier == "Mandingues":
+                                parraines = User.objects.filter(nom_du_parent=membre)
+                                for parraine in parraines:
+                                    if parraine.point != 0:
+                                        membre.point += 0
+                                    elif parraine.point == 0:
+                                        membre.point += 5
+                                if 5 <= membre.point < 10:
+                                    poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                    membre.poste = poste_invite
+                                elif membre.point == 10:
+                                    poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                    membre.poste = poste_colibri
+                                elif 10 < membre.point <= 30:
+                                    poste_animateur = get_object_or_404(Poste, nom_du_poste="Animateur")
+                                    membre.poste = poste_animateur
+                                elif 30 < membre.point <= 70:
+                                    poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                    membre.poste = poste_manageur
+                                    print("Vous avez fini ce palier et vous etes arrivé a la fin du programme")
+                                elif membre.point == 75:
+                                    membre.point = 70
+
                         membre.save()
-                        print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                              parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
-                              'pied droite ', membre.pied_droit)
-                    # Sinon si le nombre total de parrainer est égale à 2
-                    elif parrainer_total == 3 and membre.pied_gauche is True and membre.pied_droit is False:
-                        membre.pied_gauche = True
-                        membre.pied_droit = True
-
-                        # La MAJ s'applique sur le nombre de point de l'adhérent
-                        membre.point += 5
-                        systeme.point = 0
-                        membre.save()
-                        print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                              parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
-                              'pied droite ', membre.pied_droit)
-                    # Sinon si le nombre total de parrainer est supérieur à 2
-                    elif parrainer_total > 3 and membre.pied_gauche is True and membre.pied_droit is True:
-                        membre.pied_gauche = True
-                        membre.pied_droit = True
-
-                        # Dans ce cas 2 possibilités s'offre au parrain:
-                        # Si il le place dans son réseau pour vite avoir ses points et passer au palier suivant
-                        # Alors il n'a pas de GAM mais a des points
-
-                        if systeme.groupe == membre.groupe:
-                            # La MAJ s'applique sur le nombre de point de l'adhérent
-                            membre.point += 5
-                            membre.gam += 0
-                            systeme.point = 0
-                            membre.save()
-                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe,
-                                  'est parrainer par :',
-                                  parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
-                                  'pied droite ', membre.pied_droit)
-                        # Sinon le parrain le(s) met dans un autre groupe
-                        # Alors il recevra des GAM (GET AHEAD MONEY) par contre ne recevra aucun point
-                        elif systeme.groupe != membre.groupe:
-                            membre.point += 0
-                            membre.gam += parrainer_total - 2
-                            systeme.point = 0
-                            membre.save()
-                            print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe,
-                                  'est parrainer par :',
-                                  parrain, '(', parrainer_total, 'en tout)', ' pied gauche: ', membre.pied_gauche,
-                                  'pied droite ', membre.pied_droit)
-                    # Sinon
-                    else:
-                        membre.pied_gauche = False
-                        membre.pied_droit = False
-
-                        # La MAJ s'applique sur le nombre de point de l'adhérent
-                        membre.point += 0
-                        systeme.point = 0
-                        membre.save()
-                        print('Membre : ', membre, membre.point, 'points ', 'du', membre.groupe, 'est parrainer par :',
-                              parrain, '(', parrainer_total, 'en tout) | Je suis ici', ' pied gauche: ',
-                              membre.pied_gauche,
-                              'pied droite ', membre.pied_droit)
-
-                systeme.save()
+                        print(membre)
+                        print(total_parrainages, 'parrainé(s)')
+                    systeme.save()
 
             return redirect('ajouter')
     else:
@@ -204,7 +308,6 @@ def ajouter(request):
         'form': form,
         'code': code,
         'mdp': mdp,
-        'messages': messages
     }
     return render(request, 'affiliation/donnee_base/ajouter.html', context)
 
@@ -424,58 +527,6 @@ def deletegroupe(request, id):
             'groupe': groupe
         }
         data['html_form'] = render_to_string('affiliation/groupe/deletegroupe.html', context, request=request)
-
-    return JsonResponse(data)
-
-
-def parent(request):
-    parents = Parent.objects.filter(archive=False)
-    mycontext = {
-        'parents': parents
-    }
-    return render(request, 'affiliation/parent/parent.html', mycontext)
-
-
-def createparent(request):
-    parents = Parent.objects.filter(archive=False)
-    if request.method == 'POST':
-        form = ParentForm(request.POST)
-    else:
-        form = ParentForm()
-    mycontext = {'parents': parents, 'form': form}
-    return save_all(request, form, 'affiliation/parent/createparent.html',
-                    'parent', 'affiliation/parent/listeparent.html', mycontext)
-
-
-def updateparent(request, id):
-    parents = Parent.objects.filter(archive=False)
-    mycontext = {
-        'parents': parents
-    }
-    parent = get_object_or_404(Parent, id=id)
-    if request.method == 'POST':
-        form = ParentForm(request.POST, instance=parent)
-    else:
-        form = ParentForm(instance=parent)
-
-    return save_all(request, form, 'affiliation/parent/updateparent.html',
-                    'parent', 'affiliation/parent/listeparent.html', mycontext)
-
-
-def deleteparent(request, id):
-    data = dict()
-    parent = get_object_or_404(Parent, id=id)
-    if request.method == "POST":
-        parent.archive = True
-        parent.save()
-        data['form_is_valid'] = True
-        parents = Parent.objects.filter(archive=False)
-        data['parent'] = render_to_string('affiliation/parent/listeparent.html', {'parents': parents})
-    else:
-        context = {
-            'parent': parent
-        }
-        data['html_form'] = render_to_string('affiliation/parent/deleteparent.html', context, request=request)
 
     return JsonResponse(data)
 

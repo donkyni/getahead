@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block head %}
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 {% endblock %}
 
 {% block menu-donnne-base %}
@@ -61,7 +61,7 @@ active
                                 <small class="text-muted">Utiliser ce mot de passe sécuriser ou créer votre mot de passe</small>
                             </div>
                         </div>
-                        {{ form.nom_du_parent|as_crispy_field }}
+                          {{ form.nom_du_parent|as_crispy_field }}
                         <div class="form-row">
                             <div class="form-group col-md-6 mb-0">
                                 {{ form.nom|as_crispy_field }}
@@ -81,7 +81,6 @@ active
                                 {{ form.telephone|as_crispy_field }}
                             </div>
                         </div>
-                        {{ form.annee_de_naissance|as_crispy_field }}
                         <!-- <small class="text-muted">L'année de naisssance servira pour les statistiques</small> -->
                         <div class="form-row">
                             <div class="form-group col-md-4 mb-0">
@@ -149,13 +148,16 @@ active
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <script>
     $('.ajouterposte').click(function () {
         alert('hello');
     });
+    $('select').selectpicker();
 </script>
 <script>
     jQuery(document).ready(function() {

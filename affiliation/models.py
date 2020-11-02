@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth import models as auth_models
 
@@ -39,15 +40,6 @@ class Groupe(models.Model):
 
     def __str__(self):
         return self.nom_du_groupe
-
-
-class Parent(models.Model):
-    nom_du_parrain = models.CharField(max_length=255, null=True, blank=False)
-    prenom_du_parrain = models.CharField(max_length=255, null=True, blank=False)
-    archive = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.nom_du_parrain + ' ' + self.prenom_du_parrain
 
 
 class CodePays(models.Model):
@@ -97,11 +89,11 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     code = models.CharField(unique=True, max_length=255, null=True, blank=False,
                             help_text="Ce code servira à se connecter à la plateforme, également pour parrainer un "
                                       "membre. Ex. 228DS000000001")
-    nom_du_parent = models.ForeignKey(Parent, on_delete=models.SET_NULL,
+    nom_du_parent = models.ForeignKey("self", on_delete=models.SET_NULL, verbose_name='ID du parrain',
                                       help_text="Indiquez le parent qui l'adhère. S'il est le premier membre de son "
                                                 "groupe, laissez vide", null=True, blank=True)
-    nom = models.CharField(max_length=255, unique=True)
-    prenom = models.CharField(max_length=255, blank=False, null=True, unique=True)
+    nom = models.CharField(max_length=255, null=True)
+    prenom = models.CharField(max_length=255, blank=False, null=True)
     adresse = models.CharField(max_length=255, null=True, blank=False)
     pays_de_residence = models.ForeignKey(CodePays, on_delete=models.SET_NULL, null=True, blank=False)
     telephone = models.IntegerField(blank=False, null=True, unique=True)

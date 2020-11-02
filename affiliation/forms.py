@@ -1,6 +1,6 @@
 from django import forms
 
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Parent
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe
 
 
 class DateInput(forms.DateInput):
@@ -13,15 +13,17 @@ class TimeInput(forms.TimeInput):
 
 class UserCreationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    annee_de_naissance = forms.DateTimeField(widget=DateInput)
 
     class Meta:
         model = User
         fields = (
             'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
-            'avatar', 'annee_de_naissance', 'sexe',
+            'avatar', 'sexe',
         )
+        widgets = {
+            'nom_du_parent': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'})
+        }
 
     def clean_password(self):
         password = self.cleaned_data.get("password")
@@ -36,18 +38,19 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserForm(forms.ModelForm):
-    annee_de_naissance = forms.DateTimeField(widget=DateInput)
 
     class Meta:
         model = User
         fields = (
             'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
-            'avatar',  'annee_de_naissance', 'sexe',
+            'avatar', 'sexe',
         )
 
 
 class UserUpdateForm(forms.ModelForm):
+    annee_de_naissance = forms.DateTimeField(widget=DateInput)
+
     class Meta:
         model = User
         fields = (
@@ -84,9 +87,3 @@ class GroupeForm(forms.ModelForm):
     class Meta:
         model = Groupe
         fields = ('nom_du_groupe', 'manageur_du_groupe',)
-
-
-class ParentForm(forms.ModelForm):
-    class Meta:
-        model = Parent
-        fields = ('nom_du_parrain', 'prenom_du_parrain',)

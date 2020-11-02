@@ -41,12 +41,6 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/deletegroupe$', views.deletegroupe, name="deletegroupe"),
     url(r'^(?P<id>\d+)/updategroupe$', views.updategroupe, name="updategroupe"),
 
-    # url concernant les parents
-    url(r'^parent', views.parent, name="parent"),
-    url(r'^creatgparent$', views.createparent, name="createparent"),
-    url(r'^(?P<id>\d+)/deleteparent$', views.deleteparent, name="deleteparent"),
-    url(r'^(?P<id>\d+)/updateparent$', views.updateparent, name="updateparent"),
-
     # url concernant le niveau 1 > Bamileke
     url(r'^bamileke$', views.bamileke, name="bamileke"),
 
