@@ -6,6 +6,8 @@ from affiliation import views
 urlpatterns = [
     # url concernant le tableau de bord
     url(r'^tableaudebord$', views.tableaudebord, name="tableaudebord"),
+    url(r'^compte$', views.compte, name="compte"),
+    url(r'^mongroupe$', views.mongroupe, name="mongroupe"),
 
     # url concernant les postes
     url(r'^poste$', views.poste, name="poste"),

@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block head-title %}Mon groupe{% endblock %}
+
+{% block menu-espace %}
+active
+{% endblock %}
+
+{% block active-espace-groupe %}
+active
+{% endblock %}
+
+{% block position %}
+    Mon groupe
+{% endblock %}
+
+{% block style %}
+    color:green;
+{% endblock %}
+
+{% block chemin %}
+    Mon espace / Mon groupe
+{% endblock %}
+
+{% block content %}
+ <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <div class="card card-success card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                    {% if request.user.avatar %}
+                      <img style="height:100px;width:100px;" src="{{request.user.avatar.url}}" class="profile-user-img img-fluid img-circle" alt="User picture">
+                    {% else %}
+                      {% if request.user.sexe == "Homme" %}
+                        <img style="height:100px;width:100px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="profile-user-img img-fluid img-circle" alt="User picture"/>
+                      {% elif request.user.sexe == "Femme" %}
+                        <img style="height:100px;width:100px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="profile-user-img img-fluid img-circle" alt="User picture"/>
+                      {% endif %}
+                    {% endif %}
+                </div>
+
+                <h3 class="profile-username text-center">{{request.user}}</h3>
+                <div class="text-center">
+                  {% if request.user.poste is "Invité" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-danger">{{request.user.poste}}</p>
+                  {% elif request.user.poste == "Colibri" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-primary">{{request.user.poste}}</p>
+                  {% elif request.user.poste == "Manageur" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-success">{{request.user.poste}}</p>
+                  {% else %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-secondary">Aucun poste</p>
+                {% endif %}
+                </div>
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li style="text-align:center;" class="list-group-item">
+                    <small style="font-weight:bold;font-size:16px"><span class="badge bg-secondary">Palier</span></small>
+                    {% if request.user.palier is None%}
+                      <p>Aucun palier</p>
+                    {% else %}
+                      <p>{{request.user.palier}}</p>
+                    {% endif %}
+                  </li>
+                  <li style="text-align:center;" class="list-group-item">
+                    <small style="font-weight:bold;font-size:16px"><span class="badge bg-secondary">Niveau</span></small>
+                    {% if request.user.palier.niveau is None%}
+                      <p>Aucun niveau</p>
+                    {% else %}
+                      <p>{{request.user.palier.niveau}}</p>
+                    {% endif %}
+                  </li>
+                </ul>
+
+                <a style="color:white;font-size:15px;" class="btn btn-success btn-block"><b><small><i>Est membre depuis </i></small> {{request.user.date_d_ajout|date:"Y"}}</b></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card card-success card-outline">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#brute" data-toggle="tab">Visualisation brute</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#pyramide" data-toggle="tab">Visualisation en pyramide</a></li>
+                  <!-- <li class="nav-item"><a class="nav-link" href="#facture" data-toggle="tab">Facture</a></li> --->
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="brute">
+                    <div data-url="" class="parcours">
+                  </div>
+                  </div>
+                  <div class="tab-pane" id="pyramide">
+                    <div class="row">
+                      <div class="col-md-12">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-success">
+              <div class="card-header">
+                {% if groupe is None %}
+                    <h3 class="card-title"><small><b>Membres d'aucun groupe</b></small></h3>
+                {% elif groupe is not None %}
+                    <h3 class="card-title"><small><b>Membres du {{groupe}}</b></small></h3>
+                {% endif %}
+              </div>
+              <div class="card-body">
+                {% if groupe is not None %}
+                    <strong><a href="#"><i class="fas fa-user mr-1"></i> {{groupe.manageur_du_groupe}}</a></strong>
+
+                    <p class="text-muted">
+                      Propriétaire du groupe : {{groupe}}
+                    </p>
+                    <hr style="color:green">
+
+                    {% for membre in membres %}
+                      {% if membre is request.user %}
+                      <strong><a href="#"><i class="fas fa-user mr-1"></i> {{membre}}</a></strong>
+                      <p class="text-muted"><i class="mr-1"></i> {{membre.poste}} / {{membre.palier}}</p>
+
+                      {% elif membre is not request.user %}
+                        <strong><i class="fas fa-user mr-1"></i> {{membre}}</strong>
+                      {% endif %}
+
+                      <p class="text-muted"><i class="mr-1"></i> {{membre.poste}} / {{membre.palier}}</p>
+
+                      <hr>
+                    {% empty %}
+                      <strong><i class="fas fa-users mr-1"></i> Aucun</strong>
+
+                      <p class="text-muted">Il n'y a aucun membre dans votre groupe.</p>
+
+                      <hr style="background:green">
+                    {% endfor %}
+                {% elif groupe is None %}
+                    <strong><i class="fas fa-users mr-1"></i> Pas de groupe</strong>
+
+                    <p class="text-muted">Pas de membres</p>
+
+                    <hr style="background:green">
+                {% endif %}
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

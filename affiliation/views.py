@@ -5,7 +5,8 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 
-from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm
+from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
+    UserUpdateForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe
 
 
@@ -30,6 +31,35 @@ def save_all(request, form, template_name, model, template_name2, mycontext):
 @login_required
 def tableaudebord(request):
     return render(request, 'affiliation/tableaudebord.html', locals())
+
+
+@login_required
+def compte(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST,
+                                request.FILES,
+                                instance=request.user)
+        if u_form.is_valid():
+            u_form.save()
+            redirect('compte')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+    context = {
+        'u_form': u_form,
+    }
+    return render(request, 'affiliation/mon_espace/info_de_compte.html', context)
+
+
+def mongroupe(request):
+    groupe = request.user.groupe
+    membres = User.objects.filter(groupe=groupe)
+
+    context = {
+        'group': groupe,
+        'membres': membres
+    }
+
+    return render(request, 'affiliation/mon_espace/mon_groupe.html', context)
 
 
 @login_required
