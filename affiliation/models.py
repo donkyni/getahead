@@ -53,10 +53,10 @@ class CodePays(models.Model):
 
 class UserManager(auth_models.BaseUserManager):
 
-    def create_user(self, telephone, adresse, nom, prenom, password=None):
-        if not telephone:
+    def create_user(self, code, adresse, nom, prenom, password=None):
+        if not code:
             raise ValueError('Users must have an telephone number')
-        user = self.model(telephone=telephone)
+        user = self.model(code=code)
         user.adresse = adresse
         user.nom = nom
         user.prenom = prenom
@@ -64,9 +64,9 @@ class UserManager(auth_models.BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, telephone, adresse, nom, prenom, password):
+    def create_superuser(self, code, adresse, nom, prenom, password):
         user = self.create_user(
-            telephone,
+            code,
             adresse=adresse,
             nom=nom,
             prenom=prenom,
@@ -125,7 +125,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'telephone'
+    USERNAME_FIELD = 'code'
     REQUIRED_FIELDS = ['nom', 'prenom', 'adresse']
 
     class Meta:

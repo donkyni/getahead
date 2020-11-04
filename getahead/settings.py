@@ -130,3 +130,6 @@ STATICFILES_DIR = (
 )
 
 AUTH_USER_MODEL = 'affiliation.User'
+
+LOGIN_REDIRECT_URL = 'tableaudebord'
+LOGIN_URL = 'login'
