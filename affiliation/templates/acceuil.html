@@ -52,7 +52,7 @@
         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Aria</a> -->
 
         <!-- Image Logo -->
-        <a class="navbar-brand logo-image" href="{% url 'acceuil' %}"><img src="{% static 'affiliation/aria/images/logo.svg' %}" alt="alternative"></a>
+        <a class="navbar-brand logo-image" href="#"><img src="{% static 'affiliation/img/jgk.png' %}" alt="alternative"></a>
 
         <!-- Mobile Menu Toggle Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,7 +98,10 @@
 
 
     <!-- Header -->
-    <header id="header" class="header">
+    <header id="header" class="header"
+            style="
+            background:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('{% static 'affiliation/img/jgk-2.jpeg'%}') ;
+            background-size:cover;">
         <div class="header-content">
             <div class="container">
                 <div class="row">

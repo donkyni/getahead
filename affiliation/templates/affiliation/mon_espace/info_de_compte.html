@@ -147,7 +147,17 @@ active
                     {% load crispy_forms_tags %}
                     <form class="form-horizontal" data-url="{% url 'compte' %}" method="POST" action="" enctype="multipart/form-data">
                       {% csrf_token %}
-                      {{u_form|crispy}}
+                      <div class="form-group">
+                        {{ u_form.nom_d_utilisateur|as_crispy_field }}
+                      </div>
+                      {{ u_form.nom|as_crispy_field }}
+                      {{ u_form.prenom|as_crispy_field }}
+                      {{ u_form.adresse|as_crispy_field }}
+                      {{ u_form.pays_de_residence|as_crispy_field }}
+                      {{ u_form.telephone|as_crispy_field }}
+                      {{ u_form.avatar|as_crispy_field }}
+                      {{ u_form.annee_de_naissance|as_crispy_field }}
+                      {{ u_form.sexe|as_crispy_field }}
                       <hr>
                       <div class="social-auth-links text-center mb-3">
                         <input class="btn btn-block btn-primary" type="submit" value="Modifier vos informations de compte">

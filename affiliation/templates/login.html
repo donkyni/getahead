@@ -22,7 +22,7 @@
 
 
 	<!-- Favicon  -->
-    <link rel="icon" href="{% static 'affiliation/aria/images/favicon.png' %}">
+    <link rel="icon" href="{% static 'affiliation/img/jgk.png' %}">
 </head>
 <body class="hold-transition login-page">
 
@@ -35,57 +35,6 @@
         </div>
     </div>
     <!-- end of preloader -->
-
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-        <!-- Text Logo - Use this if you don't have a graphic logo -->
-        <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Aria</a> -->
-
-        <!-- Image Logo -->
-        <a class="navbar-brand logo-image" href="{% url 'acceuil' %}"><img src="{% static 'affiliation/aria/images/logo.svg' %}" alt="alternative"></a>
-
-        <!-- Mobile Menu Toggle Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-awesome fas fa-bars"></span>
-            <span class="navbar-toggler-awesome fas fa-times"></span>
-        </button>
-        <!-- end of mobile menu toggle button -->
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% url 'acceuil' %}#header">ACCEUIL <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% url 'acceuil' %}#intro">PRESENTATION</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% url 'acceuil' %}#services">SERVICES</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% url 'acceuil' %}#callMe">NEWSLETTER</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% url 'acceuil' %}#projects">GALLERIE</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% url 'acceuil' %}#about">A PROPOS DE NOUS</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#contact">CONTACT</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="javascript:void(0)">|</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="{% url 'login' %}">CONNEXION</a>
-                </li>
-            </ul>
-        </div>
-    </nav> <!-- end of navbar -->
-    <!-- end of navbar -->
 
 <div class="login-box" style="width: 30rem;">
   <div class="login-logo">
@@ -108,10 +57,12 @@
       </form>
       <!-- /.social-auth-links -->
 
+    <!--
       <p class="mt-3">
         <a href="forgot-password.html">J'ai oublié mon mot de passe</a>
       </p>
     </div>
+    -->
     <!-- /.login-card-body -->
   </div>
 </div>

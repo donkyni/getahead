@@ -42,7 +42,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.html" class="nav-link">Page d'accueil</a>
+        <a href="{% url 'mongroupe' %}" class="nav-link">Page d'accueil</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#contact" class="nav-link">Nous contacter</a>
@@ -119,12 +119,12 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           {% if request.user.avatar %}
-            <img src="{{request.user.avatar.url}}" class="img-circle elevation-2" alt="User Image">
+            <img style="height:35px;width:35px;background-size:cover" src="{{request.user.avatar.url}}" class="img-circle elevation-2" alt="User Image">
           {% else %}
             {% if request.user.sexe == "Homme" %}
-              <img src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-2" alt="User Image">
+              <img style="height:35px;width:35px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-2" alt="User Image">
             {% elif request.user.sexe == "Femme" %}
-              <img src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-2" alt="User Image">
+              <img style="height:35px;width:35px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-2" alt="User Image">
             {% endif %}
           {% endif %}
         </div>
@@ -138,12 +138,15 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          {% if request.user.profil.nom == "Administrateur" %}
           <li class="nav-item">
             <a href="{% url 'tableaudebord' %}" class="nav-link {% block active-bord %}{% endblock %}">
               <i class="fas fa-tachometer-alt nav-icon"></i>
               <p><b>Tableau de bord</b></p>
             </a>
           </li>
+          {% endif %}
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link {% block menu-espace %}{% endblock %}">
               <i class="nav-icon fas fa-home"></i>
@@ -173,10 +176,12 @@
               </li>
             </ul>
           </li>
+
           <li class="nav-item has-treeview">
             <hr style="background-color:#fff">
           </li>
 
+          {% if request.user.profil.nom == "Administrateur" %}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link {% block menu-donnee-base %}{% endblock %}">
               <i class="nav-icon fas fa-th"></i>
@@ -280,6 +285,7 @@
               </li>
             </ul>
           </li>
+          {% endif %}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

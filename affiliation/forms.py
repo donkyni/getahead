@@ -50,14 +50,14 @@ class UserForm(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
     annee_de_naissance = forms.DateTimeField(widget=DateInput)
+    nom_d_utilisateur = forms.CharField(disabled=True)
 
     class Meta:
         model = User
         fields = (
-            'nom', 'prenom', 'adresse', 'pays_de_residence', 'telephone',
+            'nom_d_utilisateur', 'nom', 'prenom', 'adresse', 'pays_de_residence', 'telephone',
             'avatar', 'annee_de_naissance', 'sexe',
         )
-
 
 class PosteForm(forms.ModelForm):
     class Meta:

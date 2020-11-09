@@ -7,11 +7,29 @@ from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
     UserUpdateForm, PayementFormUser, PayementForm
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits
 
 
+"""
 def acceuil(request):
     return render(request, 'acceuil.html', locals())
+"""
+
+def controllers(request, url, droit, context):
+    user_profil = request.user.profil
+    dict = {}
+    if user_profil:
+        profils = get_object_or_404(Profils, nom=user_profil)
+        droits = get_object_or_404(Droits, nom_du_droit=droit)
+        if profils:
+            permissions = DroitsProfils.objects.filter(profil=profils, droit=droits)
+            dict[profils] = permissions
+            for permission in permissions:
+                if permission.lecture:
+                    print(permission)
+                    return render(request, url, context)
+                else:
+                    return HttpResponse("<h3>ACCESS NON AUTORISE</h3>")
 
 
 @login_required
@@ -34,6 +52,7 @@ def save_all(request, form, template_name, model, template_name2, mycontext):
 
 @login_required
 def tableaudebord(request):
+    droit = "Dashboard"
     bamileke = get_object_or_404(Palier, nom_du_palier="Bamiléké")
     total_pers_bam = User.objects.filter(palier=bamileke).count()
 
@@ -48,7 +67,7 @@ def tableaudebord(request):
     mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
     total_pers_mand = User.objects.filter(palier=mandingue).count()
 
-    return render(request, 'affiliation/tableaudebord.html', locals())
+    return controllers(request, 'affiliation/tableaudebord.html', droit, locals())
 
 
 @login_required
@@ -137,6 +156,7 @@ def voir_membre_palier_id(request, id):
 
 @login_required
 def bamileke(request):
+    droit = "Bamiléké"
     bam = get_object_or_404(Palier, nom_du_palier="Bamiléké")
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
     manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30)
@@ -145,11 +165,12 @@ def bamileke(request):
         'manageurs_bam': manageurs_bam
     }
 
-    return render(request, 'affiliation/niveau1/bamileke.html', context)
+    return controllers(request, 'affiliation/niveau1/bamileke.html', droit, context)
 
 
 @login_required
 def zoulou(request):
+    droit = "Zoulou"
     zou = get_object_or_404(Palier, nom_du_palier="Zoulou")
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
     manageurs_zou = User.objects.filter(palier=zou, poste=poste, point=120)
@@ -158,11 +179,12 @@ def zoulou(request):
         'manageurs_zou': manageurs_zou
     }
 
-    return render(request, 'affiliation/niveau1/zoulou.html', context)
+    return controllers(request, 'affiliation/niveau1/zoulou.html', droit, context)
 
 
 @login_required
 def maya(request):
+    droit = "Maya"
     maya = get_object_or_404(Palier, nom_du_palier="Maya")
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
     manageurs_maya = User.objects.filter(palier=maya, poste=poste, point=480)
@@ -171,11 +193,12 @@ def maya(request):
         'manageurs_maya': manageurs_maya
     }
 
-    return render(request, 'affiliation/niveau1/maya.html', context)
+    return controllers(request, 'affiliation/niveau1/maya.html', droit, context)
 
 
 @login_required
 def mandingue(request):
+    droit = "Mandingue"
     mand = get_object_or_404(Palier, nom_du_palier="Mandingue")
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
     manageurs_mand = User.objects.filter(palier=mand, poste=poste, point=1920)
@@ -184,7 +207,7 @@ def mandingue(request):
         'manageurs_mand': manageurs_mand
     }
 
-    return render(request, 'affiliation/niveau1/mandingue.html', context)
+    return controllers(request, 'affiliation/niveau1/mandingue.html', droit, context)
 
 
 def payement(request):
@@ -256,11 +279,12 @@ def validerpayement(request, id):
 
 @login_required
 def poste(request):
+    droit = "Postes"
     postes = Poste.objects.filter(archive=False)
     mycontext = {
         'postes': postes
     }
-    return render(request, 'affiliation/poste/poste.html', mycontext)
+    return controllers(request, 'affiliation/poste/poste.html', droit, mycontext)
 
 
 def createposte(request):
@@ -337,6 +361,9 @@ def ajouter(request):
             palier_bam = get_object_or_404(Palier, nom_du_palier="Bamiléké")
             systeme.poste = poste_inv
             systeme.palier = palier_bam
+
+            profil = get_object_or_404(Profils, nom="Utilisateur")
+            systeme.profil = profil
 
             # Faire une MAJ par rapport au groupe de l'adhérent, donc de retrouver le groupe de ce dernier
             group = systeme.groupe
@@ -701,22 +728,24 @@ def ajouter(request):
     else:
         form = UserCreationForm()
 
+    droit = "Ajouter"
     context = {
         'utilisateurs': utilisateurs,
         'form': form,
         'invite': invite,
         'total_membre': total_membre,
     }
-    return render(request, 'affiliation/donnee_base/ajouter.html', context)
+    return controllers(request, 'affiliation/donnee_base/ajouter.html', droit, context)
 
 
 @login_required
 def liste(request):
+    droit = "Liste"
     utilisateurs = User.objects.all()
     context = {
         "utilisateurs": utilisateurs
     }
-    return render(request, 'affiliation/donnee_base/liste_adherent/liste_adherent.html', locals())
+    return controllers(request, 'affiliation/donnee_base/liste_adherent/liste_adherent.html', droit, locals())
 
 
 @login_required
@@ -768,9 +797,10 @@ def parcours(request):
 
 @login_required
 def codepays(request):
+    droit = "Pays"
     codes = CodePays.objects.filter(archive=False)
     context = {'codes': codes}
-    return render(request, 'affiliation/code_pays/codepays.html', context)
+    return controllers(request, 'affiliation/code_pays/codepays.html', droit, context)
 
 
 def createcodepays(request):
@@ -820,11 +850,12 @@ def deletecodepays(request, id):
 
 @login_required
 def niveau(request):
+    droit = "Niveau"
     niveaux = Niveau.objects.filter(archive=False)
     mycontext = {
         'niveaux': niveaux
     }
-    return render(request, 'affiliation/niveau/niveau.html', mycontext)
+    return controllers(request, 'affiliation/niveau/niveau.html', droit, mycontext)
 
 
 def createniveau(request):
@@ -874,11 +905,12 @@ def deleteniveau(request, id):
 
 @login_required
 def palier(request):
+    droit = "Paliers"
     paliers = Palier.objects.filter(archive=False)
     mycontext = {
         'paliers': paliers
     }
-    return render(request, 'affiliation/palier/palier.html', mycontext)
+    return controllers(request, 'affiliation/palier/palier.html', droit, mycontext)
 
 
 def createpalier(request):
@@ -928,11 +960,12 @@ def deletepalier(request, id):
 
 @login_required
 def groupe(request):
+    droit = "Groupes"
     groupes = Groupe.objects.filter(archive=False)
     mycontext = {
         'groupes': groupes
     }
-    return render(request, 'affiliation/groupe/groupe.html', mycontext)
+    return controllers(request, 'affiliation/groupe/groupe.html', droit, mycontext)
 
 
 def creategroupe(request):

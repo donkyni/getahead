@@ -50,6 +50,32 @@ class CodePays(models.Model):
         return self.code_pays
 
 
+class Droits(models.Model):
+    nom_du_droit = models.CharField(max_length=255)
+    archive = models.BooleanField(default=False, null=True)
+
+    def __str__(self):
+        return self.nom_du_droit
+
+
+class Profils(models.Model):
+    nom = models.CharField(max_length=255, null=True)
+    archive = models.BooleanField(default=False, null=True)
+    droits = models.ManyToManyField(Droits, through="DroitsProfils")
+
+    def __str__(self):
+        return self.nom
+
+
+class DroitsProfils(models.Model):
+    profil = models.ForeignKey(Profils, on_delete=models.SET_NULL, null=True)
+    droit = models.ForeignKey(Droits, on_delete=models.SET_NULL, null=True)
+    ecriture = models.BooleanField(default=False, null=True)
+    lecture = models.BooleanField(default=False, null=True)
+    modification = models.BooleanField(default=False, null=True)
+    suppression = models.BooleanField(default=False, null=True)
+
+
 class UserManager(auth_models.BaseUserManager):
 
     def create_user(self, nom_d_utilisateur, adresse, nom, prenom, password=None):
@@ -113,6 +139,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Données systèmes
     """
+    profil = models.ForeignKey(Profils, on_delete=models.SET_NULL, null=True, blank=True)
     pied_gauche = models.BooleanField(default=False, null=True, blank=False)
     pied_droit = models.BooleanField(default=False, null=True, blank=False)
     nb_pers_amene = models.PositiveSmallIntegerField(null=True, blank=False, default=0)

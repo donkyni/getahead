@@ -140,5 +140,5 @@ MEDIA_ROOT = (
 
 AUTH_USER_MODEL = 'affiliation.User'
 
-LOGIN_REDIRECT_URL = 'tableaudebord'
+LOGIN_REDIRECT_URL = 'mongroupe'
 LOGIN_URL = 'login'
