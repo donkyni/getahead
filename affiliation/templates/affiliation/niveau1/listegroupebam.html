@@ -1,19 +1,29 @@
 {% load static %}
-{% for groupe in groupes %}
+{% for manageur_bam in manageurs_bam %}
  <tr>
   <td>
-      <b class="badge badge-secondary">{{ groupe.id }}</b>
+      <b class="badge badge-secondary">{{ manageur_bam.id }}</b>
   </td>
   <td>
-      <b style="font-size:14px;"><a href="{% url 'pyramide' groupe.id %}" class="btn btn-sm btn-success text-light">{{groupe.nom_du_groupe}}</a></b><br>
-      <small>Cliquez pour voir tous les membres de ce groupe</small>
+
+      <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+        <i class="fa fa-user" aria-hidden="true"></i> {{manageur_bam}}
+      </button>
+      <br>
+      <small>
+          <i>Cliquez pour lui remmettre son payement</i>
+          <br>
+          <i>S'il continue, il a droit à 7000 FCA</i>
+          <br>
+          <i>S'il quitte le programme, il a droit à 20000 FCA</i>
+      </small>
   </td>
   <td class="text-right">
-      <b class="badge badge-primary" style="font-size:14px;">{{groupe.manageur_du_groupe}}</b>
+      <b class="badge badge-primary" style="font-size:14px;">{{manageur_bam.groupe}}</b>
   </td>
 </tr>
 {% empty %}
 <tr>
-    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun groupe n'est disponible</td>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun manageur n'est disponible pour le moment</td>
 </tr>
 {% endfor %}

@@ -8,6 +8,7 @@
 {% block head %}
     <!-- DataTables -->
     <link rel="stylesheet" href="{% static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 {% endblock %}
 
 {% block menu-niveau1 %}
@@ -30,10 +31,16 @@ active
     <!-- Main content -->
     <section class="content">
       <!-- Default box -->
-        <div class="col-lg-8">
+        <div class="col-lg-10">
+            <a class="btn btn-outline-secondary" href="{% url 'payement' %}">
+                    Historique des payements
+                    <i class="fas fa-angle-right" aria-hidden="true"></i>
+                </a>
+                <br><br>
             <div class="card">
+
                 <div class="card-header">
-                  <h3 class="card-title">Groupes présents dans le palier Bamiléké</h3>
+                  <h3 class="card-title">Les manageurs ayant droit à des payement dans le palier Bamiléké</h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -49,10 +56,10 @@ active
                                   #
                               </th>
                               <th style="width: 45%;font-size:14px">
-                                  Nom du groupe
+                                  Nom et prénom du manageur
                               </th>
                               <th class="text-right" style="width: 45%;font-size:14px">
-                                  Manageur du groupe
+                                  Du groupe
                               </th>
                           </tr>
                       </thead>
@@ -78,6 +85,24 @@ active
 
 {% block javascript %}
 <script src="{% static 'affiliation/js/modalbamileke.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+
+    $('select').selectpicker();
+</script>
+<script>
+    // Material Select Initialization
+    $(document).ready(function() {
+    $('.mdb-select').materialSelect();
+    });
+</script>
 <!-- DataTables -->
 <script src="{% static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>

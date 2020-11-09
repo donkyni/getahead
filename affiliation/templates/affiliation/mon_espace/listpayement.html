@@ -1,0 +1,24 @@
+{% for payement in payements %}
+<tr>
+    <td>
+        {% if payement.etat == False%}
+        <button class="btn btn-sm btn-warning show-form-update float-right" data-url="{% url 'validerpayement' payement.id %}">
+            <i class="fa fa-eye" aria-hidden="true"></i> Recevoir
+        </button>
+        {% else %}
+        <button disabled class="btn btn-sm btn-warning show-form-update float-right" data-url="{% url 'validerpayement' payement.id %}">
+            <i class="fa fa-minus" aria-hidden="true"></i> Deja recu
+        </button>
+        {% endif %}
+        <strong><a ><i class="fas fa-file mr-1"></i> {{payement.libelle}}</a></strong>
+        <br><small class="ml-4" style="font-style:italic">Cliquez pour confirmer que vous allez recevoir votre payement</small>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="1" class="text-center" style="font-weight:bold;font-size:15px">Vous n'avez reçu aucun payement pour le moment
+        <br><small class="">La liste de tous vos payement s'affiche ici !</small>
+    </td>
+</tr>
+{% endfor %}
+

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{%static 'affiliation/dist/css/adminlte.min.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{%static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{%static 'affiliation/dist/css/adminlte.min.css' %}">
+{% endblock %}
+
+{% block title %}Payement{% endblock %}
+
+{% block menu-niveau1 %}
+active
+{% endblock %}
+
+{% block menu-bamileke %}
+active
+{% endblock %}
+
+{% block position %}
+    Payements
+{% endblock %}
+
+{% block chemin %}
+    Payements
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <br><br>
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="box-header">
+                    <h5 class="box-title">Informations concernants les payements</h5>
+                </div>
+              <table style="text-align:center;font-size:15px" id="table-payement" class="table table-sm table-striped table-hover">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Libelle</th>
+                  <th>Montant</th>
+                  <th>Etat</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% include "affiliation/niveau1/listepayement.html" %}
+                </tbody>
+              </table>
+                <!-- Popup ajouter nouvelle projet -->
+                <div class="modal fade" id="modal-payement">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      </div>
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+
+    $('select').selectpicker();
+</script>
+<script>
+    // Material Select Initialization
+    $(document).ready(function() {
+    $('.mdb-select').materialSelect();
+    });
+</script>
+<!-- my js for ajax -->
+<script src="{%static 'ressources/js/modalpayement.js' %}"></script>
+<!-- DataTables -->
+<script src="{%static 'ressources/plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{%static 'ressources/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+
+<!-- page script -->
+<script>
+  $(function () {
+    $("#table-payement").DataTable();
+  });
+</script>
+{% endblock %}

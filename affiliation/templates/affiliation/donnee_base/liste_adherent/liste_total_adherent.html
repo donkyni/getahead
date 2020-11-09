@@ -2,10 +2,10 @@
 {% for utilisateur in utilisateurs %}
  <tr>
   <td>
-      <b class="badge badge-secondary">{{ utilisateur.id }}</b>
-  </td>
-  <td>
-      <b style="font-size:14px;">{{utilisateur.nom}}</b><br>
+      <a href="{% url 'voirplus' utilisateur.id %}" class="btn btn-sm btn-primary text-light" style="font-weight:700">
+          <i class="fa fa-user" aria-hidden="true"></i> {{utilisateur}}
+      </a>
+      <br>
       {% if utilisateur.nom_du_parent is None %}
         <small><i>Parrain : <span class="badge badge-info">Aucun</span></i></small>
       {% elif utilisateur.nom_du_parent is not None %}
@@ -13,7 +13,7 @@
       {% endif %}
   </td>
   <td>
-      <b style="font-size:14px;">{{utilisateur.prenom}}</b>
+      <b class="badge badge-secondary">{{ utilisateur.point }}</b>
   </td>
   <td>
       <b class="badge badge-warning" style="font-size:14px;"><i>{{utilisateur.groupe}}</i></b>
@@ -31,14 +31,7 @@
       <small class="badge badge-secondary"><i>{{utilisateur.palier}}</i></small>
   </td>
   <td class="project-actions">
-      <button class="btn btn-dark btn-sm show-form-update">
-          <i class="fas fa-pencil-alt">
-          </i>
-      </button>
-      <button class="btn btn-danger btn-sm show-form-delete">
-          <i class="fas fa-trash">
-          </i>
-      </button>
+      <b style="font-size:14px;">{{utilisateur.sexe}}</b>
   </td>
 </tr>
 {% empty %}

@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib.auth import models as auth_models
 
@@ -53,10 +52,10 @@ class CodePays(models.Model):
 
 class UserManager(auth_models.BaseUserManager):
 
-    def create_user(self, code, adresse, nom, prenom, password=None):
-        if not code:
+    def create_user(self, nom_d_utilisateur, adresse, nom, prenom, password=None):
+        if not nom_d_utilisateur:
             raise ValueError('Users must have an telephone number')
-        user = self.model(code=code)
+        user = self.model(nom_d_utilisateur=nom_d_utilisateur)
         user.adresse = adresse
         user.nom = nom
         user.prenom = prenom
@@ -64,9 +63,9 @@ class UserManager(auth_models.BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, code, adresse, nom, prenom, password):
+    def create_superuser(self, nom_d_utilisateur, adresse, nom, prenom, password):
         user = self.create_user(
-            code,
+            nom_d_utilisateur,
             adresse=adresse,
             nom=nom,
             prenom=prenom,
@@ -86,10 +85,10 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Informations de base
     """
-    code = models.CharField(unique=True, max_length=255, null=True, blank=False,
-                            help_text="Ce code servira à se connecter à la plateforme, également pour parrainer un "
-                                      "membre. Ex. 228DS000000001")
-    nom_du_parent = models.ForeignKey("self", on_delete=models.SET_NULL, verbose_name='ID du parrain',
+    nom_d_utilisateur = models.CharField(unique=True, max_length=255, null=True, blank=False,
+                                         help_text="Le nom d'utilisateur servira à se connecter à la plateforme, "
+                                                   "également pour parrainer un membre. Ex. 228DS000000001")
+    nom_du_parent = models.ForeignKey("self", on_delete=models.SET_NULL, verbose_name='Parrain',
                                       help_text="Indiquez le parent qui l'adhère. S'il est le premier membre de son "
                                                 "groupe, laissez vide", null=True, blank=True)
     nom = models.CharField(max_length=255, null=True)
@@ -97,9 +96,10 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     adresse = models.CharField(max_length=255, null=True, blank=False)
     pays_de_residence = models.ForeignKey(CodePays, on_delete=models.SET_NULL, null=True, blank=False)
     telephone = models.IntegerField(blank=False, null=True, unique=True)
-    poste = models.ForeignKey(Poste, null=True, blank=False, on_delete=models.SET_NULL)
-    palier = models.ForeignKey(Palier, null=True, blank=False, on_delete=models.SET_NULL)
+    poste = models.ForeignKey(Poste, null=True, blank=True, on_delete=models.SET_NULL)
+    palier = models.ForeignKey(Palier, null=True, blank=True, on_delete=models.SET_NULL)
     groupe = models.ForeignKey(Groupe, null=True, blank=False, on_delete=models.SET_NULL,
+                               verbose_name="Nom de l'équipe",
                                help_text="Le groupe permettra de voir l'ensemble de ses membres")
 
     """
@@ -117,6 +117,10 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     pied_droit = models.BooleanField(default=False, null=True, blank=False)
     nb_pers_amene = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
     point = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
+    stock_point = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
+    point_fictive_inv = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
+    point_fictive_col = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
+    point_fictive_manag = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     gam = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -125,7 +129,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'code'
+    USERNAME_FIELD = 'nom_d_utilisateur'
     REQUIRED_FIELDS = ['nom', 'prenom', 'adresse']
 
     class Meta:
@@ -134,7 +138,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         ordering = ('id',)
 
     def __str__(self):
-        return self.prenom + ' ' + self.nom
+        return self.nom + ' ' + self.prenom
 
     def has_perm(self, perm, obj=None):
         """Does the user have a specific permission?"""
@@ -162,4 +166,14 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     def get_full_name(self):
         # pass
-        return u'{0} {1}'.format(self.prenom, self.nom)
+        return u'{0} {1}'.format(self.nom, self.prenom)
+
+
+class Payement(models.Model):
+    libelle = models.CharField(max_length=255, null=True, default="Payement")
+    montant = models.DecimalField(null=True, max_digits=15, decimal_places=1)
+    membre = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    poursuivre = models.BooleanField(null=True, blank=False)
+    etat = models.BooleanField(default=False, null=True, blank=True)
+    date_d_ajout = models.DateTimeField(auto_now_add=True, null=True)
+    archive = models.BooleanField(default=False, null=True)

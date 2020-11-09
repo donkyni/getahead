@@ -45,12 +45,12 @@ active
 
                 <h3 class="profile-username text-center">{{request.user}}</h3>
                 <div class="text-center">
-                  {% if request.user.poste is "Invité" %}
-                    <p style="font-weight:bold;font-size:14px" class="badge badge-danger">{{request.user.poste}}</p>
-                  {% elif request.user.poste == "Colibri" %}
-                    <p style="font-weight:bold;font-size:14px" class="badge badge-primary">{{request.user.poste}}</p>
-                  {% elif request.user.poste == "Manageur" %}
-                    <p style="font-weight:bold;font-size:14px" class="badge badge-success">{{request.user.poste}}</p>
+                  {% if request.user.poste.nom_du_poste == "Invité" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-danger">{{request.user.poste.nom_du_poste}}</p>
+                  {% elif request.user.poste.nom_du_poste == "Colibri" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-primary">{{request.user.poste.nom_du_poste}}</p>
+                  {% elif request.user.poste.nom_du_poste == "Manageur" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-success">{{request.user.poste.nom_du_poste}}</p>
                   {% else %}
                     <p style="font-weight:bold;font-size:14px" class="badge badge-secondary">Aucun poste</p>
                 {% endif %}

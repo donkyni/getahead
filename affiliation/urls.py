@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^tableaudebord$', views.tableaudebord, name="tableaudebord"),
     url(r'^compte$', views.compte, name="compte"),
     url(r'^mongroupe$', views.mongroupe, name="mongroupe"),
+    url(r'^(?P<id>\d+)/validerpayement$', views.validerpayement, name="validerpayement"),
+    url(r'^(?P<id>\d+)/voir_membre_palier_id$', views.voir_membre_palier_id, name="voir_membre_palier_id"),
 
     # url concernant les postes
     url(r'^poste$', views.poste, name="poste"),
@@ -18,6 +20,7 @@ urlpatterns = [
     # url concernant l'ajout d'un adhérent
     url(r'^ajouter$', views.ajouter, name="ajouter"),
     url(r'^liste$', views.liste, name="liste"),
+    url(r'^(?P<id>\d+)/voirplus', views.voirplus, name="voirplus"),
     url(r'^parcours$', views.parcours, name="parcours"),
 
     # url concernant les code des pays
@@ -46,6 +49,21 @@ urlpatterns = [
 
     # url concernant le niveau 1 > Bamileke
     url(r'^bamileke$', views.bamileke, name="bamileke"),
+
+    # url concernant le niveau 1 > Bamileke
+    url(r'^zoulou', views.zoulou, name="zoulou"),
+
+    # url concernant le niveau 1 > Bamileke
+    url(r'^maya', views.maya, name="maya"),
+
+    # url concernant le niveau 1 > Bamileke
+    url(r'^mandingue', views.mandingue, name="mandingue"),
+
+    #
+    url(r'^payement$', views.payement, name="payement"),
+    url(r'^createpayement$', views.createpayement, name="createpayement"),
+    url(r'^(?P<id>\d+)/updatepayement$', views.updatepayement, name="updatepayement"),
+    url(r'^(?P<id>\d+)/deletepayement$', views.deletepayement, name="deletepayement"),
 
     # url concernant le niveau 1 > Bamileke > Groupe<id>
     url(r'^(?P<id>\d+)/pyramide$', views.pyramide, name="pyramide"),

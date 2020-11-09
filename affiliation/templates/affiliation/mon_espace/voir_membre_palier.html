@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{%static 'affiliation/dist/css/adminlte.min.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{%static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{%static 'affiliation/dist/css/adminlte.min.css' %}">
+{% endblock %}
+
+{% block head-title %}Mon groupe{% endblock %}
+
+{% block menu-espace %}
+active
+{% endblock %}
+
+{% block active-espace-groupe %}
+active
+{% endblock %}
+
+{% block position %}
+    Membres du groupe
+{% endblock %}
+
+{% block style %}
+    color:red;
+{% endblock %}
+
+{% block chemin %}
+    Mon espace / Mon groupe / Membres du groupe
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card">
+            <div class="card-body">
+              <table id="table-voir-membre_palier" class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                  <th>Nom et prénom</th>
+                  <th>Téléphone</th>
+                  <th>Adresse</th>
+                  <th>Poste</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for membre in membres_bam %}
+                <tr>
+                  <td>{{membre}}</td>
+                  <td>{{membre.telephone}}</td>
+                  <td>{{membre.adresse}}</td>
+                  <td>{{membre.poste}}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center bg-primary"><b>Aucun membre n'est encore présent dans le groupe</b>
+                        <br><small>Lorsqu'un nouveau membre s'enrégistre et selon son palier, il s'affiche ici</small></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Nom et prénom</th>
+                  <th>Téléphone</th>
+                  <th>Adresse</th>
+                  <th>Poste</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block javascript %}
+<!-- DataTables -->
+<script src="{%static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{%static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+
+<!-- page script -->
+<script>
+  $(function () {
+    $("#table-voir-membre_palier").DataTable();
+  });
+</script>
+{% endblock %}

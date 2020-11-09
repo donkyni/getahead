@@ -1,0 +1,27 @@
+{% load static %}
+{% for manageur_mand in manageurs_mand %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ manageur_mand.id }}</b>
+  </td>
+  <td>
+
+      <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+        <i class="fa fa-user" aria-hidden="true"></i> {{manageur_mand}}
+      </button>
+      <br>
+      <small>
+          <i>Cliquez pour lui remmettre son Don</i>
+          <br>
+          <i>Il a finit tous les paliers, il a droit à 1237000 FCA</i>
+      </small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-primary" style="font-size:14px;">{{manageur_mand.groupe}}</b>
+  </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun manageur n'est disponible pour le moment</td>
+</tr>
+{% endfor %}

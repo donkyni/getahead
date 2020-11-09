@@ -1,6 +1,6 @@
 from django import forms
 
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement
 
 
 class DateInput(forms.DateInput):
@@ -17,8 +17,8 @@ class UserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (
-            'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
-            'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
+            'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
+            'pays_de_residence', 'telephone', 'groupe',
             'avatar', 'sexe',
         )
         widgets = {
@@ -42,8 +42,8 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = (
-            'code', 'nom_du_parent', 'nom', 'prenom', 'adresse',
-            'pays_de_residence', 'telephone', 'poste', 'palier', 'groupe',
+            'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
+            'pays_de_residence', 'telephone', 'groupe',
             'avatar', 'sexe',
         )
 
@@ -87,3 +87,22 @@ class GroupeForm(forms.ModelForm):
     class Meta:
         model = Groupe
         fields = ('nom_du_groupe', 'manageur_du_groupe',)
+
+
+class PayementForm(forms.ModelForm):
+    class Meta:
+        model = Payement
+        fields = ('libelle', 'montant', 'membre',)
+        exclude = ('etat', 'archive')
+        widgets = {
+            'membre': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'})
+        }
+
+
+class PayementFormUser(forms.ModelForm):
+    class Meta:
+        model = Payement
+        fields = ('etat',)
+        widgets = {
+            'etat': forms.CheckboxInput(attrs={'class': 'form-control'})
+        }

@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    '192.168.1.7',
+    '192.168.1.2',
     'localhost',
 ]
 
@@ -125,8 +127,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIR = (
         BASE_DIR / 'static'
+)
+
+MEDIA_URL = '/fichier_static/'
+
+MEDIA_ROOT = (
+    BASE_DIR / 'fichier_static'
 )
 
 AUTH_USER_MODEL = 'affiliation.User'

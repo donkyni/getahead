@@ -36,7 +36,7 @@ active
                    <p>Formulaire non valide, informations non enrégistré. VERIFIEZ VOS DONNEES</p>
                </b>
            </div>
-        {% elif messages %}
+        {% else %}
             <div class=" text-center col-lg-8 alert alert-success">
                <b>
                    <a class="btn btn-dark btn-sm close" href="#" data-dismiss="alert">×</a>
@@ -53,15 +53,12 @@ active
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-md-6 mb-0">
-                                {{ form.code|as_crispy_field }}
+                                {{ form.nom_d_utilisateur|as_crispy_field }}
                             </div>
                             <div class="form-group col-md-6 mb-0">
                                 {{ form.password|as_crispy_field }}
-                                <a class="badge badge-secondary text-light" style="font-size:12px">{{mdp}}</a><br>
-                                <small class="text-muted">Utiliser ce mot de passe sécuriser ou créer votre mot de passe</small>
                             </div>
                         </div>
-                          {{ form.nom_du_parent|as_crispy_field }}
                         <div class="form-row">
                             <div class="form-group col-md-6 mb-0">
                                 {{ form.nom|as_crispy_field }}
@@ -82,19 +79,9 @@ active
                             </div>
                         </div>
                         <!-- <small class="text-muted">L'année de naisssance servira pour les statistiques</small> -->
-                        <div class="form-row">
-                            <div class="form-group col-md-4 mb-0">
-                                {{ form.poste|as_crispy_field }}
-                                <input type="button" value="Ajouter un poste" class="ajouterposte btn btn-secondary btn-sm mb-3">
-                            </div>
-                            <div class="form-group col-md-4 mb-0">
-                                {{ form.palier|as_crispy_field }}
-                            </div>
-                            <div class="form-group col-md-4 mb-0">
-                                {{ form.groupe|as_crispy_field }}
-                            </div>
-                        </div>
+                        {{ form.groupe|as_crispy_field }}
                         {{ form.sexe|as_crispy_field }}
+                        {{ form.nom_du_parent|as_crispy_field }}
                         {{ form.avatar|as_crispy_field }}
                         <div class="form-actions form-group"><button type="submit" class="btn btn-block btn-primary">Valider les informations</button></div>
                     </form>
@@ -107,40 +94,37 @@ active
                     <div class="col-lg-12 col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-6">
-                                        <i class="fa fa-users"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count badge badge-secondary">23569</span></div>
-                                            <div class="text-muted"><b>Invités</b></div>
+                                <div class="">
+                                    <div class="">
+                                        <i style="font-size:100px" class="fa fa-users text-dark"></i>
+                                        <div class="float-right">
+                                            <div class="text-right stat-text"><span class="count badge badge-secondary" style="font-size:20px">{{invite}}</span></div>
+                                            <div class="text-muted"><b style="font-size:25px">Invités</b></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-12 col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib">
-                                        <i class="fa fa-cogs text-primary "></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count badge badge-primary">999999</span></div>
-                                            <div class="text-muted"><b>Participants</b></div>
+                                <div class="">
+                                    <div class="">
+                                        <i style="font-size:100px" class="fa fa-cogs text-primary"></i>
+                                        <div class="float-right">
+                                            <div class="text-right stat-text"><span class="count badge badge-secondary" style="font-size:20px">{{total_membre}}</span></div>
+                                            <div class="text-muted"><b style="font-size:25px">Utilisateurs</b></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a href="" class="btn btn-block btn-outline-primary ml-3 mr-3 mb-3">
+                    <a href="javascript:void(0)" class="btn btn-block btn-outline-primary ml-3 mr-3 mb-3">
                         <i class="fa fa-eye"></i>
-                        <small style="font-size:15px"><b> &nbsp;&nbsp;Voir le groupe</b></small>
+                        <small style="font-size:15px"><b> &nbsp;&nbsp;GET AHEAD</b></small>
                     </a>
                 </div>
                 <!-- /Widgets -->

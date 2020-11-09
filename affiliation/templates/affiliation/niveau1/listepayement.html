@@ -1,0 +1,46 @@
+{% for payement in payements %}
+<tr>
+    {% if payement.etat == False %}
+        <td><span class="badge badge-danger" style="font-size:14px">{{ payement.membre }}</span></td>
+    {% else %}
+        <td><span class="badge badge-success" style="font-size:14px">{{ payement.membre }}</span></td>
+    {% endif %}
+    {% if payement.etat == False %}
+        <td><span class="badge badge-danger" style="font-size:14px">{{ payement.libelle|truncatechars:30 }}</span></td>
+    {% else %}
+        <td><span class="badge badge-success" style="font-size:14px">{{ payement.libelle|truncatechars:30 }}</span></td>
+    {% endif %}
+    {% if payement.etat == False %}
+    <td><span class="badge bg-danger" style="font-size:13px">{{ payement.montant }}</span> <small><b><span class="badge badge-secondary">FCFA</span></b></small></td>
+    {% else %}
+    <td><span class="badge bg-success" style="font-size:13px">{{ payement.montant }}</span> <small><b><span class="badge badge-secondary">FCFA</span></b></small></td>
+    {% endif %}
+    {% if payement.etat == False %}
+    <td><span class="badge badge-danger">Non Reçu</span></td>
+    {% else %}
+    <td><span class="badge badge-success">Reçu</span></td>
+    {% endif %}
+    <td>
+        {% if payement.etat == False %}
+            <button class="btn btn-sm btn-info show-form-update" data-url="{% url 'updatepayement' payement.id %}">
+                <i class="fa fa-pencil-alt" aria-hidden="true"></i> Editer
+            </button>
+            <button class="btn btn-sm btn-warning show-form-update" data-url="{% url 'deletepayement' payement.id %}">
+                <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
+            </button>
+        {% else %}
+            <button class="btn btn-sm btn-info show-form-update" data-url="{% url 'updatepayement' payement.id %}">
+                <i class="fa fa-pencil-alt" aria-hidden="true"></i> Editer
+            </button>
+            <button class="btn btn-sm btn-warning show-form-update" data-url="{% url 'deletepayement' payement.id %}">
+                <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
+            </button>
+        {% endif %}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="8" class="text-center bg-primary"><b>Aucun payement à afficher</b><br><small>Ajouter un payement, il s'affiche ici</small></td>
+</tr>
+{% endfor%}
+

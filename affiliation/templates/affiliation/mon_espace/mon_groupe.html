@@ -50,31 +50,31 @@ active
 
                 <h3 class="profile-username text-center">{{request.user}}</h3>
                 <div class="text-center">
-                  {% if request.user.poste is "Invité" %}
-                    <p style="font-weight:bold;font-size:14px" class="badge badge-danger">{{request.user.poste}}</p>
-                  {% elif request.user.poste == "Colibri" %}
-                    <p style="font-weight:bold;font-size:14px" class="badge badge-primary">{{request.user.poste}}</p>
-                  {% elif request.user.poste == "Manageur" %}
-                    <p style="font-weight:bold;font-size:14px" class="badge badge-success">{{request.user.poste}}</p>
+                  {% if request.user.poste.nom_du_poste == "Invité" %}
+                  <p style="font-weight:bold;font-size:14px" class="badge badge-danger"><i>{{request.user.poste.nom_du_poste}} / {{request.user.palier}}</i></p>
+                  {% elif request.user.poste.nom_du_poste == "Colibri" %}
+                  <p style="font-weight:bold;font-size:14px" class="badge badge-primary"><i>{{request.user.poste.nom_du_poste}} / {{request.user.palier}}</i></p>
+                  {% elif request.user.poste.nom_du_poste == "Manageur" %}
+                  <p style="font-weight:bold;font-size:14px" class="badge badge-success"><i>{{request.user.poste.nom_du_poste}} / {{request.user.palier}}</i></p>
                   {% else %}
-                    <p style="font-weight:bold;font-size:14px" class="badge badge-secondary">Aucun poste</p>
+                  <p style="font-weight:bold;font-size:14px" class="badge badge-secondary"><i>Aucun poste</i></p>
                 {% endif %}
                 </div>
                 <ul class="list-group list-group-unbordered mb-3">
                   <li style="text-align:center;" class="list-group-item">
                     <small style="font-weight:bold;font-size:16px"><span class="badge bg-secondary">Palier</span></small>
                     {% if request.user.palier is None%}
-                      <p>Aucun palier</p>
+                      <p><i>Aucun palier</i></p>
                     {% else %}
-                      <p>{{request.user.palier}}</p>
+                      <p><i>{{request.user.palier}}</i></p>
                     {% endif %}
                   </li>
                   <li style="text-align:center;" class="list-group-item">
                     <small style="font-weight:bold;font-size:16px"><span class="badge bg-secondary">Niveau</span></small>
                     {% if request.user.palier.niveau is None%}
-                      <p>Aucun niveau</p>
+                      <p><i>Aucun niveau</i></p>
                     {% else %}
-                      <p>{{request.user.palier.niveau}}</p>
+                      <p><i>{{request.user.palier.niveau}}</i></p>
                     {% endif %}
                   </li>
                 </ul>
@@ -88,22 +88,403 @@ active
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#brute" data-toggle="tab">Visualisation brute</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#pyramide" data-toggle="tab">Visualisation en pyramide</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#payement" data-toggle="tab">Payements</a></li>
                   <!-- <li class="nav-item"><a class="nav-link" href="#facture" data-toggle="tab">Facture</a></li> --->
                 </ul>
               </div>
               <div class="card-body">
                 <div class="tab-content">
+                  {% if request.user.groupe is not None %}
                   <div class="active tab-pane" id="brute">
-                    <div data-url="" class="parcours">
-                  </div>
-                  </div>
-                  <div class="tab-pane" id="pyramide">
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-12 form-group">
+                        <input class="form-control text-center" style="font-weight:700;" value="****** LES TYPES DE POSTES ******" readonly type="text">
+                      </div>
+
+                      {% if request.user.palier.nom_du_palier == "Bamiléké"%}
+                        <div class="col-md-12 mb-3">
+                          <div class="progress">
+                            <div class="progress-bar bg-danger progress-bar-striped" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_bam}}%">
+                              <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                          </div>
+                        </div>
+                      {% elif request.user.palier.nom_du_palier == "Zoulou" %}
+                        <div class="col-md-12 mb-3">
+                          <div class="progress">
+                            <div class="progress-bar bg-warning progress-bar-striped" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_zou}}%">
+                              <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                          </div>
+                        </div>
+                      {% elif request.user.palier.nom_du_palier == "Maya" %}
+                        <div class="col-md-12 mb-3">
+                          <div class="progress">
+                            <div class="progress-bar bg-info progress-bar-striped" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_maya}}%">
+                              <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                          </div>
+                        </div>
+                      {% elif request.user.palier.nom_du_palier == "Mandingue" %}
+                        <div class="col-md-12 mb-3">
+                          <div class="progress">
+                            <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
+                                 aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_mand}}%">
+                              <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                      <!-- /.col -->
+                      <div class="col-md-4">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-danger">
+                            {% if request.user.poste.nom_du_poste == "Invité" %}
+                              <small><small>
+                                  {{request.user.point_fictive_inv}}&nbsp;
+                              </small></small> <small><small><small><small>point</small></small></small></small>
+                            {% elif request.user.poste.nom_du_poste != "Invité" %}
+                                   <i class="fas fa-times-circle"></i>
+                            {% endif %}
+                          </span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Invité</span>
+                            <span class="info-box-text">(0 points)</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-md-4">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-warning">
+                            {% if request.user.poste.nom_du_poste == "Colibri" %}
+                              <small><small>
+                                  {{request.user.point_fictive_col}}&nbsp;
+                              </small></small> <small><small><small><small>points</small></small></small></small>
+                            {% elif request.user.poste.nom_du_poste != "Colibri" %}
+                                   <i class="fas fa-times-circle"></i>
+                            {% endif %}
+                          </span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Colibri</span>
+                            <span class="info-box-text">(10 points)</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-md-4">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-success">
+                            {% if request.user.poste.nom_du_poste == "Manageur" %}
+                              <small><small>
+                                  {{request.user.point_fictive_manag}}&nbsp;
+                              </small></small> <small><small><small><small>points</small></small></small></small>
+                            {% elif request.user.poste.nom_du_poste != "Manageur" %}
+                                   <i class="fas fa-times-circle"></i>
+                            {% endif %}
+                          </span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text">Manageur</span>
+                            <span class="info-box-text">(30 points)</span>
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+                      <!-- /.col -->
+                    </div>
+
+                    <br>
+                    <hr style="background-color:#000;">
+                    <br>
+
+                    <div class="col">
+                      <div class="card">
+                        <div class="card-header text-center">
+                          <h3 style="font-size:16px;" class="m-0 p-0 text-center"><b>PARRAIN</b></h3>
+                        </div>
+                        <div class="card-body p-0">
+                          <ul class="products-list product-list-in-card pl-2 pr-2">
+                            <li class="item">
+                              {% if request.user.nom_du_parent is not None %}
+                              <div class="product-img">
+                                <img src="{% static 'affiliation/dist/img/default-150x150.png' %}" alt="Product Image" class="img-size-50">
+                              </div>
+                              <div class="product-info">
+                                <a href="javascript:void(0)" class="product-title">Ali Mizou
+                                  <span class="badge badge-primary float-right">Groupe 1</span>
+                                </a>
+                                <span class="product-description">
+                                  Manageur / Bamiléké
+                                </span>
+                              </div>
+                              {% elif request.user.nom_du_parent is None %}
+                              <div class="text-center">
+                                <a href="javascript:void(0)" class="product-title">
+                                  Vous n'avez pas de parrain
+                                </a>
+                              </div>
+                              {% endif %}
+                            </li>
+                            <!-- /.item -->
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <br>
+                    <hr style="background-color:#000;">
+                    <br>
+
+                    <div class="row">
+                      <div class="col-md-12 form-group">
+                        <input class="form-control text-center" style="font-weight:700;" value="****** LES TYPES DE PALIERS ******" readonly type="text">
+                      </div>
+                      {% if request.user.palier.nom_du_palier is not None %}
+                      <div class="col-md-6">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-danger">
+                            {% if request.user.palier.nom_du_palier == "Bamiléké" %}
+                              <i class="fas fa-users"></i>
+                            {% elif request.user.palier.nom_du_palier != "Bamiléké" %}
+                                   <i class="fas fa-times"></i>
+                            {% endif %}
+                          </span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text"><i>Palier:</i> <b class="badge badge-primary" style="font-size:15px">
+                              Bamiléké
+                            </b>
+                            </span>
+
+                            {% if request.user.palier.nom_du_palier == "Bamiléké" %}
+                            <div class="progress" style="height:15px">
+                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar"
+                                   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_bam}}%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            {% else %}
+                            <div class="progress" style="height:15px">
+                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar"
+                                   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            {% endif %}
+
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-md-6">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-warning">
+                            {% if request.user.palier.nom_du_palier == "Zoulou" %}
+                              <i class="fas fa-users"></i>
+                            {% elif request.user.palier.nom_du_palier != "Zoulou" %}
+                                   <i class="fas fa-times"></i>
+                            {% endif %}
+                          </span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text"><i>Palier:</i> <b class="badge badge-primary" style="font-size:15px">
+                              Zoulou
+                            </b>
+                            </span>
+
+                            {% if request.user.palier.nom_du_palier == "Zoulou" %}
+                            <div class="progress" style="height:15px">
+                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar"
+                                   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_zou}}%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            {% elif request.user.palier.nom_du_palier != "Zoulou" and request.user.palier.nom_du_palier != "Bamiléké" %}
+                            <div class="progress" style="height:15px">
+                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar"
+                                   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            {% endif %}
+
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-md-6">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-info">
+                            {% if request.user.palier.nom_du_palier == "Maya" %}
+                              <i class="fas fa-users"></i>
+                            {% elif request.user.palier.nom_du_palier != "Maya" %}
+                                   <i class="fas fa-times"></i>
+                            {% endif %}
+                          </span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text"><i>Palier:</i> <b class="badge badge-primary" style="font-size:15px">
+                              Maya
+                            </b>
+                            </span>
+
+                            {% if request.user.palier.nom_du_palier == "Maya" %}
+                            <div class="progress" style="height:15px">
+                              <div class="progress-bar bg-info progress-bar-striped" role="progressbar"
+                                   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_maya}}%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            {% elif request.user.palier.nom_du_palier != "Maya" and request.user.palier.nom_du_palier != "Zoulou" and request.user.palier.nom_du_palier != "Bamiléké" %}
+                            <div class="progress" style="height:15px">
+                              <div class="progress-bar bg-info progress-bar-striped" role="progressbar"
+                                   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            {% endif %}
+
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-md-6">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-success">
+                            {% if request.user.palier.nom_du_palier == "Mandingue" %}
+                              <i class="fas fa-users"></i>
+                            {% elif request.user.palier.nom_du_palier != "Mandingue" %}
+                                   <i class="fas fa-times"></i>
+                            {% endif %}
+                          </span>
+
+                          <div class="info-box-content">
+                            <span class="info-box-text"><i>Palier:</i> <b class="badge badge-primary" style="font-size:15px">
+                              Mandingue
+                            </b>
+                            </span>
+
+                            {% if request.user.palier.nom_du_palier == "Mandingue" %}
+                            <div class="progress" style="height:15px">
+                              <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
+                                   aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{progress_bar_mand}}%">
+                                <span class="sr-only">40% Complete (success)</span>
+                              </div>
+                            </div>
+                            {% endif %}
+
+                          </div>
+                          <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                      </div>
+                      <!-- /.col -->
+                      {% elif request.user.palier.nom_du_palier is None %}
+                      {% endif %}
+                    </div>
+
+                    <br>
+                    <hr style="background-color:#000;">
+                    <br>
+
+                    <div class="col">
+                      <div class="card">
+                        <div class="card-header text-center">
+                          <h3 style="font-size:16px;" class="m-0 p-0 text-center"><b><span style="font-size:15px" class="badge badge-dark">GET AHEAD MONEY : GAM</span></b></h3>
+                        </div>
+                        <div class="card-body p-0">
+                          <ul class="products-list product-list-in-card pl-2 pr-2">
+                            <li class="item">
+                              <div class="">
+                                <span class="product-description">
+                                  Nombre de personne amenée au total :
+                                  <span class="badge badge-secondary" style="font-size:15px">{{nb_pers_total}}</span> <b><i>personne(s)</i></b><br><br>
+                                  <span class="badge badge-secondary float-right"><i>1 personne placé dans une autre équipe&nbsp;<i class="fas fa-arrow-right"></i> &nbsp;1 GAM</i></span>
+                                  <br><br>
+                                  Nombre de personne à qui vous avez créer uné équipe :
+                                  <span class="badge badge-secondary" style="font-size:15px">{{request.user.gam}}</span> <b><i>personne(s)</i></b><br><br>
+                                </span>
+                                <a href="javascript:void(0)" class="product-title" style="text-decoration:underline">
+                                  GAM = {{request.user.gam}}
+                                </a>
+                                <span class="product-description">
+                                  Correspondance en FCFA (1 GAM &nbsp;<i class="fas fa-arrow-right"></i>&nbsp; 2000)
+                                  <br>
+                                  Total = {{request.user.gam}} * 2000
+                                  <br>
+                                  {% if solde != 0 %}
+                                  <span class="badge badge-primary mt-3" style="font-size:14px;">Solde = {{solde}} FCFA</span>
+                                  {% elif solde == 0 %}
+                                  <span class="badge badge-danger mt-3" style="font-size:14px;">Solde = {{solde}} FCFA</span>
+                                  {% endif %}
+                                </span>
+                              </div>
+                            </li>
+                            <!-- /.item -->
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="tab-pane" id="payement">
+                    <div class="tab-pane" id="salaire">
+                      <table id="table-payement" class="table projects">
+                          <thead>
+                          <tr>
+                            <th class="text-center">Liste des payements</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                              {% include "affiliation/mon_espace/listpayement.html "%}
+                          </tbody>
+                      </table>
+                      <!-- Popup ajouter nouvelle projet -->
+                      <div class="modal fade" id="modal-payement">
+                          <div class="modal-dialog">
+                              <div class="modal-content"></div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% elif request.user.groupe is None %}
+                    <div class="col">
+                      <div class="card">
+                        <div class="card-header text-center">
+                          <h3 style="font-size:16px;" class="m-0 p-0 text-center"><b>Vous ne faites parti d'aucun groupe</b></h3>
+                        </div>
+                        <div class="card-body p-0">
+                          <ul class="products-list product-list-in-card pl-2 pr-2">
+                            <li class="item">
+                              <div class="text-center">
+                                <a href="javascript:void(0)" class="product-title">
+                                  RIEN A AFFICHER ICI
+                                </a>
+                              </div>
+                            </li>
+                            <!-- /.item -->
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -111,45 +492,50 @@ active
           <div class="col-md-3">
             <div class="card card-success">
               <div class="card-header">
-                {% if groupe is None %}
+                {% if request.user.groupe is None %}
                     <h3 class="card-title"><small><b>Membres d'aucun groupe</b></small></h3>
-                {% elif groupe is not None %}
-                    <h3 class="card-title"><small><b>Membres du {{groupe}}</b></small></h3>
+                {% elif request.user.groupe is not None %}
+                <h3 class="card-title"><small><b>Membres du &nbsp;<span style="font-size:13px" class="badge badge-dark">{{request.user.groupe}}</span></b></small></h3>
                 {% endif %}
               </div>
               <div class="card-body">
-                {% if groupe is not None %}
-                    <strong><a href="#"><i class="fas fa-user mr-1"></i> {{groupe.manageur_du_groupe}}</a></strong>
-
+                {% if request.user.groupe is not None %}
                     <p class="text-muted">
-                      Propriétaire du groupe : {{groupe}}
+                      Leader du groupe
+                    </p>
+                    <p class="text-center">
+                      <a href="javascript:void(0)">
+                        <span class="badge badge-secondary"><i class="fas fa-user mr-1"></i> <i>{{request.user.groupe.manageur_du_groupe}}</i>  </span>
+                      </a>
                     </p>
                     <hr style="color:green">
 
-                    {% for membre in membres %}
-                      {% if membre is request.user %}
-                      <strong><a href="#"><i class="fas fa-user mr-1"></i> {{membre}}</a></strong>
-                      <p class="text-muted"><i class="mr-1"></i> {{membre.poste}} / {{membre.palier}}</p>
+                    <strong><a href="#"><i class="fas fa-user mr-1"></i> {{request.user}}</a></strong>
+                    <p class="text-muted"><i class="mr-1"></i> {{request.user.poste}} / {{request.user.palier}}</p>
 
-                      {% elif membre is not request.user %}
-                        <strong><i class="fas fa-user mr-1"></i> {{membre}}</strong>
-                      {% endif %}
-
-                      <p class="text-muted"><i class="mr-1"></i> {{membre.poste}} / {{membre.palier}}</p>
-
-                      <hr>
-                    {% empty %}
-                      <strong><i class="fas fa-users mr-1"></i> Aucun</strong>
-
-                      <p class="text-muted">Il n'y a aucun membre dans votre groupe.</p>
-
-                      <hr style="background:green">
-                    {% endfor %}
+                    {% if bam %}
+                      <a href="{% url 'voir_membre_palier_id' bam.id %}" class="btn btn-sm btn-ouline-dark">
+                        {{bam}}
+                      </a>
+                    {% endif %}<br>
+                    {% if zou %}
+                      <a href="{% url 'voir_membre_palier_id' zou.id %}" class="btn btn-sm btn-ouline-dark">
+                        {{zou}}
+                      </a>
+                    {% endif %}<br>
+                    {% if maya %}
+                      <a href="{% url 'voir_membre_palier_id' maya.id %}" class="btn btn-sm btn-ouline-dark">
+                        {{maya}}
+                      </a>
+                    {% endif %}<br>
+                    {% if mand %}
+                      <a href="{% url 'voir_membre_palier_id' mand.id %}" class="btn btn-sm btn-ouline-dark">
+                        {{mand}}
+                      </a>
+                    {% endif %}
                 {% elif groupe is None %}
                     <strong><i class="fas fa-users mr-1"></i> Pas de groupe</strong>
-
-                    <p class="text-muted">Pas de membres</p>
-
+                    <p class="text-muted text-center"><i>Pas de membres à afficher</i></p>
                     <hr style="background:green">
                 {% endif %}
 
@@ -163,5 +549,16 @@ active
 {% endblock %}
 
 {% block javascript %}
+<!-- my js for ajax -->
+<script src="{%static 'affiliation/js/modalpayement.js' %}"></script>
+<!-- DataTables -->
+<script src="{%static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{%static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
 
+<!-- page script -->
+<script>
+  $(function () {
+    $("#table-payement").DataTable();
+  });
+</script>
 {% endblock %}
