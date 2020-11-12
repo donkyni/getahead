@@ -10,7 +10,6 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<!-- Theme style
   	<link rel="stylesheet" href="{% static 'affiliation/dist/css/adminlte.min.css' %}">-->
-  	<link rel="stylesheet" href="{% static 'affiliation/css/base.css' %}">
   	<link rel="stylesheet" href="{% static 'affiliation/css/header.css' %}">
   	<!-- Font Awesome -->
   	<link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %}">
@@ -18,28 +17,107 @@
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap" rel="stylesheet"> 
 </head>
 <body>
-	<div class="header">
-		<div class="header__texture" style="background: url('{% static 'affiliation/img/jgk-ga.png' %}');background-size: cover;"></div>
-		<div class="header__mask">
-			<svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-				<path d="M0 100 L 0 0 C 25 100 75 100 100 0 L 100 100" fill="#fff"></path>
-			</svg>
+	<nav>
+		<div class="logo">Get Ahead</div>
+		<label for="btn" class="icon">
+			<span class="fa fa-bars"></span>
+		</label>
+		<input type="checkbox" id="btn">
+		<ul>
+			<li><a href="javascript:void(0)">Acceuil</a></li>
+			<li>
+				<label for="btn-1" class="show">Présentation +</label>
+				<a href="javascript:void(0)">Présentation</a>
+				<input type="checkbox" id="btn-1">
+				<ul>
+					<li><a href="javascript:void(0)">Cabinet JGK-EC</a></li>
+					<li><a href="javascript:void(0)">Dr JGK</a></li>
+				</ul>
+			</li>
+			<li>
+				<label for="btn-2" class="show">WARA +</label>
+				<a href="javascript:void(0)">WARA</a>
+				<input type="checkbox" id="btn-2">
+				<ul>
+					<li><a href="javascript:void(0)">Inscription</a></li>
+					<li>
+						<label for="btn-3" class="show">Programme Wara +</label>
+						<a href="javascript:void(0)">Programme Wara
+							<span class="fa fa-chevron-right"></span>
+						</a>
+						<input type="checkbox" id="btn-3">
+						<ul>
+							<li><a href="javascript:void(0)">Programme 1</a></li>
+							<li><a href="javascript:void(0)">Programme 2</a></li>
+							<li><a href="javascript:void(0)">Programme 3</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<label for="btn-4" class="show">GET AHEAD +</label>
+				<a href="javascript:void(0)">GET AHEAD</a>
+				<input type="checkbox" id="btn-4">
+				<ul>
+					<li><a href="javascript:void(0)">Présentation</a></li>
+					<li><a href="javascript:void(0)">Connexion</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:void(0)">Actualités</a></li>
+			<li><a href="javascript:void(0)">Contacts</a></li>
+		</ul>
+	</nav>
+	<section class="header" style="background: url('{% static 'affiliation/img/header2.webp' %}');background-size: cover;">
+		<div class="content">
+			<h2>GET AHEAD</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque debitis itaque iusto sunt tempore?
+				Accusantium animi autem, dicta distinctio dolorem ea earum est harum molestias nihil nulla placeat quidem sed.</p>
 		</div>
 		<div class="container">
-			<div class="header__navbar">
-				<div class="header__navbar__logo">
-					<h1 class="header__navbar__logo-title"><b>GET AHEAD</b></h1>
+			<div class="headerinfo">
+				<div class="box">
+					<div class="iconn"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+					<div class="text">
+						<h3>Adress</h3>
+						<p>Lomé, Togo Burkina Faso <br>Alias Togocel, <br>Port de Masque</p>
+					</div>
 				</div>
-				<div class="header__navbar__menu">
-					<a href="#" class="header__navbar__menu-link"><i class="fas fa-home"></i> <b>Acceuil</b></a>
-					<a href="#" class="header__navbar__menu-link"><i class="fas fa-warehouse"></i> <b>Présentation</b></a>
-					<a href="#" class="header__navbar__menu-link"><i class="fas fa-user-graduate"></i>&nbsp; <b>WARA</b></b></a>
-					<a href="#" class="header__navbar__menu-link"><i class="fas fa-users"></i> <b>GET AHEAD</b></a>
-					<a href="#" class="header__navbar__menu-link"><i class="fas fa-newspaper"></i> <b>Actualités</b></a>
-					<a href="#" class="header__navbar__menu-link"><i class="fas fa-phone"></i> <b>Contacts</b></a>
+				<div class="box">
+					<div class="iconn"><i class="fa fa-phone" aria-hidden="true"></i></div>
+					<div class="text">
+						<h3>Phone</h3>
+						<p>93454343</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="iconn"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+					<div class="text">
+						<h3>Email</h3>
+						<p>donaldsognikin54@gmail.com</p>
+					</div>
 				</div>
 			</div>
+			<div class="headerform">
+				<form method="post">
+					<h2>Inscription au programme WARA</h2>
+					<div class="inputbox">
+						<input class="input" type="text" name="" required="required">
+						<span>Full Name</span>
+					</div>
+					<div class="inputbox">
+						<input class="input" type="email" name="" required="required">
+						<span>Email</span>
+					</div>
+					<div class="inputbox">
+						<textarea required="required"></textarea>
+						<span>Type your message...</span>
+					</div>
+					<div class="inputbox">
+						<button>Send</button>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
+	</section>
 </body>
 </html>
