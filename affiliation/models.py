@@ -113,7 +113,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     nom_d_utilisateur = models.CharField(unique=True, max_length=255, null=True, blank=False,
                                          help_text="Le nom d'utilisateur servira à se connecter à la plateforme, "
-                                                   "également pour parrainer un membre. Ex. 228DS000000001")
+                                                   "également pour parrainer un membre. Ex. toto21")
     nom_du_parent = models.ForeignKey("self", on_delete=models.SET_NULL, verbose_name='Parrain',
                                       help_text="Indiquez le parent qui l'adhère. S'il est le premier membre de son "
                                                 "groupe, laissez vide", null=True, blank=True)
@@ -204,3 +204,12 @@ class Payement(models.Model):
     etat = models.BooleanField(default=False, null=True, blank=True)
     date_d_ajout = models.DateTimeField(auto_now_add=True, null=True)
     archive = models.BooleanField(default=False, null=True)
+
+
+class Wara(models.Model):
+    nom = models.CharField(max_length=255, null=True)
+    prenom = models.CharField(max_length=255, null=True)
+    telephone = models.IntegerField(null=True)
+    email = models.EmailField(null=True)
+    archive = models.BooleanField(default=False)
+    date = models.DateTimeField(auto_now_add=True, null=True)

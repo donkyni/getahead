@@ -1,6 +1,6 @@
 from django import forms
 
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara
 
 
 class DateInput(forms.DateInput):
@@ -38,7 +38,6 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserForm(forms.ModelForm):
-
     class Meta:
         model = User
         fields = (
@@ -58,6 +57,7 @@ class UserUpdateForm(forms.ModelForm):
             'nom_d_utilisateur', 'nom', 'prenom', 'adresse', 'pays_de_residence', 'telephone',
             'avatar', 'annee_de_naissance', 'sexe',
         )
+
 
 class PosteForm(forms.ModelForm):
     class Meta:
@@ -105,4 +105,14 @@ class PayementFormUser(forms.ModelForm):
         fields = ('etat',)
         widgets = {
             'etat': forms.CheckboxInput(attrs={'class': 'form-control'})
+        }
+
+
+class WaraForm(forms.ModelForm):
+    class Meta:
+        model = Wara
+        fields = ('nom', 'prenom', 'telephone', 'email')
+        widgets = {
+            'nom': forms.TextInput(attrs={'class': 'form-control'}),
+            'prenom': forms.TextInput(attrs={'class': 'form-control'}),
         }

@@ -10,10 +10,9 @@ from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauF
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits
 
 
-"""
 def acceuil(request):
     return render(request, 'acceuil.html', locals())
-"""
+
 
 def controllers(request, url, droit, context):
     user_profil = request.user.profil
