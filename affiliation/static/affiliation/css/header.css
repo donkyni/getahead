@@ -51,21 +51,21 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: cyan;
+    color: #94000F;
     border-radius: 5px;
-    box-shadow: 0 0 5px #33ffff,
-                0 0 5px #66ffff;
+    box-shadow: 0 0 5px #94000F,
+                0 0 5px #94000F;
 }
 
 nav ul ul li a:hover  {
-    color: cyan;
+    color: #94000F;
     box-shadow: none;
 }
 
 nav ul ul {
     position: absolute;
     top: 90px;
-    border-top: 3px solid cyan;
+    border-top: 3px solid #94000F;
     opacity: 0;
     visibility: hidden;
     transition: top .3s;
@@ -106,141 +106,8 @@ nav ul ul ul li {
     font-size: 15px;
 }
 
-.show, .icon, input{
+.show, .icon, #btn, #btn-1, #btn-2, #btn-3, #btn-4 {
     display: none;
-}
-
-.header {
-    /*position: relative;*/
-    min-height: 100vh;
-    padding: 50px 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /*opacity: 0.8*/
-}
-
-.header .content {
-    max-width: 800px;
-    text-align: center;
-}
-
-.header .content h2 {
-    color: white;
-    font-size: 36px;
-    font-weight: 500;
-}
-
-.header .content p {
-    font-weight: 300;
-    color: white;
-}
-
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-center: center;
-    margin-top: 30px;
-}
-
-.container .headerinfo {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-
-.container .headerinfo .box {
-    position: relative;
-    padding: 20px 0;
-    display: flex;
-}
-
-.container .headerinfo .box .iconn {
-    min-width: 60px;
-    height: 60px;
-    display: flex;
-    background: #fff;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    font-size: 22px;
-}
-
-.container .headerinfo .box .text {
-    display: flex;
-    margin-left: 20px;
-    font-size: 16px;
-    color: #fff;
-    flex-direction: column;
-    font-weight: 300;
-}
-
-.container .headerinfo .box .text h3 {
-    font-weight: 500;
-    color: #00bcd4;
-}
-
-.headerform {
-    width: 40%;
-    padding: 40px;
-    background: #fff;
-}
-
-.headerform h2 {
-    font-size: 25px;
-    color: #333;
-    font-weight: 500;
-}
-
-.headerform .inputbox {
-    position: relative;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.headerform .inputbox input.input,
-.headerform .inputbox button,
-.headerform .inputbox textarea  {
-    width: 100%;
-    padding: 5px 0;
-    font-size: 16px;
-    margin: 10px 0;
-    border: none;
-    border-bottom: 2px solid #333;
-    outline: none;
-    resize: none;
-}
-
-.headerform .inputbox span {
-    position: absolute;
-    left: 0;
-    padding: 5px 0;
-    font-size: 16px;
-    margin: 10px 0;
-    pointer-events: none;
-    transition: 0.5s;
-    color: #666;
-}
-
-.headerform .inputbox input:focus ~ span,
-.headerform .inputbox input:valid ~ span,
-.headerform .inputbox textarea:focus ~ span,
-.headerform .inputbox textarea:valid ~ span {
-    color: #e91e63;
-    font-size: 12px;
-    transform: translateY(-20px);
-}
-
-.headerform .inputbox button {
-    background: #00bcd4;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 18px;
-    width: 100%;
 }
 
 @media all and (max-width: 968px) {
@@ -307,19 +174,4 @@ nav ul ul ul li {
         display: block;
     }
 
-}
-
-@media (max-width:991px) {
-    .header {
-        padding: 50px;
-    }
-    .container {
-        flex-direction: column;
-    }
-    .container .headerinfo {
-        margin-bottom: 40px;
-    }
-    .container .headerinfo, .headerform {
-        width: 100%;
-    }
 }

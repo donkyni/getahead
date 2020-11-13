@@ -11,6 +11,8 @@
 	<!-- Theme style
   	<link rel="stylesheet" href="{% static 'affiliation/dist/css/adminlte.min.css' %}">-->
   	<link rel="stylesheet" href="{% static 'affiliation/css/header.css' %}">
+  	<link rel="stylesheet" href="{% static 'affiliation/css/headerget.css' %}">
+  	<link rel="stylesheet" href="{% static 'affiliation/css/footer.css' %}">
   	<!-- Font Awesome -->
   	<link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %}">
 	<title>Page d'acceuil de GET AHEAD</title>
@@ -67,7 +69,7 @@
 			<li><a href="javascript:void(0)">Contacts</a></li>
 		</ul>
 	</nav>
-	<section class="header" style="background: url('{% static 'affiliation/img/header2.webp' %}');background-size: cover;">
+	<section class="header" style="background: url('{% static 'affiliation/img/header6.jpeg' %}');background-size: cover;">
 		<div class="content">
 			<h2>GET AHEAD</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque debitis itaque iusto sunt tempore?
@@ -119,5 +121,70 @@
 			</div>
 		</div>
 	</section>
+	<div class="block-corps" style="background:url('{% static 'affiliation/img/jgk-ec.png' %}') no-repeat; background-size: cover;">
+		<div class="block-text">
+			<p style="font-size:18px;">
+				{% lorem %}
+			</p>
+		</div>
+	</div>
+	<footer>
+		<div class="main-content">
+			<div class="left box">
+				<h2>A Propos de nous</h2>
+				<div class="contentfoo">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid beatae blanditiis debitis,
+						dolore eius eligendi enim et eum facere ipsum nesciunt odio placeat quae quisquam sequi soluta tempora temporibus.
+					</p>
+					<div class="socials">
+						<a href="#"><span class="fab fa-facebook"></span></a>
+						<a href="#"><span class="fab fa-whatsapp"></span></a>
+						<a href="#"><span class="fab fa-telegram"></span></a>
+					</div>
+				</div>
+			</div>
+			<div class="center box">
+				<h2>Adresse</h2>
+				<div class="contentfoo">
+					<div class="place">
+						<span class="fa fa-map-marker-alt"></span>
+						<span class="text">317, Rue de la Liberté, Agbalepedo Lomé – Togo</span>
+					</div>
+					<div class="phone">
+						<span class="fa fa-phone-alt"></span>
+						<span class="text">+ 228 22 25 39 87</span>
+					</div>
+					<div class="email">
+						<span class="fa fa-envelope"></span>
+						<span class="text">jgkec@yahoo.fr</span>
+					</div>
+				</div>
+			</div>
+			<div class="right box">
+				<h2>Contacter nous</h2>
+				<div class="contentfoo">
+					<form class="form">
+						<div class="email">
+							<div class="text">Email *</div>
+							<input type="email" required id="emailfoo">
+						</div>
+						<div class="msg">
+							<div class="text">Message *</div>
+							<textarea name="" id="msgfoo" cols="25" rows="2" required></textarea>
+						</div>
+						<div class="btn-submit">
+							<button type="submit" class="btn-send">Envoyer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<center>
+				<span class="credit">Created by <a href="">GET AHEAD</a> | </span>
+				<span class="far fa-copyright"></span><span> 2020 All rights reserved</span>
+			</center>
+		</div>
+	</footer>
 </body>
 </html>
