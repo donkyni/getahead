@@ -213,3 +213,9 @@ class Wara(models.Model):
     email = models.EmailField(null=True)
     archive = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
+
+
+class Message(models.Model):
+    email = models.EmailField(null=True)
+    message = models.TextField(null=True)
+    archive = models.BooleanField(default=False, null=True)

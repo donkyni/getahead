@@ -6,11 +6,32 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
-    UserUpdateForm, PayementFormUser, PayementForm
+    UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits
 
 
 def acceuil(request):
+    if request.method == 'POST':
+        w_form = WaraForm(request.POST)
+        if w_form.is_valid():
+            w_form.save()
+            redirect('acceuil')
+    else:
+        w_form = WaraForm()
+
+    if request.method == 'POST':
+        m_form = MessageForm(request.POST)
+        if m_form.is_valid():
+            m_form.save()
+            redirect('acceuil')
+    else:
+        m_form = MessageForm()
+
+    context = {
+        'w_form': w_form,
+        'm_form': m_form
+    }
+
     return render(request, 'acceuil.html', locals())
 
 
@@ -753,7 +774,8 @@ def voirplus(request, id):
 
     if membre:
         groupe = membre.groupe
-        parrain = get_object_or_404(User, id=membre.nom_du_parent.id)
+        if membre.nom_du_parent is not None:
+            parrain = get_object_or_404(User, id=membre.nom_du_parent.id)
         payements = Payement.objects.filter(archive=False, membre=request.user)
 
         if membre.palier is not None:

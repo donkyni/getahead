@@ -1,6 +1,6 @@
 from django import forms
 
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message
 
 
 class DateInput(forms.DateInput):
@@ -112,7 +112,9 @@ class WaraForm(forms.ModelForm):
     class Meta:
         model = Wara
         fields = ('nom', 'prenom', 'telephone', 'email')
-        widgets = {
-            'nom': forms.TextInput(attrs={'class': 'form-control'}),
-            'prenom': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ('email', 'message',)

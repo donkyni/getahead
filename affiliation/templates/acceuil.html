@@ -41,7 +41,7 @@
 				<a href="javascript:void(0)">WARA</a>
 				<input type="checkbox" id="btn-2">
 				<ul>
-					<li><a href="javascript:void(0)">Inscription</a></li>
+					<li><a href="#inscription_wara">Inscription</a></li>
 					<li>
 						<label for="btn-3" class="show">Programme Wara +</label>
 						<a href="javascript:void(0)">Programme Wara
@@ -62,57 +62,60 @@
 				<input type="checkbox" id="btn-4">
 				<ul>
 					<li><a href="javascript:void(0)">Présentation</a></li>
-					<li><a href="javascript:void(0)">Connexion</a></li>
+					<li><a href="#connexion">Connexion</a></li>
 				</ul>
 			</li>
 			<li><a href="javascript:void(0)">Actualités</a></li>
 			<li><a href="javascript:void(0)">Contacts</a></li>
 		</ul>
 	</nav>
+
 	<section class="header" style="background: url('{% static 'affiliation/img/header6.jpeg' %}');background-size: cover;">
 		<div class="content">
 			<h2>GET AHEAD</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque debitis itaque iusto sunt tempore?
-				Accusantium animi autem, dicta distinctio dolorem ea earum est harum molestias nihil nulla placeat quidem sed.</p>
+			<br>
+			<p>
+				<span style="font-weight:700;">« Vous êtes des êtres divins, votre potentiel est illimité, <br>votre avenir est magnifique si vous le prenez en main. »</span>
+				<br>
+				<span style="font-style:italic">Gordon B. Hinckley</span>
+			</p>
 		</div>
 		<div class="container">
-			<div class="headerinfo">
+			<div id="connexion" class="headerinfo">
 				<div class="box">
-					<div class="iconn"><i class="fa fa-envelope" aria-hidden="true"></i></div>
 					<div class="text">
-						<h3>Adress</h3>
-						<p>Lomé, Togo Burkina Faso <br>Alias Togocel, <br>Port de Masque</p>
+						<h3 style="text-align: center;text-transform:uppercase;">Connectez-vous à votre compte <span style="background: #777;border-radius:5px;padding:3px">GET AHEAD</span></h3>
+						<br><br>
+						<p style="text-align:justify; color:black; font-style:italic;">Get Ahead est un programme d'affiliation qui vise <br> à rassembler des fonds pour lancer son entreprise</p>
+
+						<p style="color: black;margin: 25px 0;">
+							Si vous avez un compte <a class="wara" href="{% url 'login' %}" style="text-decoration:none; color:red">connectez vous directement</a>
+							<br>Sinon passez à <span class="wara" style="font-style:italic; color:red">l'inscription WARA <i class="fa fa-arrow-right"></i></span>
+						</p>
+						<br>
 					</div>
-				</div>
-				<div class="box">
-					<div class="iconn"><i class="fa fa-phone" aria-hidden="true"></i></div>
-					<div class="text">
-						<h3>Phone</h3>
-						<p>93454343</p>
-					</div>
-				</div>
-				<div class="box">
-					<div class="iconn"><i class="fa fa-envelope" aria-hidden="true"></i></div>
-					<div class="text">
-						<h3>Email</h3>
-						<p>donaldsognikin54@gmail.com</p>
-					</div>
+					<a class="logina" style="text-align: center; text-decoration: none; width: 100%; background: #123; color: #fff; border: none; cursor: pointer; padding: 10px; font-size: 18px;" href="{% url 'login' %}">Se connecter</a>
 				</div>
 			</div>
-			<div class="headerform">
+			<div id="inscription_wara" class="headerform">
 				<form method="post">
-					<h2>Inscription au programme WARA</h2>
+					{% csrf_token %}
+					<h3 style="text-align:center;text-transform:uppercase; font-size:21px; color:#123;">Inscription au programme <span style="background: #777;border-radius:5px;padding:3px">WARA</span></h3>
 					<div class="inputbox">
-						<input class="input" type="text" name="" required="required">
-						<span>Full Name</span>
+						<label>Nom</label>
+						{{ w_form.nom }}
 					</div>
 					<div class="inputbox">
-						<input class="input" type="email" name="" required="required">
-						<span>Email</span>
+						<label>Prenom</label>
+						{{ w_form.prenom }}
 					</div>
 					<div class="inputbox">
-						<textarea required="required"></textarea>
-						<span>Type your message...</span>
+						<label>Téléphone</label>
+						{{ w_form.telephone }}
+					</div>
+					<div class="inputbox">
+						<label>Email</label>
+						{{ w_form.email }}
 					</div>
 					<div class="inputbox">
 						<button>Send</button>
@@ -121,13 +124,7 @@
 			</div>
 		</div>
 	</section>
-	<div class="block-corps" style="background:url('{% static 'affiliation/img/jgk-ec.png' %}') no-repeat; background-size: cover;">
-		<div class="block-text">
-			<p style="font-size:18px;">
-				{% lorem %}
-			</p>
-		</div>
-	</div>
+
 	<footer>
 		<div class="main-content">
 			<div class="left box">

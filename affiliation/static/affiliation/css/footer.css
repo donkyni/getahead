@@ -29,6 +29,7 @@ footer {
 .box .contentfoo:before {
     position: absolute;
     content: '';
+    top: -10px;
     height: 2px;
     width: 100%;
     background: #1a1a1a;
@@ -134,7 +135,7 @@ footer {
     width: 100%;
     border: none;
     outline: none;
-    background: #456;
+    background: red;
     font-size: 1.0625rem;
     font-weight: 500;
     cursor: pointer;
@@ -163,4 +164,20 @@ footer {
 
 .bottom center a:hover {
     text-decoration: underline;
+}
+
+@media screen and (max-width: 900px) {
+    footer {
+        position: relative;
+        bottom: 0px;
+    }
+
+    .main-content {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .main-content .box {
+        margin: 5px 0;
+    }
 }

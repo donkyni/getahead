@@ -23,10 +23,10 @@ from affiliation.views import acceuil
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', acceuil, name="acceuil"),
+    path('acceuil/', acceuil, name="acceuil"),
 
     # url concernant la connexion
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
 
     path('affiliation/', include('affiliation.urls'))
