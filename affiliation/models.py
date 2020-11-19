@@ -201,7 +201,7 @@ class Payement(models.Model):
     montant = models.DecimalField(null=True, max_digits=15, decimal_places=1)
     membre = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     poursuivre = models.BooleanField(null=True, blank=False)
-    etat = models.BooleanField(default=False, null=True, blank=True)
+    etat = models.BooleanField(default=True, null=True, blank=True)
     date_d_ajout = models.DateTimeField(auto_now_add=True, null=True)
     archive = models.BooleanField(default=False, null=True)
 

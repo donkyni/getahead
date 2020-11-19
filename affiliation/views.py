@@ -1,3 +1,4 @@
+import datetime
 from random import shuffle
 
 from django.contrib.auth.decorators import login_required
@@ -73,10 +74,26 @@ def save_all(request, form, template_name, model, template_name2, mycontext):
 @login_required
 def tableaudebord(request):
     droit = "Dashboard"
+    niveau = get_object_or_404(Niveau, nom_du_niveau="Niveau 1")
+    membres = User.objects.all()[:5]
+
+    for membre in membres:
+        if membre.palier is not None:
+            if membre.palier.nom_du_palier == "Bamiléké":
+                point = membre.point
+                progress_bar_bam = int(point * (100 / 30))
+            elif membre.palier.nom_du_palier == "Zoulou":
+                point = membre.point
+                progress_bar_zou = int(point * (100 / 120))
+            elif membre.palier.nom_du_palier == "Maya":
+                point = membre.point
+                progress_bar_maya = int(point * (100 / 480))
+            elif membre.palier.nom_du_palier == "Mandingue":
+                point = membre.point
+                progress_bar_mand = int(point * (100 / 1920))
+
     bamileke = get_object_or_404(Palier, nom_du_palier="Bamiléké")
     total_pers_bam = User.objects.filter(palier=bamileke).count()
-
-    niveau = get_object_or_404(Niveau, nom_du_niveau="Niveau 1")
 
     zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
     total_pers_zou = User.objects.filter(palier=zoulou).count()
@@ -86,6 +103,13 @@ def tableaudebord(request):
 
     mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
     total_pers_mand = User.objects.filter(palier=mandingue).count()
+
+    # recuperer les membres selon leur dates
+    memb_janv = User.objects.filter(
+        date_d_ajout=datetime.date(2020, 1, 1)
+    )
+    data = [43, 65, 27, 89, 30, 12, 150]
+    data2 = [34, 56, 72, 40, 13, 21, 51]
 
     return controllers(request, 'affiliation/tableaudebord.html', droit, locals())
 
@@ -181,8 +205,12 @@ def bamileke(request):
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
     manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30)
 
+    for manageur_bam in manageurs_bam:
+        payements_valides = Payement.objects.filter(membre=manageur_bam, etat=True)
+
     context = {
-        'manageurs_bam': manageurs_bam
+        'manageurs_bam': manageurs_bam,
+        'payements_valides': payements_valides,
     }
 
     return controllers(request, 'affiliation/niveau1/bamileke.html', droit, context)

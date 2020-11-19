@@ -7,11 +7,11 @@
         </button>
         {% else %}
         <button disabled class="btn btn-sm btn-warning show-form-update float-right" data-url="{% url 'validerpayement' payement.id %}">
-            <i class="fa fa-minus" aria-hidden="true"></i> Deja recu
+            <i class="fa fa-check" aria-hidden="true"></i> &nbsp;Deja recu
         </button>
         {% endif %}
-        <strong><a ><i class="fas fa-file mr-1"></i> {{payement.libelle}}</a></strong>
-        <br><small class="ml-4" style="font-style:italic">Cliquez pour confirmer que vous allez recevoir votre payement</small>
+        <strong><a ><i class="fas fa-money-check mr-1"></i> {{payement.libelle}}</a></strong>
+        <br><small class="ml-4" style="font-style:italic"><b style="text-decoration:underline">{{payement.montant}} FCFA</b></small>
     </td>
 </tr>
 {% empty %}
