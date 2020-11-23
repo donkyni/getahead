@@ -1,1 +1,1 @@
-	web: gunicorn getahead.wsgi --log-file -
+    web: gunicorn getahead.wsgi --log-file -
