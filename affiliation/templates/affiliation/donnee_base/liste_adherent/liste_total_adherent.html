@@ -13,11 +13,26 @@
       {% endif %}
   </td>
   <td>
-      <b class="badge badge-secondary">{{ utilisateur.point }}</b>
+      <b class="badge badge-info" style="font-size:14px;"><i>{{utilisateur.point|add:utilisateur.stock_point}}</i></b>
   </td>
   <td>
+      {% if utilisateur.poste.nom_du_poste == "Invité" %}
+      <b class="badge badge-secondary">{{ utilisateur.point_fictive_inv }}</b>
+      {% elif utilisateur.poste.nom_du_poste == "Colibri" %}
+      <b class="badge badge-secondary">{{ utilisateur.point_fictive_col }}</b>
+      {% elif utilisateur.poste.nom_du_poste == "Manageur" %}
+      <b class="badge badge-secondary">{{ utilisateur.point_fictive_manag }}</b>
+      {% elif utilisateur.poste is None %}
+      <small class="badge badge-secondary">Aucun</small>
+      {% endif %}
+  </td>
+  <td>
+      {% if utilisateur.groupe is not None%}
       <b class="badge badge-warning" style="font-size:14px;"><i>{{utilisateur.groupe}}</i></b>
       <small class="badge badge-secondary">Manageur : {{utilisateur.groupe.manageur_du_groupe}}</small>
+      {% elif utilisateur.groupe is None %}
+      <small class="badge badge-secondary">Aucun</small>
+      {% endif %}
   </td>
   <td>
       <b style="font-size:14px;">{{utilisateur.telephone}}</b><br>
@@ -27,11 +42,23 @@
       <b style="font-size:14px;">{{utilisateur.pays_de_residence.pays}}</b>
   </td>
   <td>
-      <b style="font-size:14px;">{{utilisateur.palier.niveau}}</b><br>
+      {% if utilisateur.palier is not None %}
+      <b style="font-size:14px;">{{utilisateur.poste}}</b><br>
       <small class="badge badge-secondary"><i>{{utilisateur.palier}}</i></small>
+      {% elif utilisateur.palier is None %}
+      <small class="badge badge-secondary"><i>Aucune</i></small>
+      {% endif %}
   </td>
   <td class="project-actions">
       <b style="font-size:14px;">{{utilisateur.sexe}}</b>
+  </td>
+  <td class="">
+      <a href="{% url 'listeupdateuser' utilisateur.id %}" class="btn btn-info btn-sm show-form-update">
+          <i class="fas fa-pencil-alt"></i>
+      </a>
+      <a class="btn btn-danger btn-sm show-form-delete" href="{% url 'listesuppruser' utilisateur.id %}">
+          <i class="fas fa-trash"></i>
+      </a>
   </td>
 </tr>
 {% empty %}

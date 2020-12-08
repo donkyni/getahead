@@ -28,7 +28,6 @@ active
 {% endblock %}
 
 {% block content %}
- <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -83,13 +82,13 @@ active
               </div>
             </div>
           </div>
+
           <div class="col-md-6">
             <div class="card card-success card-outline">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#brute" data-toggle="tab">Visualisation brute</a></li>
                   <li class="nav-item"><a class="nav-link" href="#payement" data-toggle="tab">Payements</a></li>
-                  <!-- <li class="nav-item"><a class="nav-link" href="#facture" data-toggle="tab">Facture</a></li> --->
                 </ul>
               </div>
               <div class="card-body">
@@ -139,7 +138,7 @@ active
                         </div>
                       {% endif %}
 
-                      <!-- /.col -->
+
                       <div class="col-md-4">
                         <div class="info-box">
                           <span class="info-box-icon bg-danger">
@@ -156,11 +155,9 @@ active
                             <span class="info-box-text">Invité</span>
                             <span class="info-box-text">(0 points)</span>
                           </div>
-                          <!-- /.info-box-content -->
                         </div>
-                        <!-- /.info-box -->
                       </div>
-                      <!-- /.col -->
+
                       <div class="col-md-4">
                         <div class="info-box">
                           <span class="info-box-icon bg-warning">
@@ -181,7 +178,7 @@ active
                         </div>
                         <!-- /.info-box -->
                       </div>
-                      <!-- /.col -->
+
                       <div class="col-md-4">
                         <div class="info-box">
                           <span class="info-box-icon bg-success">
@@ -202,7 +199,7 @@ active
                         </div>
                         <!-- /.info-box -->
                       </div>
-                      <!-- /.col -->
+
                     </div>
 
                     <br>
@@ -219,14 +216,18 @@ active
                             <li class="item">
                               {% if request.user.nom_du_parent is not None %}
                               <div class="product-img">
-                                <img src="{% static 'affiliation/dist/img/default-150x150.png' %}" alt="Product Image" class="img-size-50">
+                                {% if request.user.avatar %}
+                                <img src="{{request.user.avatar.url }}" alt="Avatar" class="img-circle elevation-2">
+                                {% else %}
+                                <img src="https://ipc.digital/wp-content/uploads/2016/07/icon-user-default.png" alt="Avatar" class="img-circle elevation-2">
+                                {% endif %}
                               </div>
                               <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">Ali Mizou
-                                  <span class="badge badge-primary float-right">Groupe 1</span>
+                                <a href="javascript:void(0)" class="product-title">{{parrain}}
+                                  <span class="badge badge-primary float-right">{{parrain.groupe}}</span>
                                 </a>
                                 <span class="product-description">
-                                  Manageur / Bamiléké
+                                  {{parrain.poste}} / {{parrain.palier}}
                                 </span>
                               </div>
                               {% elif request.user.nom_du_parent is None %}
@@ -433,7 +434,7 @@ active
                                   {% if solde != 0 %}
                                   <span class="badge badge-primary mt-3" style="font-size:14px;">Solde = {{solde}} FCFA</span>
                                   {% elif solde == 0 %}
-                                  <span class="badge badge-danger mt-3" style="font-size:14px;">Solde = {{solde}} FCFA</span>
+                                  <span class="badge badge-secondary mt-3" style="font-size:14px;">Solde = {{solde}} FCFA</span>
                                   {% endif %}
                                 </span>
                               </div>
@@ -453,15 +454,31 @@ active
                           </tr>
                           </thead>
                           <tbody>
-                              {% include "affiliation/mon_espace/listpayement.html "%}
+                            {% for payement in payements %}
+                            <tr>
+                                <td>
+                                    {% if payement.etat == False%}
+                                    <button class="btn btn-sm btn-warning show-form-update float-right" data-url="{% url 'validerpayement' payement.id %}">
+                                        <i class="fa fa-eye" aria-hidden="true"></i> Recevoir
+                                    </button>
+                                    {% else %}
+                                    <button disabled class="btn btn-sm btn-warning show-form-update float-right" data-url="{% url 'validerpayement' payement.id %}">
+                                        <i class="fa fa-check" aria-hidden="true"></i> &nbsp;Deja recu
+                                    </button>
+                                    {% endif %}
+                                    <strong><a ><i class="fas fa-money-check mr-1"></i> {{payement.libelle}}</a></strong>
+                                    <br><small class="ml-4" style="font-style:italic"><b style="text-decoration:underline">{{payement.montant}} FCFA</b></small>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="1" class="text-center" style="font-weight:bold;font-size:15px">Vous n'avez reçu aucun payement pour le moment
+                                    <br><small class="">La liste de tous vos payement s'affiche ici !</small>
+                                </td>
+                            </tr>
+                            {% endfor %}
                           </tbody>
                       </table>
-                      <!-- Popup ajouter nouvelle projet -->
-                      <div class="modal fade" id="modal-payement">
-                          <div class="modal-dialog">
-                              <div class="modal-content"></div>
-                          </div>
-                      </div>
                     </div>
                   </div>
                   {% elif request.user.groupe is None %}
@@ -479,7 +496,6 @@ active
                                 </a>
                               </div>
                             </li>
-                            <!-- /.item -->
                           </ul>
                         </div>
                       </div>
@@ -487,15 +503,17 @@ active
                   {% endif %}
                 </div>
               </div>
+
             </div>
           </div>
+
           <div class="col-md-3">
             <div class="card card-success">
               <div class="card-header">
                 {% if request.user.groupe is None %}
                     <h3 class="card-title"><small><b>Membres d'aucun groupe</b></small></h3>
                 {% elif request.user.groupe is not None %}
-                <h3 class="card-title"><small><b>Membres du &nbsp;<span style="font-size:13px" class="badge badge-dark">{{request.user.groupe}}</span></b></small></h3>
+                <h3 class="card-title"><small><b>Membres du &nbsp;groupe <span style="font-size:13px" class="badge badge-dark">{{request.user.groupe}}</span></b></small></h3>
                 {% endif %}
               </div>
               <div class="card-body">
@@ -513,26 +531,12 @@ active
                     <strong><a href="#"><i class="fas fa-user mr-1"></i> {{request.user}}</a></strong>
                     <p class="text-muted"><i class="mr-1"></i> {{request.user.poste}} / {{request.user.palier}}</p>
 
-                    {% if bam %}
-                      <a href="{% url 'voir_membre_palier_id' bam.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{bam}}
-                      </a>
-                    {% endif %}<br>
-                    {% if zou %}
-                      <a href="{% url 'voir_membre_palier_id' zou.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{zou}}
-                      </a>
-                    {% endif %}<br>
-                    {% if maya %}
-                      <a href="{% url 'voir_membre_palier_id' maya.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{maya}}
-                      </a>
-                    {% endif %}<br>
-                    {% if mand %}
-                      <a href="{% url 'voir_membre_palier_id' mand.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{mand}}
-                      </a>
-                    {% endif %}
+
+                    <hr>
+                    <a href="{% url 'voirmongroupe' %}" style="cursor:pointer;color:white;font-size:15px;" class="btn btn-success btn-block">
+                      <b>Mon Groupe &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
+                    </a>
+
                 {% elif groupe is None %}
                     <strong><i class="fas fa-users mr-1"></i> Pas de groupe</strong>
                     <p class="text-muted text-center"><i>Pas de membres à afficher</i></p>
@@ -549,9 +553,6 @@ active
 {% endblock %}
 
 {% block javascript %}
-<!-- my js for ajax -->
-<script src="{%static 'affiliation/js/modalpayement.js' %}"></script>
-<!-- DataTables -->
 <script src="{%static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{%static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
 

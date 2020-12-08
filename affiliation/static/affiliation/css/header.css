@@ -21,7 +21,7 @@ nav:after {
 
 nav .logo {
     float: left;
-    color: white;
+    color: red;
     font-size: 27px;
     font-weight: 600;
     line-height: 70px;
@@ -85,7 +85,7 @@ nav ul li:hover > ul {
 nav ul ul li {
     position: relative;
     margin: 0px;
-    width: 200px;
+    width: 270px;
     float: none;
     display: list-item;
     border-bottom: 1px solid rgba(0,0,0,0, .3)
@@ -98,11 +98,11 @@ nav ul ul li a {
 nav ul ul ul li {
     position: relative;
     top: -70px;
-    left: 200px;
+    left: 270px;
 }
 
 .fa-chevron-right {
-    margin-left: 10px;
+    margin-left: 80px;
     font-size: 15px;
 }
 

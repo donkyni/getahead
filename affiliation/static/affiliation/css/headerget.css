@@ -71,8 +71,8 @@
     text-decoration: underline;
 }
 
-.logina:hover {
-    background: #123;
+.container .headerinfo .box a .logina:hover {
+    background: red;
 }
 
 .headerform {
@@ -81,10 +81,11 @@
     background: #fff;
 }
 
-.headerform h2 {
-    font-size: 25px;
-    color: #333;
-    font-weight: 500;
+.container #inscription_wara form h3 {
+    text-align:center;
+    text-transform:uppercase;
+    font-size:21px;
+    color:#123;
 }
 
 .headerform .inputbox {
@@ -142,7 +143,7 @@
 
 @media (max-width:991px) {
     .header {
-        padding: 50px;
+        padding: 20px;
     }
     .container {
         flex-direction: column;
@@ -150,7 +151,21 @@
     .container .headerinfo {
         margin-bottom: 40px;
     }
+    .container .headerinfo .box .text h3 {
+        font-weight: 700;
+        color: #123;
+        line-height: 25px;
+        font-size: 15px
+    }
     .container .headerinfo, .headerform {
         width: 100%;
+    }
+    .container #inscription_wara form h3 {
+        text-align:center;
+        text-transform:uppercase;
+        font-size:15px;
+        color: #333;
+        line-height: 25px;
+        font-weight: 700;
     }
 }

@@ -50,11 +50,14 @@ active
               <br>
               <thead>
                   <tr>
-                      <th style="width: 20%;font-size:14px">
+                      <th style="width: 15%;font-size:14px">
                           Nom
                       </th>
-                      <th style="width: 5%">
-                          Points
+                      <th style="width: 10%;font-size:15px">
+                          Points <small>/ <span class="badge badge-secondary"> réel</span></small>
+                      </th>
+                      <th style="width: 12%;font-size:15px">
+                          Points <small>/ <span class="badge badge-secondary"> palier</span></small>
                       </th>
                       <th style="width: 10%;font-size:14px">
                           Groupe
@@ -65,16 +68,86 @@ active
                       <th style="width: 10%;font-size:14px">
                           Pays
                       </th>
-                      <th style="width: 15%;font-size:14px">
+                      <th style="width: 12%;font-size:14px">
                           Progression
                       </th>
-                      <th style="width: 15%;font-size:14px">
+                      <th style="font-size:14px">
                           Sexe
+                      </th>
+                      <th style="width: 10%;font-size:14px">
+                          Actions
                       </th>
                   </tr>
               </thead>
               <tbody>
-                {% include "affiliation/donnee_base/liste_adherent/liste_total_adherent.html" %}
+                {% for utilisateur in utilisateurs %}
+                 <tr>
+                  <td>
+                      <a href="{% url 'voirplus' utilisateur.id %}" class="btn btn-sm btn-primary text-light" style="font-weight:700">
+                          <i class="fa fa-user" aria-hidden="true"></i> {{utilisateur}}
+                      </a>
+                      <br>
+                      {% if utilisateur.nom_du_parent is None %}
+                        <small><i>Parrain : <span class="badge badge-info">Aucun</span></i></small>
+                      {% elif utilisateur.nom_du_parent is not None %}
+                        <small><i>Parrain : <span class="badge badge-success">{{ utilisateur.nom_du_parent }}</span></i></small>
+                      {% endif %}
+                  </td>
+                  <td>
+                      <b class="badge badge-info" style="font-size:14px;"><i>{{utilisateur.point|add:utilisateur.stock_point}}</i></b>
+                  </td>
+                  <td>
+                      {% if utilisateur.poste.nom_du_poste == "Invité" %}
+                      <b class="badge badge-secondary">{{ utilisateur.point_fictive_inv }}</b>
+                      {% elif utilisateur.poste.nom_du_poste == "Colibri" %}
+                      <b class="badge badge-secondary">{{ utilisateur.point_fictive_col }}</b>
+                      {% elif utilisateur.poste.nom_du_poste == "Manageur" %}
+                      <b class="badge badge-secondary">{{ utilisateur.point_fictive_manag }}</b>
+                      {% elif utilisateur.poste is None %}
+                      <small class="badge badge-secondary">Aucun</small>
+                      {% endif %}
+                  </td>
+                  <td>
+                      {% if utilisateur.groupe is not None%}
+                      <b class="badge badge-warning" style="font-size:14px;"><i>{{utilisateur.groupe}}</i></b>
+                      <small class="badge badge-secondary">Manageur : {{utilisateur.groupe.manageur_du_groupe}}</small>
+                      {% elif utilisateur.groupe is None %}
+                      <small class="badge badge-secondary">Aucun</small>
+                      {% endif %}
+                  </td>
+                  <td>
+                      <b style="font-size:14px;">{{utilisateur.telephone}}</b><br>
+                      <small class="badge badge-secondary"><i>{{utilisateur.adresse}}</i></small>
+                  </td>
+                  <td>
+                      <b style="font-size:14px;">{{utilisateur.pays_de_residence.pays}}</b>
+                  </td>
+                  <td>
+                      {% if utilisateur.palier is not None %}
+                      <b style="font-size:14px;">{{utilisateur.poste}}</b><br>
+                      <small class="badge badge-secondary"><i>{{utilisateur.palier}}</i></small>
+                      {% elif utilisateur.palier is None %}
+                      <small class="badge badge-secondary"><i>Aucune</i></small>
+                      {% endif %}
+                  </td>
+                  <td class="project-actions">
+                      <b style="font-size:14px;">{{utilisateur.sexe}}</b>
+                  </td>
+                  <td class="">
+                      <a href="{% url 'listeupdateuser' utilisateur.id %}" class="btn btn-info btn-sm show-form-update">
+                          <i class="fas fa-pencil-alt"></i>
+                      </a>
+                      <a class="btn btn-danger btn-sm show-form-delete" href="{% url 'listesuppruser' utilisateur.id %}">
+                          <i class="fas fa-trash"></i>
+                      </a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun utilisateur n'est disponible</td>
+                </tr>
+                {% endfor %}
+
               </tbody>
           </table>
             <!-- Popup ajouter nouvelle personne -->

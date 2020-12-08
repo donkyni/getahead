@@ -9,9 +9,9 @@
 	<!-- Theme style
   	<link rel="stylesheet" href="{% static 'affiliation/dist/css/adminlte.min.css' %}">-->
   	<link rel="stylesheet" href="{% static 'affiliation/css/header.css' %}">
-  	<link rel="stylesheet" href="{% static 'affiliation/css/headerget.css' %}">
   	<link rel="stylesheet" href="{% static 'affiliation/css/footer.css' %}">
-  	<!-- Font Awesome -->
+	<link rel="stylesheet" href="{% static 'affiliation/css/styles.css' %}">
+	<!-- Font Awesome -->
   	<link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %}">
 	<title>Page d'acceuil de GET AHEAD</title>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
 		</label>
 		<input type="checkbox" id="btn">
 		<ul>
-			<li><a href="javascript:void(0)">Acceuil</a></li>
+			<li><a href="{% url 'acceuil' %}">Acceuil</a></li>
 			<li>
 				<label for="btn-1" class="show">Présentation +</label>
 				<a href="javascript:void(0)">Présentation</a>
@@ -44,7 +44,7 @@
 				<a href="javascript:void(0)">WARA</a>
 				<input type="checkbox" id="btn-2">
 				<ul>
-					<li><a href="#inscription_wara">Inscription</a></li>
+					<li><a href="{% url 'acceuil' %}#inscription_wara">Inscription</a></li>
 					<li>
 						<label for="btn-3" class="show">Programme Wara +</label>
 						<a href="{% url 'programme_wara' %}">Programme Wara
@@ -65,7 +65,7 @@
 				<input type="checkbox" id="btn-4">
 				<ul>
 					<li><a href="{% url 'presentation_get_ahead' %}">Présentation</a></li>
-					<li><a href="#connexion">Connexion</a></li>
+					<li><a href="{% url 'login' %}">Connexion</a></li>
 				</ul>
 			</li>
 			<li><a href="javascript:void(0)">Actualités</a></li>
@@ -73,97 +73,72 @@
 		</ul>
 	</nav>
 
-	<section class="header" style="background: url('{% static 'affiliation/img/header6.jpeg' %}');background-size: cover;">
-		<div class="content">
-			<h2>GET AHEAD</h2>
-			<br>
-			<p>
-				<span style="font-weight:700;">« Vous êtes des êtres divins, votre potentiel est illimité, <br>votre avenir est magnifique si vous le prenez en main. »</span>
-				<br>
-				<span style="font-style:italic">Gordon B. Hinckley</span>
+	<section>
+		<div class="blog-post">
+		<div class="blog-post__img">
+			<img src="{% static 'affiliation/img/jgk-ga.png' %}" alt="">
+		</div>
+		<div class="blog-post__info">
+
+			<h1 class="blog-post__title">PRESENTATION DE GET AHEAD</h1>
+			<p class="blog-post__text" style="line-height: 30px; text-align:justify">
+				Le programme <span style="font-weight:700;">GET AHEAD</span> est une initiative réservée exclusivement aux entrepreneurs et aspirants
+				entrepreneurs et à toute personnes qui participent à la formation <span style="font-weight:700;">WARA</span> (Formation en ligne en
+				entrepreneuriat et élaboration de plan d’affaires offerte par le <span style="font-weight:700;">Cabinet JGK-EC</span>).
+                GET AHEAD est basé sur le principe du donner et du recevoir.
+                <br><br>
+				Ce programme vous permet de mobiliser des ressources financières jusqu’à hauteur de <span style="font-weight:700;">1 237 000 F CFA</span>
+                (renouvelable) pour la création ou le développement de votre entreprise ou pour tout autre projet.
+                <br>
+				<span style="line-height:50px; color: red;font-weight:700; text-transform:uppercase" >NB : ce n’est pas un prêt.</span>
+				<br><br>
 			</p>
+
+			<!-- <a href="" class="blog-post__cta">Voir plus</a> -->
+			<hr>
+
+			<span style="line-height:27px;font-size:15px;text-align:center;">
+				<span style="font-weight:700;text-align:center;">« Vous êtes des êtres divins, votre potentiel est illimité, <br>votre avenir est magnifique si vous le prenez en main. »</span>
+				<br>
+				<span style="text-align:center;font-style:italic">Gordon B. Hinckley</span>
+			</span>
 		</div>
-		<div class="container">
-			<div id="connexion" class="headerinfo">
-				<div class="box">
-					<div class="text">
-						<h3 style="text-align: center;text-transform:uppercase;">Connectez-vous à votre compte <span style="background: #777;border-radius:5px;padding:3px">GET AHEAD</span></h3>
-						<br><br>
-						<p style="color:black;margin:130px 0; text-align:center">
-							Vous êtes membre GET AHEAD <a class="wara" href="{% url 'login' %}" style="text-decoration:none; color:red">connectez vous</a>
-							<br>Sinon passez à <a style="text-decoration:none" href="#inscription_wara"><span class="wara" style="font-style:italic; color:red">l'inscription WARA <i class="fa fa-arrow-right"></i></span></a>
-						</p>
-						<br>
-					</div>
-					<a class="logina" style="margin-top:50px;text-align: center;text-decoration:none; width:100%;background:#123;color:#fff;border:none;cursor:pointer;padding:10px;font-size:18px;" href="{% url 'login' %}">
-						CONNEXION MEMBRE
-					</a>
-				</div>
-			</div>
-			<div id="inscription_wara" class="headerform">
-				<form method="post">
-					{% csrf_token %}
-					<h3 style="">Inscription au programme <span style="background: #777;border-radius:5px;padding:3px">WARA</span></h3>
-					<div class="inputbox">
-						<label>Nom</label>
-						{{ w_form.nom }}
-					</div>
-					<div class="inputbox">
-						<label>Prenom</label>
-						{{ w_form.prenom }}
-					</div>
-					<div class="inputbox">
-						<label>Téléphone</label>
-						{{ w_form.telephone }}
-					</div>
-					<div class="inputbox">
-						<label>Email</label>
-						{{ w_form.email }}
-					</div>
-					<div class="inputbox">
-						<label>Parrain</label>
-						{{ w_form.parrain }}
-					</div>
-					<div class="inputbox">
-						<button>Send</button>
-					</div>
-				</form>
-			</div>
-		</div>
+	</div>
 	</section>
+
 	<footer>
 		<div class="main-content">
 			<div class="center box">
-				<h2>Adresse</h2>
+				<h2 style="font-size:15px;">Adresse</h2>
 				<div class="contentfoo">
 					<div class="place">
 						<span class="fa fa-map-marker-alt"></span>
-						<span class="text">317, Rue de la Liberté, Agbalepedo Lomé – Togo</span>
+						<span class="text" style="font-size:15px;">317, Rue de la Liberté, Agbalepedo Lomé – Togo</span>
 					</div>
 					<div class="phone">
 						<span class="fa fa-phone-alt"></span>
-						<span class="text">+ 228 22 25 39 87</span>
+						<span class="text" style="font-size:15px;">+ 228 22 25 39 87</span>
 					</div>
 					<div class="email">
 						<span class="fa fa-envelope"></span>
-						<span class="text">jgkec@yahoo.fr</span>
+						<span class="text" style="font-size:15px;">jgkec@yahoo.fr</span>
 					</div>
 				</div>
 			</div>
 			<div class="right box">
-				<h2>Contacter nous</h2>
+				<h2 style="font-size:15px;">Contacter nous</h2>
 				<div class="contentfoo">
 					<form class="form">
 						<div class="email">
-							<div class="text">Email *</div>
-							<input style="color:#FFF;" type="email" required id="emailfoo">
+							<div class="text" style="font-size:15px;">Email *</div>
+							<input type="email" required id="emailfoo">
 						</div>
 						<div class="msg">
-							<div class="text">Message *</div>
-							<textarea style="color:#FFF;" name="" id="msgfoo" cols="25" rows="2" required></textarea>
+							<div class="text" style="font-size:15px;">Message *</div>
+							<textarea name="" id="msgfoo" cols="25" rows="2" required></textarea>
 						</div>
 						<div class="btn-submit">
-							<button style="color:#FFF;" type="submit" class="btn-send">Envoyer</button>
+							<button type="submit" class="btn-send" style="font-size:15px;">Envoyer</button>
 						</div>
 					</form>
 				</div>
@@ -171,8 +146,8 @@
 		</div>
 		<div class="bottom">
 			<center>
-				<span class="credit">Created by <a href="javascript:void(0)">JGK-EC</a> | </span>
-				<span class="far fa-copyright"></span><span> 2020 All rights reserved</span>
+				<span class="credit" style="font-size:15px;">Created by <a href="javascript:void(0)">JGK-EC</a> | </span>
+				<span class="far fa-copyright"></span><span style="font-size:15px;"> 2020 All rights reserved</span>
 			</center>
 		</div>
 	</footer>

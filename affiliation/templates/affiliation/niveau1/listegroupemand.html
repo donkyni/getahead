@@ -1,5 +1,6 @@
 {% load static %}
 {% for manageur_mand in manageurs_mand %}
+{% if manageur_mand.nb_pers_amene >= 2 %}
  <tr>
   <td>
       <b class="badge badge-secondary">{{ manageur_mand.id }}</b>
@@ -20,6 +21,28 @@
       <b class="badge badge-primary" style="font-size:14px;">{{manageur_mand.groupe}}</b>
   </td>
 </tr>
+{% else %}
+<tr>
+  <td>
+      <b class="badge badge-danger">{{ manageur_mand.id }}</b>
+  </td>
+  <td>
+
+      <button class="btn btn-sm btn-danger">
+        <i class="fa fa-user" aria-hidden="true"></i> {{manageur_mand}}
+      </button>
+      <br>
+      <small>
+          <i>Manageur non reconnu</i>
+          <br>
+          <i>Trouvez votre deuxième pied</i>
+      </small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-danger" style="font-size:14px;">{{manageur_mand.groupe}}</b>
+  </td>
+</tr>
+{% endif %}
 {% empty %}
 <tr>
     <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun manageur n'est disponible pour le moment</td>

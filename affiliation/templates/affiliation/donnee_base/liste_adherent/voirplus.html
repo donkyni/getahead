@@ -82,17 +82,31 @@ active
                 <a style="color:white;font-size:15px;" class="btn btn-success btn-block"><b><small><i>Est membre depuis </i></small> {{membre.date_d_ajout|date:"Y"}}</b></a>
               </div>
             </div>
-            <br>
-            <a href="{% url 'liste' %}" style="color:#fff;" class="btn btn-block btn-dark">
-                <small style="font-weight:600" class="">Retour&nbsp;</small>
-                <small>
-                  <i style="font-weight:600;" class="fas fa-angle-right mt-1"></i>
-                </small>
-              <b>&nbsp;Liste total des membres</b>
-            </a>
-            <br>
+
+            {% if request.user and request.user.profil.nom == "Administrateur" %}
+              <br>
+              <a href="{% url 'liste' %}" style="color:#fff;" class="btn btn-block btn-dark">
+                  <small style="font-weight:600" class="">Retour&nbsp;</small>
+                  <small>
+                    <i style="font-weight:600;" class="fas fa-angle-right mt-1"></i>
+                  </small>
+                <b>&nbsp;Liste total des membres</b>
+              </a>
+              <br>
+            {% else %}
+              <br>
+              <a href="{% url 'voirmongroupe' %}" style="color:#fff;" class="btn btn-block btn-dark">
+                  <small style="font-weight:600" class="">Retour&nbsp;</small>
+                  <small>
+                    <i style="font-weight:600;" class="fas fa-angle-right mt-1"></i>
+                  </small>
+                <b>&nbsp;Voir mon groupe</b>
+              </a>
+              <br>
+            {% endif %}
 
           </div>
+
           <div class="col-md-6">
             <div class="card card-success card-outline">
               <div class="card-header p-2">
@@ -229,7 +243,11 @@ active
                             <li class="item">
                               {% if membre.nom_du_parent is not None %}
                               <div class="product-img">
-                                <img src="{% static 'affiliation/dist/img/default-150x150.png' %}" alt="Product Image" class="img-size-50">
+                                {% if request.user.avatar %}
+                                  <img src="{{ request.user.avatar.url }}" alt="Product Image" class="img-circle elevation-2">
+                                {% else %}
+                                  <img src="{% static 'affiliation/img/user_default.png' %}" alt="User default" class="img-circle elevation-2">
+                                {% endif %}
                               </div>
                               <div class="product-info">
                                 <a href="javascript:void(0)" class="product-title">{{parrain}}
@@ -463,7 +481,29 @@ active
                           </tr>
                           </thead>
                           <tbody>
-                              {% include "affiliation/mon_espace/listpayement.html "%}
+                            {% for payement in payements %}
+                              <tr>
+                                  <td>
+                                      {% if payement.etat == False%}
+                                      <button class="btn btn-sm btn-warning show-form-update float-right" data-url="{% url 'validerpayement' payement.id %}">
+                                          <i class="fa fa-eye" aria-hidden="true"></i> Recevoir
+                                      </button>
+                                      {% else %}
+                                      <button disabled class="btn btn-sm btn-warning show-form-update float-right" data-url="{% url 'validerpayement' payement.id %}">
+                                          <i class="fa fa-check" aria-hidden="true"></i> &nbsp;Deja recu
+                                      </button>
+                                      {% endif %}
+                                      <strong><a ><i class="fas fa-money-check mr-1"></i> {{payement.libelle}}</a></strong>
+                                      <br><small class="ml-4" style="font-style:italic"><b style="text-decoration:underline">{{payement.montant}} FCFA</b></small>
+                                  </td>
+                              </tr>
+                              {% empty %}
+                              <tr>
+                                  <td colspan="1" class="text-center" style="font-weight:bold;font-size:15px">Vous n'avez reçu aucun payement pour le moment
+                                      <br><small class="">La liste de tous vos payement s'affiche ici !</small>
+                                  </td>
+                              </tr>
+                            {% endfor %}
                           </tbody>
                       </table>
                       <!-- Popup ajouter nouvelle projet -->
@@ -510,39 +550,36 @@ active
               </div>
               <div class="card-body">
                 {% if membre.groupe is not None %}
-                    <p class="text-muted">
-                      Leader du groupe
-                    </p>
-                    <p class="text-center">
-                      <a href="javascript:void(0)">
-                        <span class="badge badge-secondary"><i class="fas fa-user mr-1"></i> <i>{{membre.groupe.manageur_du_groupe}}</i>  </span>
-                      </a>
-                    </p>
-                    <hr style="color:green">
+                  <p class="text-muted">
+                    Leader du groupe
+                  </p>
+                  <p class="text-center">
+                    <a href="javascript:void(0)">
+                      <span class="badge badge-secondary"><i class="fas fa-user mr-1"></i> <i>{{membre.groupe.manageur_du_groupe}}</i>  </span>
+                    </a>
+                  </p>
+                  <hr style="color:green">
 
-                    <strong><a href="#"><i class="fas fa-user mr-1"></i> {{membre}}</a></strong>
-                    <p class="text-muted"><i class="mr-1"></i> {{membre.poste}} / {{membre.palier}}</p>
+                  <strong><a href="#"><i class="fas fa-user mr-1"></i> {{membre}}</a></strong>
+                  <p class="text-muted"><i class="mr-1"></i> {{membre.poste}} / {{membre.palier}}</p>
 
-                    {% if bam %}
-                      <a href="{% url 'voir_membre_palier_id' bam.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{bam}}
-                      </a>
-                    {% endif %}<br>
-                    {% if zou %}
-                      <a href="{% url 'voir_membre_palier_id' zou.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{zou}}
-                      </a>
-                    {% endif %}<br>
-                    {% if maya %}
-                      <a href="{% url 'voir_membre_palier_id' maya.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{maya}}
-                      </a>
-                    {% endif %}<br>
-                    {% if mand %}
-                      <a href="{% url 'voir_membre_palier_id' mand.id %}" class="btn btn-sm btn-ouline-dark">
-                        {{mand}}
-                      </a>
-                    {% endif %}
+                  {% if request.user and request.user.profil.nom == "Administrateur" %}
+                    <hr>
+                    <a href="javascript:void(0)" style="cursor:pointer;color:white;font-size:15px;" class="btn btn-success btn-block">
+                      <b>{{membre.groupe}}</b>
+                    </a>
+                  {% else %}
+                    <br>
+                    <a href="{% url 'voirmongroupe' %}" style="color:#fff;" class="btn btn-block btn-dark">
+                        <small style="font-weight:600" class="">Retour&nbsp;</small>
+                        <small>
+                          <i style="font-weight:600;" class="fas fa-angle-right mt-1"></i>
+                        </small>
+                      <b>&nbsp;Voir mon groupe</b>
+                    </a>
+                    <br>
+                  {% endif %}
+
                 {% elif groupe is None %}
                     <strong><i class="fas fa-users mr-1"></i> Pas de groupe</strong>
                     <p class="text-muted text-center"><i>Pas de membres à afficher</i></p>

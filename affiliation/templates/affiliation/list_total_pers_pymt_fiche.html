@@ -1,0 +1,106 @@
+{% load static %}
+{% for mand in total_pers_mand %}
+{% if mand.nb_pers_amene >= 2 %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ mand.stock_point }}</b>
+  </td>
+  <td>
+
+      <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+        <i class="fa fa-user" aria-hidden="true"></i> {{mand}}
+      </button>
+      <br>
+      <small>
+          <i>Cliquez pour lui remmettre son Don</i>
+          <br>
+          <i>Il a finit tous les paliers, il a droit à 1237000 FCA</i>
+      </small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-primary" style="font-size:14px;">{{mand.groupe}}</b>
+  </td>
+</tr>
+{% endif %}
+{% endfor %}
+
+{% for maya in total_pers_maya %}
+{% if maya.nb_pers_amene >= 2 %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ maya.stock_point }}</b>
+  </td>
+  <td>
+
+      <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+        <i class="fa fa-user" aria-hidden="true"></i> {{maya}}
+      </button>
+      <br>
+      <small>
+          <i>Cliquez pour lui remmettre son payement</i>
+          <br>
+          <i>S'il continue, il a droit à 9000 FCA</i>
+          <br>
+          <i>S'il quitte le programme, il a droit à 80000 FCA</i>
+      </small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-primary" style="font-size:14px;">{{maya.groupe}}</b>
+  </td>
+</tr>
+{% endif %}
+{% endfor %}
+
+{% for zou in total_pers_zou %}
+{% if zou.nb_pers_amene >= 2 %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ zou.stock_point }}</b>
+  </td>
+  <td>
+
+      <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+        <i class="fa fa-user" aria-hidden="true"></i> {{zou}}
+      </button>
+      <br>
+      <small>
+          <i>Cliquez pour lui remmettre son payement</i>
+          <br>
+          <i>S'il continue, il a droit à 6300 FCA</i>
+          <br>
+          <i>S'il quitte le programme, il a droit à 20000 FCA</i>
+      </small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-primary" style="font-size:14px;">{{zou.groupe}}</b>
+  </td>
+</tr>
+{% endif %}
+{% endfor %}
+
+{% for manageur_bam in manageurs_bam %}
+{% if manageur_bam.nb_pers_amene >= 2 %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ manageur_bam.stock_point }}</b>
+  </td>
+  <td>
+
+      <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+        <i class="fa fa-user" aria-hidden="true"></i> {{manageur_bam}}
+      </button>
+      <br>
+      <small>
+          <i>Cliquez pour lui remmettre son payement</i>
+          <br>
+          <i>S'il continue, il a droit à 6300 FCA</i>
+          <br>
+          <i>S'il quitte le programme, il a droit à 20000 FCA</i>
+      </small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-primary" style="font-size:14px;">{{manageur_bam.groupe}}</b>
+  </td>
+</tr>
+{% endif %}
+{% endfor %}

@@ -19,11 +19,14 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
-from affiliation.views import acceuil
+from affiliation.views import acceuil, cabinet, presentation, programme
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', acceuil, name="acceuil"),
+    path('cabinet_jgk-ec/', cabinet, name="cabinet_jgk-ec"),
+    path('presentation_get_ahead/', presentation, name="presentation_get_ahead"),
+    path('programme_wara/', programme, name="programme_wara"),
 
     # url concernant la connexion
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),

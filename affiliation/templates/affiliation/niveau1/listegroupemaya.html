@@ -1,5 +1,6 @@
 {% load static %}
 {% for manageur_maya in manageurs_maya %}
+{% if manageur_maya.nb_pers_amene >= 2 %}
  <tr>
   <td>
       <b class="badge badge-secondary">{{ manageur_maya.id }}</b>
@@ -13,7 +14,7 @@
       <small>
           <i>Cliquez pour lui remmettre son payement</i>
           <br>
-          <i>S'il continue, il a droit à 20000 FCA</i>
+          <i>S'il continue, il a droit à 18000 FCA</i>
           <br>
           <i>S'il quitte le programme, il a droit à 320000 FCA</i>
       </small>
@@ -22,6 +23,28 @@
       <b class="badge badge-primary" style="font-size:14px;">{{manageur_maya.groupe}}</b>
   </td>
 </tr>
+{% else %}
+<tr>
+  <td>
+      <b class="badge badge-danger">{{ manageur_maya.id }}</b>
+  </td>
+  <td>
+
+      <button class="btn btn-sm btn-danger">
+        <i class="fa fa-user" aria-hidden="true"></i> {{manageur_maya}}
+      </button>
+      <br>
+      <small>
+          <i>Manageur non reconnu</i>
+          <br>
+          <i>Trouvez votre deuxième pied</i>
+      </small>
+  </td>
+  <td class="text-right">
+      <b class="badge badge-danger" style="font-size:14px;">{{manageur_maya.groupe}}</b>
+  </td>
+</tr>
+{% endif %}
 {% empty %}
 <tr>
     <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun manageur n'est disponible pour le moment</td>

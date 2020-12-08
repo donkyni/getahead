@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block head-title %}Modification de compte{% endblock %}
+
+{% block menu-espace %}
+active
+{% endblock %}
+
+{% block active-espace-compte %}
+active
+{% endblock %}
+
+{% block position %}
+    Modification de compte
+{% endblock %}
+
+{% block chemin %}
+    Mon espace / Modification de {{utilisateur}}
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                    {% if updateuser.avatar %}
+                      <img style="height:100px;width:100px;" src="{{updateuser.avatar.url}}" class="profile-user-img img-fluid img-circle" alt="User picture">
+                    {% else %}
+                      {% if updateuser.sexe == "Homme" %}
+                        <img style="height:100px;width:100px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="profile-user-img img-fluid img-circle" alt="User picture"/>
+                      {% elif updateuser.sexe == "Femme" %}
+                        <img style="height:100px;width:100px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="profile-user-img img-fluid img-circle" alt="User picture"/>
+                      {% endif %}
+                    {% endif %}
+                </div>
+
+                <h3 class="profile-username text-center">{{request.user}}</h3>
+                <div class="text-center">
+                  {% if updateuser.poste.nom_du_poste == "Invité" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-danger">{{updateuser.poste.nom_du_poste}}</p>
+                  {% elif updateuser.poste.nom_du_poste == "Colibri" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-primary">{{updateuser.poste.nom_du_poste}}</p>
+                  {% elif updateuser.poste.nom_du_poste == "Manageur" %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-success">{{updateuser.poste.nom_du_poste}}</p>
+                  {% else %}
+                    <p style="font-weight:bold;font-size:14px" class="badge badge-secondary">Aucun poste</p>
+                {% endif %}
+                </div>
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li style="text-align:center;" class="list-group-item">
+                    <small style="font-weight:bold;font-size:16px"><span class="badge bg-secondary">Palier</span></small>
+                    {% if updateuser.palier is None%}
+                      <p>Aucun palier</p>
+                    {% else %}
+                      <p>{{updateuser.palier}}</p>
+                    {% endif %}
+                  </li>
+                  <li style="text-align:center;" class="list-group-item">
+                    <small style="font-weight:bold;font-size:16px"><span class="badge bg-secondary">Niveau</span></small>
+                    {% if updateuser.palier.niveau is None%}
+                      <p>Aucun niveau</p>
+                    {% else %}
+                      <p>{{updateuser.palier.niveau}}</p>
+                    {% endif %}
+                  </li>
+                </ul>
+
+                <a style="color:white;font-size:15px;" class="btn btn-primary btn-block"><b><small><i>Est membre depuis </i></small> {{updateuser.date_d_ajout|date:"Y"}}</b></a>
+              </div>
+            </div>
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">A propos de moi</h3>
+              </div>
+              <div class="card-body">
+                <strong><i class="far fa-user mr-1"></i> Genre</strong>
+
+                {% if updateuser.sexe is None %}
+                    <p class="text-muted">Non précisé</p>
+                {% elif updateuser.sexe is not None %}
+                    <p class="text-muted">{{updateuser.sexe}}</p>
+                {% endif %}
+                <hr>
+
+                <strong><i class="far fa-user mr-1"></i> Année de naissance</strong>
+
+                {% if updateuser.annee_de_naissance is None %}
+                    <p class="text-muted">Non précisé</p>
+                {% elif updateuser.annee_de_naissance is not None %}
+                    <p class="text-muted">{{updateuser.annee_de_naissance|date:"F Y"}}</p>
+                {% endif %}
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Contact</strong>
+
+                {% if updateuser.telephone is None %}
+                    <p class="text-muted">Non précisé</p>
+                {% elif updateuser.telephone is not None %}
+                    <p class="text-muted">{{updateuser.telephone}}</p>
+                {% endif %}
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse</strong>
+
+                {% if updateuser.adresse is None %}
+                    <p class="text-muted">Non précisé</p>
+                {% elif updateuser.adresse is not None %}
+                    <p class="text-muted">{{updateuser.adresse}}</p>
+                {% endif %}
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Pays de résidence</strong>
+
+                {% if updateuser.pays_de_residence is None %}
+                  <p class="text-muted">
+                    <span class="tag tag-danger">Non précisé</span>
+
+                  </p>
+                {% elif updateuser.pays_de_residence is not None %}
+                    <p class="text-muted">
+                      <span class="tag tag-danger">{{updateuser.pays_de_residence}} / {{updateuser.pays_de_residence.pays}}</span>
+                    </p>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Paramètres</a></li>
+                  &nbsp;&nbsp;
+                    <li class="float-right"><a class="float-right" style="background:#123;color:#fff;padding:8px;border-radius:5px" href="{% url 'liste' %}">Retour sur liste des adhérents</a></li>
+                    <li><a style="background:rgba(255, 0, 0, .7);color:#fff;padding:8px;border-radius:5px;margin-left:410px" class="float-right" href="{% url 'change_password' updateuser.id %}">Mot de passe oublié</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="settings">
+                    {% load crispy_forms_tags %}
+                    <form class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        {{ form.nom_d_utilisateur|as_crispy_field }}
+                      </div>
+                      {{ form.nom|as_crispy_field }}
+                      {{ form.prenom|as_crispy_field }}
+                      {{ form.adresse|as_crispy_field }}
+                      {{ form.pays_de_residence|as_crispy_field }}
+                      {{ form.telephone|as_crispy_field }}
+                      {{ form.avatar|as_crispy_field }}
+                      {{ form.annee_de_naissance|as_crispy_field }}
+                      {{ form.sexe|as_crispy_field }}
+                      <hr>
+                      <div class="social-auth-links text-center mb-3">
+                        <input class="btn btn-block btn-primary" type="submit" value="Modifier les informations de ce compte">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

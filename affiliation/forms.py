@@ -12,7 +12,7 @@ class TimeInput(forms.TimeInput):
 
 
 class UserCreationForm(forms.ModelForm):
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -111,7 +111,7 @@ class PayementFormUser(forms.ModelForm):
 class WaraForm(forms.ModelForm):
     class Meta:
         model = Wara
-        fields = ('nom', 'prenom', 'telephone', 'email')
+        fields = ('nom', 'prenom', 'telephone', 'email', 'parrain')
 
 
 class MessageForm(forms.ModelForm):

@@ -1,5 +1,13 @@
+# augmenter le nombre de caractere du champs telephone
+# ajouter l'id au niveau de liste total adherent
+
 import datetime
 from random import shuffle
+
+
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
@@ -8,7 +16,8 @@ from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
     UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
+    Wara
 
 
 def acceuil(request):
@@ -34,6 +43,18 @@ def acceuil(request):
     }
 
     return render(request, 'acceuil.html', locals())
+
+
+def cabinet(request):
+    return render(request, 'cabinet_jgk_ec.html', locals())
+
+
+def presentation(request):
+    return render(request, 'presentation_get_ahead.html', locals())
+
+
+def programme(request):
+    return render(request, 'programme_wara.html', locals())
 
 
 def controllers(request, url, droit, context):
@@ -114,6 +135,23 @@ def tableaudebord(request):
     return controllers(request, 'affiliation/tableaudebord.html', droit, locals())
 
 
+def list_total_pers_pymt(request):
+    bam = get_object_or_404(Palier, nom_du_palier="Bamiléké")
+    poste = get_object_or_404(Poste, nom_du_poste="Manageur")
+    manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30)
+
+    zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
+    total_pers_zou = User.objects.filter(palier=zoulou)
+
+    maya = get_object_or_404(Palier, nom_du_palier="Maya")
+    total_pers_maya = User.objects.filter(palier=maya)
+
+    mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
+    total_pers_mand = User.objects.filter(palier=mandingue)
+
+    return render(request, 'affiliation/list_total_pers_pymt.html', locals())
+
+
 @login_required
 def compte(request):
     if request.method == 'POST':
@@ -134,7 +172,9 @@ def compte(request):
 @login_required
 def mongroupe(request):
     groupe = request.user.groupe
-    parrain = get_object_or_404(User, id=request.user.id)
+    # parrain = request.user
+    if request.user.nom_du_parent is not None:
+        parrain = get_object_or_404(User, id=request.user.nom_du_parent.id)
     payements = Payement.objects.filter(archive=False, membre=request.user)
 
     if request.user.palier is not None:
@@ -170,15 +210,28 @@ def mongroupe(request):
     context = {
         'groupe': groupe,
 
-        'parrain': parrain,
-        'payements': payements,
     }
 
     return render(request, 'affiliation/mon_espace/mon_groupe.html', locals())
 
 
-def voir_membre_palier_id(request, id):
+@login_required
+def voirmongroupe(request):
+    groupe = request.user.groupe
+    parrain = get_object_or_404(User, id=request.user.id)
 
+    if request.user.palier is not None:
+        mon_groupe = User.objects.filter(groupe=groupe)
+
+    context = {
+        'groupe': groupe,
+        'parrain': parrain,
+    }
+
+    return render(request, 'affiliation/mon_espace/voirmongroupe.html', locals())
+
+
+def voir_membre_palier_id(request, id):
     bam = get_object_or_404(Palier, id=id)
     membres_bam = User.objects.filter(palier=bam)
     zou = get_object_or_404(Palier, id=id)
@@ -635,7 +688,7 @@ def ajouter(request):
                                     elif membre.point == 25:
                                         membre.point_fictive_manag = 25
                                 elif membre.point == 30:
-                                    membre.stock_point = 30     # ICI ON STOCK LE POINT DU PALIER CI POUR LA SUITE
+                                    membre.stock_point = 30  # ICI ON STOCK LE POINT DU PALIER CI POUR LA SUITE
                                     poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                     membre.poste = poste_manageur
                                     print("Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
@@ -676,7 +729,7 @@ def ajouter(request):
                                     elif 75 < membre.point == 115:
                                         membre.point_fictive_manag = 25
                                 elif membre.point == 120:
-                                    membre.stock_point += 120   # ici on devrait avoir 30 + 120 = 150 points
+                                    membre.stock_point += 120  # ici on devrait avoir 30 + 120 = 150 points
                                     poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                     membre.poste = poste_manageur
                                     print("Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
@@ -717,7 +770,7 @@ def ajouter(request):
                                     elif 75 < membre.point == 475:
                                         membre.point_fictive_manag = 25
                                 elif membre.point == 480:
-                                    membre.stock_point += 480   # ici on devrait avoir 150 + 480 = 630 points
+                                    membre.stock_point += 480  # ici on devrait avoir 150 + 480 = 630 points
                                     poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                     membre.poste = poste_manageur
                                     print("Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
@@ -758,7 +811,7 @@ def ajouter(request):
                                     elif 75 < membre.point == 1915:
                                         membre.point_fictive_manag = 25
                                 elif membre.point == 1920:
-                                    membre.stock_point += 1920   # ici on devrait avoir 150 + 480 + 1920 = 2550 points
+                                    membre.stock_point += 1920  # ici on devrait avoir 150 + 480 + 1920 = 2550 points
                                     poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                     membre.poste = poste_manageur
                                     print("Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
@@ -788,30 +841,57 @@ def ajouter(request):
 
 @login_required
 def liste(request):
-    # Download the helper library from https://www.twilio.com/docs/python/install
-    """import os
-    from twilio.rest import Client
-
-    # Your Account Sid and Auth Token from twilio.com/console
-    # and set the environment variables. See http://twil.io/secure
-    account_sid = os.environ['TWILIO_ACCOUNT_SID']
-    auth_token = os.environ['TWILIO_AUTH_TOKEN']
-    client = Client(account_sid, auth_token)
-
-    message = client.messages.create(
-        body='Ella',
-        from_='+22893874163',
-        to='+22896131878'
-    )
-
-    print(message.sid)"""
-
     droit = "Liste"
-    utilisateurs = User.objects.all()
+    utilisateurs = User.objects.filter(is_active=True)
     context = {
         "utilisateurs": utilisateurs
     }
     return controllers(request, 'affiliation/donnee_base/liste_adherent/liste_adherent.html', droit, locals())
+
+
+@login_required
+def listeupdateuser(request, id):
+    updateuser = get_object_or_404(User, id=id)
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=updateuser)
+        if form.is_valid():
+            form.save()
+            redirect('liste')
+    else:
+        form = UserUpdateForm(instance=updateuser)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'affiliation/donnee_base/liste_adherent/listeupdateuser.html', locals())
+
+
+@login_required
+def change_password(request, id):
+    user_u = get_object_or_404(User, id=id)
+    if request.method == 'POST':
+        form = PasswordChangeForm(user_u, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Le mot de passe a bien été enrégistré')
+            return redirect('listeupdateuser', user_u.id)
+        else:
+            messages.error(request, 'ERREUR | VERIFIER VOS DONNEES')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'affiliation/password_change_form.html', {
+        'form': form,
+        'user_u': user_u
+    })
+
+
+@login_required
+def listesuppruser(request, id):
+    user_s = get_object_or_404(User, id=id)
+    user_s.is_active = False
+    user_s.save()
+    return redirect('liste')
 
 
 @login_required
@@ -1107,3 +1187,11 @@ def pyramide(request, id):
     }
 
     return render(request, 'affiliation/niveau1/pyramide.html', context)
+
+
+def wara(request):
+    waras = Wara.objects.all()
+    context = {
+        "waras": waras
+    }
+    return render(request, 'affiliation/wara/wara.html', context)

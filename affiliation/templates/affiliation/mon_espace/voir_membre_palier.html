@@ -53,6 +53,7 @@ active
               <table id="table-voir-membre_palier" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
+                  <th style="width:5%">Ordre</th>
                   <th>Nom et prénom</th>
                   <th>Téléphone</th>
                   <th>Adresse</th>
@@ -62,20 +63,22 @@ active
                 <tbody>
                 {% for membre in membres_bam %}
                 <tr>
+                    <td class="text-center"><span hidden>{{membre.point}}</span><span class="text-center">{% if membre.poste.nom_du_poste == "Invité" %}{{membre.point_fictive_inv}} points{% elif membre.poste.nom_du_poste == "Colibri" %}{{membre.point_fictive_col}} points{% elif membre.poste.nom_du_poste == "Manageur" %}{{membre.point_fictive_manag}} points{%endif%}</span></td>
                   <td>{{membre}}</td>
                   <td>{{membre.telephone}}</td>
                   <td>{{membre.adresse}}</td>
-                  <td>{{membre.poste}}</td>
+                  <td>{{membre.poste}} | {{membre.palier}}</td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="text-center bg-primary"><b>Aucun membre n'est encore présent dans le groupe</b>
+                    <td colspan="5" class="text-center bg-primary"><b>Aucun membre n'est encore présent dans le groupe</b>
                         <br><small>Lorsqu'un nouveau membre s'enrégistre et selon son palier, il s'affiche ici</small></td>
                 </tr>
                 {% endfor %}
                 </tbody>
                 <tfoot>
                 <tr>
+                  <th style="width:5%">Ordre</th>
                   <th>Nom et prénom</th>
                   <th>Téléphone</th>
                   <th>Adresse</th>

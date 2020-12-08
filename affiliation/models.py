@@ -122,6 +122,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     adresse = models.CharField(max_length=255, null=True, blank=False)
     pays_de_residence = models.ForeignKey(CodePays, on_delete=models.SET_NULL, null=True, blank=False)
     telephone = models.IntegerField(blank=False, null=True, unique=True)
+    # telephone = models.CharField(max_length=25, blank=False, null=True, unique=True)
     poste = models.ForeignKey(Poste, null=True, blank=True, on_delete=models.SET_NULL)
     palier = models.ForeignKey(Palier, null=True, blank=True, on_delete=models.SET_NULL)
     groupe = models.ForeignKey(Groupe, null=True, blank=False, on_delete=models.SET_NULL,
@@ -211,6 +212,7 @@ class Wara(models.Model):
     prenom = models.CharField(max_length=255, null=True)
     telephone = models.IntegerField(null=True)
     email = models.EmailField(null=True)
+    parrain = models.CharField(max_length=150, null=True, blank=True)
     archive = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True, null=True)
 

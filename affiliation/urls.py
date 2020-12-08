@@ -5,8 +5,10 @@ from affiliation import views
 urlpatterns = [
     # url concernant le tableau de bord
     url(r'^tableaudebord$', views.tableaudebord, name="tableaudebord"),
+    url(r'^list_total_pers_pymt', views.list_total_pers_pymt, name="list_total_pers_pymt"),
     url(r'^compte$', views.compte, name="compte"),
     url(r'^mongroupe$', views.mongroupe, name="mongroupe"),
+    url(r'^voirmongroupe$', views.voirmongroupe, name="voirmongroupe"),
     url(r'^(?P<id>\d+)/validerpayement$', views.validerpayement, name="validerpayement"),
     url(r'^(?P<id>\d+)/voir_membre_palier_id$', views.voir_membre_palier_id, name="voir_membre_palier_id"),
 
@@ -19,6 +21,11 @@ urlpatterns = [
     # url concernant l'ajout d'un adhérent
     url(r'^ajouter$', views.ajouter, name="ajouter"),
     url(r'^liste$', views.liste, name="liste"),
+    url(r'^(?P<id>\d+)/listeupdateuser', views.listeupdateuser, name="listeupdateuser"),
+    url(r'^(?P<id>\d+)/listesuppruser', views.listesuppruser, name="listesuppruser"),
+
+    url(r'^(?P<id>\d+)/password/$', views.change_password, name='change_password'),
+
     url(r'^(?P<id>\d+)/voirplus', views.voirplus, name="voirplus"),
     url(r'^parcours$', views.parcours, name="parcours"),
 
@@ -66,4 +73,7 @@ urlpatterns = [
 
     # url concernant le niveau 1 > Bamileke > Groupe<id>
     url(r'^(?P<id>\d+)/pyramide$', views.pyramide, name="pyramide"),
+
+    # url concernant le programme WARA
+    url(r'^wara$', views.wara, name="wara"),
 ]
