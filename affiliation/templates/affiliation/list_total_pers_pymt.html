@@ -81,32 +81,19 @@ active
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'affiliation/js/modalbamileke.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<script>
-    jQuery(document).ready(function() {
-        jQuery(".standardSelect").chosen({
-            disable_search_threshold: 10,
-            no_results_text: "Oops, nothing found!",
-            width: "100%"
-        });
-    });
 
-    $('select').selectpicker();
-</script>
-<script>
-    // Material Select Initialization
-    $(document).ready(function() {
-    $('.mdb-select').materialSelect();
-    });
-</script>
 <!-- DataTables -->
 <script src="{% static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
 <script src="{% static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
 <!-- page script -->
 <script>
-  $(function () {
-    $("#table-bamileke").DataTable();
-  });
+$(document).ready(function() {
+    $('#table-bamileke').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
 </script>
 {% endblock %}
