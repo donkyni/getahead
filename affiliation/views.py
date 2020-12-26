@@ -951,16 +951,12 @@ def voirplus(request, id):
                 membre.save()
         elif membre.nb_pers_amene < 2:
             solde = 0
-            if membre.palier.nom_du_palier == "Bamiléké":
+            if membre.palier.nom_du_palier == "Zoulou":
                 solde = 700/2000
                 membre.gam = solde
                 membre.save()
-            if membre.palier.nom_du_palier == "Zoulou":
-                solde = 1000/2000
-                membre.gam = solde
-                membre.save()
             if membre.palier.nom_du_palier == "Maya":
-                solde = 2000/2000
+                solde = 1000/2000
                 membre.gam = solde
                 membre.save()
     return render(request, 'affiliation/donnee_base/liste_adherent/voirplus.html', locals())
