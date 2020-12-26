@@ -204,7 +204,6 @@ def mongroupe(request):
     if request.user.nb_pers_amene >= 2:
         nb_pers_total = request.user.nb_pers_amene
         solde = request.user.gam * 2000
-        print(request.user.gam, solde)
     elif request.user.nb_pers_amene < 2:
         solde = 0
 
