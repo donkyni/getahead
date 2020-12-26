@@ -940,13 +940,13 @@ def voirplus(request, id):
             # solde = membre.gam * 2000
             if membre.palier.nom_du_palier == "Zoulou":
                 solde = 700
-                gam_membre = 700/2000
-                gam = gam_membre
+                gam = 700/2000
+                gam = gam
                 membre.gam = gam
             elif membre.palier.nom_du_palier == "Maya":
                 solde = 1000 + 700
-                gam_membre = 1000/2000
-                gam = gam_membre + 0.35
+                gam = 1000/2000
+                gam = gam + 0.35
                 membre.gam = gam
 
         elif membre.nb_pers_amene < 2:
