@@ -700,6 +700,8 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                     membre.palier = palier_zoulou
+                                    member_pursue_bam = 700/2000
+                                    membre.gam = member_pursue_bam
 
                             elif membre.palier.nom_du_palier == "Zoulou":
                                 membre.point += 5
@@ -741,6 +743,8 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                     membre.palier = palier_maya
+                                    member_pursue_zou = 1000/2000
+                                    membre.gam += member_pursue_zou
 
                             elif membre.palier.nom_du_palier == "Maya":
                                 membre.point += 5
@@ -782,6 +786,8 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                     membre.palier = palier_mandingue
+                                    member_pursue_maya = 2000/2000
+                                    membre.gam += member_pursue_maya
 
                             elif membre.palier.nom_du_palier == "Mandingue":
                                 membre.point += 5
@@ -930,7 +936,19 @@ def voirplus(request, id):
 
         if membre.nb_pers_amene >= 2:
             nb_pers_total = membre.nb_pers_amene
-            solde = membre.gam * 2000
+            # solde = membre.gam * 2000
+            if membre.palier.nom_du_palier == "Bamiléké":
+                solde = 700/2000
+                membre.gam = solde
+                membre.save()
+            if membre.palier.nom_du_palier == "Zoulou":
+                solde = 1000/2000
+                membre.gam = solde
+                membre.save()
+            if membre.palier.nom_du_palier == "Maya":
+                solde = 2000/2000
+                membre.gam = solde
+                membre.save()
         elif membre.nb_pers_amene < 2:
             solde = 0
     return render(request, 'affiliation/donnee_base/liste_adherent/voirplus.html', locals())
