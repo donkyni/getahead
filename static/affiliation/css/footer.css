@@ -1,0 +1,183 @@
+footer {
+    /*position: fixed;*/
+    bottom: 0;
+    width: 100%;
+    background: #202020;
+    color: #fff;
+}
+
+.main-content {
+    display: flex;
+}
+
+.main-content .box {
+    flex-basis: 50%;
+    padding: 10px 20px;
+}
+
+.box h2 {
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.box .contentfoo {
+    margin: 20px 0 0 0;
+    position: relative;
+}
+
+.box .contentfoo:before {
+    position: absolute;
+    content: '';
+    top: -10px;
+    height: 2px;
+    width: 100%;
+    background: #1a1a1a;
+}
+
+.box .contentfoo:after {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 15%;
+    background: #f12020;
+    top: -10px;
+}
+
+.left .contentfoo p {
+    text-align: justify;
+}
+
+.left .contentfoo .socials {
+    margin: 20px 0 0 0;
+}
+
+.left .contentfoo .socials a {
+    padding: 0 2px;
+}
+
+.left .contentfoo .socials a span {
+    height: 40px;
+    width: 40px;
+    background: #1a1a1a;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: 0.3s
+}
+
+.left .contentfoo .socials a span:hover {
+    background: #f12020;
+}
+
+.center .contentfoo .fa {
+    font-size: 1.4375rem;
+    background: #3a3a3a;
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 50%;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.center .contentfoo .fa:hover {
+    background: #f12020;
+}
+
+.center .contentfoo .text {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    padding-left: 10px;
+}
+
+.center .contentfoo .phone {
+    padding: 10px 0;
+}
+
+.right form .text {
+    color: #656565;
+    margin-bottom: 3px;
+    font-size: 1.0625rem;
+}
+
+.right form .msg {
+    margin-top: 10px;
+}
+
+.right .form #emailfoo,
+.right .form #msgfoo {
+    width: 100%;
+    font-size: 1.0625rem;
+    background: #151515;
+    padding-left: 10px;
+    border: 1px solid #222222;
+}
+
+.right .form #emailfoo:focus,
+.right .form #msgfoo:focus {
+    outline-color: #3498db;
+}
+
+.right form #emailfoo {
+    height: 35px;
+}
+
+.right form .btn-submit {
+    margin-top: 15px;
+}
+
+.right form .btn-submit .btn-send {
+    color: #fff;
+    height: 40px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: red;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .3s
+}
+
+.right form .btn-submit .btn-send:hover {
+    background: #123;
+}
+
+
+.bottom center {
+    padding: 5px;
+    font-size: 0.9375rem;
+    background: #151515;
+}
+
+.bottom center span {
+    color: #656565;
+}
+
+.bottom center a {
+    color: #f12020;
+    text-decoration: none;
+}
+
+.bottom center a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 900px) {
+    footer {
+        position: relative;
+        bottom: 0px;
+    }
+
+    .main-content {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .main-content .box {
+        margin: 5px 0;
+    }
+}
