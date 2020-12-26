@@ -938,15 +938,32 @@ def voirplus(request, id):
             nb_pers_total = membre.nb_pers_amene
             # solde = membre.gam * 2000
             if membre.palier.nom_du_palier == "Zoulou":
-                gam = 700/2000
-                membre.gam = gam
-                solde = 700
+                solde = 0
                 membre.save()
-            if membre.palier.nom_du_palier == "Maya":
-                gam = 1000/2000
-                membre.gam = gam + 0.35
-                solde = 1000 + 700
+                # solde = 700
+                solde = 0
                 membre.save()
+                # gam = 700/2000
+                solde = 0
+                membre.save()
+                # membre.gam = gam
+                solde = 0
+                membre.save()
+                # membre.save()
+            elif membre.palier.nom_du_palier == "Maya":
+                solde = 0
+                membre.save()
+                # solde = 1000 + 700
+                solde = 0
+                membre.save()
+                # gam = 1000/2000
+                solde = 0
+                membre.save()
+                # membre.gam = gam + 0.35
+                solde = 0
+                membre.save()
+                # membre.save()
+
         elif membre.nb_pers_amene < 2:
             solde = 0
     return render(request, 'affiliation/donnee_base/liste_adherent/voirplus.html', locals())
