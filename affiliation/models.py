@@ -121,7 +121,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     prenom = models.CharField(max_length=255, blank=False, null=True)
     adresse = models.CharField(max_length=255, null=True, blank=False)
     pays_de_residence = models.ForeignKey(CodePays, on_delete=models.SET_NULL, null=True, blank=False)
-    telephone = models.IntegerField(blank=False, null=True, unique=True)
+    telephone = models.BigIntegerField(blank=False, null=True, unique=True)
     # telephone = models.CharField(max_length=25, blank=False, null=True, unique=True)
     poste = models.ForeignKey(Poste, null=True, blank=True, on_delete=models.SET_NULL)
     palier = models.ForeignKey(Palier, null=True, blank=True, on_delete=models.SET_NULL)
