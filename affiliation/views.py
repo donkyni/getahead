@@ -902,17 +902,13 @@ def listesuppruser(request, id):
 
 @login_required
 def gam(request):
-    membres = User.objects.all()
     manageur_bamileke = get_object_or_404(Palier, nom_du_palier="Zoulou")
-    manageur_zoulou = get_object_or_404(Palier, nom_du_palier="Maya")
+    # manageur_zoulou = get_object_or_404(Palier, nom_du_palier="Maya")
+    membres = User.objects.filter(palier=manageur_bamileke)
 
     for membre in membres:
-        if membre.palier == manageur_bamileke:
-            membre.gam = 0.35
-            membre.save()
-        elif membre.palier == manageur_zoulou:
-            membre.gam = 0.35 + 0.5
-            membre.save()
+        membre.gam = 0.35
+        membre.save()
 
     return HttpResponse("GAM AFFECTE POUR TOUS LES MEMBRES AYANT DROIT A DES GAM")
 
