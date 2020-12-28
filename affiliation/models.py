@@ -149,7 +149,8 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     point_fictive_inv = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     point_fictive_col = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     point_fictive_manag = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
-    gam = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
+    # gam = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
+    gam = models.DecimalField(null=True, blank=True, default=0)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     date_d_ajout = models.DateTimeField(auto_now_add=True, null=True,
