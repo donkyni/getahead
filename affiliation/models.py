@@ -140,7 +140,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Données systèmes
     """
-    profil = models.ForeignKey(Profils, on_delete=models.SET_NULL, null=True, blank=True, default=2)
+    profil = models.ForeignKey(Profils, on_delete=models.SET_NULL, null=True, blank=True)
     pied_gauche = models.BooleanField(default=False, null=True, blank=False)
     pied_droit = models.BooleanField(default=False, null=True, blank=False)
     nb_pers_amene = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
