@@ -74,9 +74,6 @@ urlpatterns = [
     # url concernant le niveau 1 > Bamileke > Groupe<id>
     url(r'^(?P<id>\d+)/pyramide$', views.pyramide, name="pyramide"),
 
-    # url concernant le GAM
-    url(r'^gam', views.gam, name="gam"),
-
     # url concernant le programme WARA
     url(r'^wara$', views.wara, name="wara"),
 ]
