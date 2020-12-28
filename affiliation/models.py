@@ -78,25 +78,23 @@ class DroitsProfils(models.Model):
 
 class UserManager(auth_models.BaseUserManager):
 
-    def create_user(self, nom_d_utilisateur, adresse, nom, prenom, profil, password=None):
+    def create_user(self, nom_d_utilisateur, adresse, nom, prenom, password=None):
         if not nom_d_utilisateur:
             raise ValueError('Users must have an telephone number')
         user = self.model(nom_d_utilisateur=nom_d_utilisateur)
         user.adresse = adresse
         user.nom = nom
         user.prenom = prenom
-        user.profil = profil
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, nom_d_utilisateur, adresse, nom, prenom, profil, password):
+    def create_superuser(self, nom_d_utilisateur, adresse, nom, prenom, password):
         user = self.create_user(
             nom_d_utilisateur,
             adresse=adresse,
             nom=nom,
             prenom=prenom,
-            profil=profil,
             password=password,
         )
         user.is_admin = True
@@ -142,7 +140,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Données systèmes
     """
-    profil = models.ForeignKey(Profils, on_delete=models.SET_NULL, null=True, blank=True)
+    profil = models.ForeignKey(Profils, on_delete=models.SET_NULL, null=True, blank=True, default=2)
     pied_gauche = models.BooleanField(default=False, null=True, blank=False)
     pied_droit = models.BooleanField(default=False, null=True, blank=False)
     nb_pers_amene = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
