@@ -901,7 +901,7 @@ def listesuppruser(request, id):
 
 
 @login_required
-def gam():
+def gam(request):
     membres = User.objects.all()
     manageur_bamileke = get_object_or_404(Palier, nom_du_palier="Zoulou")
     manageur_zoulou = get_object_or_404(Palier, nom_du_palier="Maya")
