@@ -131,14 +131,14 @@ class UserAdmin(BaseUserAdmin):
     list_display = (
             'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'groupe',
-            'avatar', 'sexe', 'profil', 'gam', 'is_admin')
+            'avatar', 'sexe', 'profil', 'gam', 'point', 'is_admin')
     list_filter = ('is_admin', 'nom')
     fieldsets = (
         (None, {'fields': ('nom_d_utilisateur', 'password')}),
         ('Personal info', {'fields': (
             'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'groupe',
-            'avatar', 'sexe', 'profil',)}),
+            'avatar', 'sexe', 'profil', 'point',)}),
         ('Permissions', {'fields': ('is_admin', 'is_active', 'groups', 'user_permissions',)}),
         ('Important dates', {'fields': ('last_login',)}),
     )
@@ -148,7 +148,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': (
                 'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'groupe',
-            'avatar', 'sexe', 'profil', 'password'),
+            'avatar', 'sexe', 'profil', 'point', 'password'),
         }),
     )
     search_fields = ('nom_d_utilisateur', 'nom',)
