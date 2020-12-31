@@ -688,13 +688,13 @@ def ajouter(request):
                                     elif membre.point == 25:
                                         membre.point_fictive_manag = 25
                                 elif membre.point == 30:
-                                    membre.stock_point = 30  # ICI ON STOCK LE POINT DU PALIER CI POUR LA SUITE
                                     poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                     membre.poste = poste_manageur
                                     print("Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
                                           "pour le palier suviant ou arreter ?")
                                     membre.point_fictive_manag = 30
                                 elif membre.point == 35:
+                                    membre.stock_point = 30  # ICI ON STOCK LE POINT DU PALIER CI POUR LA SUITE
                                     membre.point = 5
                                     poste = get_object_or_404(Poste, nom_du_poste="Invité")
                                     membre.poste = poste
@@ -731,13 +731,13 @@ def ajouter(request):
                                     elif 75 < membre.point == 115:
                                         membre.point_fictive_manag = 25
                                 elif membre.point == 120:
-                                    membre.stock_point += 120  # ici on devrait avoir 30 + 120 = 150 points
                                     poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                     membre.poste = poste_manageur
                                     print("Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
                                           "pour le palier suviant ou arreter ?")
                                     membre.point_fictive_manag = 30
                                 elif membre.point == 125:
+                                    membre.stock_point += 120  # ici on devrait avoir 30 + 120 = 150 points
                                     membre.point = 5
                                     poste = get_object_or_404(Poste, nom_du_poste="Invité")
                                     membre.poste = poste
@@ -774,13 +774,13 @@ def ajouter(request):
                                     elif 75 < membre.point == 475:
                                         membre.point_fictive_manag = 25
                                 elif membre.point == 480:
-                                    membre.stock_point += 480  # ici on devrait avoir 150 + 480 = 630 points
                                     poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                     membre.poste = poste_manageur
                                     print("Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
                                           "pour le palier suviant ou arreter ?")
                                     membre.point_fictive_manag = 30
                                 elif membre.point == 485:
+                                    membre.stock_point += 480  # ici on devrait avoir 150 + 480 = 630 points
                                     membre.point = 5
                                     poste = get_object_or_404(Poste, nom_du_poste="Invité")
                                     membre.poste = poste
