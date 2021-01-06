@@ -258,15 +258,16 @@ def bamileke(request):
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
     manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30)
 
-    for manageur_bam in manageurs_bam:
-        payements_valides = Payement.objects.filter(membre=manageur_bam, etat=True)
+    zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
+    manageurs_zou = User.objects.filter(palier=zoulou)
 
-    context = {
-        'manageurs_bam': manageurs_bam,
-        'payements_valides': payements_valides,
-    }
+    maya = get_object_or_404(Palier, nom_du_palier="Maya")
+    manageurs_maya = User.objects.filter(palier=maya)
 
-    return controllers(request, 'affiliation/niveau1/bamileke.html', droit, context)
+    mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
+    manageurs_mand = User.objects.filter(palier=mandingue)
+
+    return controllers(request, 'affiliation/niveau1/bamileke.html', droit, locals())
 
 
 @login_required
