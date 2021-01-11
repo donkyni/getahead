@@ -302,13 +302,13 @@ def bamileke(request):
     manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30, don_bam=False)
 
     zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
-    manageurs_zou = User.objects.filter(palier=zoulou, don_zou=False)
+    manageurs_zou = User.objects.filter(palier=zoulou, don_bam=False, don_zou=False)
 
     maya = get_object_or_404(Palier, nom_du_palier="Maya")
-    manageurs_maya = User.objects.filter(palier=maya, don_maya=False)
+    manageurs_maya = User.objects.filter(palier=maya, don_bam=False, don_zou=False, don_maya=False)
 
     mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
-    manageurs_mand = User.objects.filter(palier=mandingue, don_mand=False)
+    manageurs_mand = User.objects.filter(palier=mandingue, don_bam=False, don_zou=False, don_maya=False, don_mand=False)
 
     return controllers(request, 'affiliation/niveau1/bamileke.html', droit, locals())
 
