@@ -79,9 +79,60 @@ def save_all(request, form, template_name, model, template_name2, mycontext):
     data = dict()
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
-            data['form_is_valid'] = True
-            data[model] = render_to_string(template_name2, mycontext)
+            if model == "niveau1":
+                form.save(commit=False)
+                system = form.save()
+
+                bam = system.membre.palier.nom_du_palier
+                id_membre = system.membre.id
+                print(id_membre)
+
+                print(bam + '1')
+                if bam == "Bamiléké":
+                    print(bam + '2')
+
+                    member = get_object_or_404(User, id=id_membre)
+                    member.don_bam = True
+                    member.save()
+                    print(member)
+
+                if bam == "Zoulou":
+                    print(bam + '3')
+
+                    member = get_object_or_404(User, id=id_membre)
+                    member.don_bam = True
+                    member.don_zou = True
+                    member.save()
+                    print(member)
+
+                    print(member.don_bam, member.don_zou)
+                if bam == "Maya":
+                    print(bam + '4')
+
+                    member = get_object_or_404(User, id=id_membre)
+                    member.don_bam = True
+                    member.don_zou = True
+                    member.don_maya = True
+                    member.save()
+                    print(member)
+
+                if bam == "Mandingue":
+                    print(bam + '5')
+
+                    member = get_object_or_404(User, id=id_membre)
+                    member.don_bam = True
+                    member.don_zou = True
+                    member.don_maya = True
+                    member.don_mand = True
+                    member.save()
+                    print(member)
+                system.save()
+                data['form_is_valid'] = True
+                data[model] = render_to_string(template_name2, mycontext)
+            else:
+                form.save()
+                data['form_is_valid'] = True
+                data[model] = render_to_string(template_name2, mycontext)
         else:
             data['form_is_valid'] = False
 
@@ -256,16 +307,16 @@ def bamileke(request):
     droit = "Bamiléké"
     bam = get_object_or_404(Palier, nom_du_palier="Bamiléké")
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
-    manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30)
+    manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30, don_bam=False)
 
     zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
-    manageurs_zou = User.objects.filter(palier=zoulou)
+    manageurs_zou = User.objects.filter(palier=zoulou, don_zou=False)
 
     maya = get_object_or_404(Palier, nom_du_palier="Maya")
-    manageurs_maya = User.objects.filter(palier=maya)
+    manageurs_maya = User.objects.filter(palier=maya, don_maya=False)
 
     mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
-    manageurs_mand = User.objects.filter(palier=mandingue)
+    manageurs_mand = User.objects.filter(palier=mandingue, don_mand=False)
 
     return controllers(request, 'affiliation/niveau1/bamileke.html', droit, locals())
 

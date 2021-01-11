@@ -140,6 +140,13 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     """
     Données systèmes
     """
+    ########################################################
+    don_bam = models.BooleanField(default=False, null=True)
+    don_zou = models.BooleanField(default=False, null=True)
+    don_maya = models.BooleanField(default=False, null=True)
+    don_mand = models.BooleanField(default=False, null=True)
+    ########################################################
+
     profil = models.ForeignKey(Profils, on_delete=models.SET_NULL, null=True, blank=True)
     pied_gauche = models.BooleanField(default=False, null=True, blank=False)
     pied_droit = models.BooleanField(default=False, null=True, blank=False)
