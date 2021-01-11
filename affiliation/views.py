@@ -87,45 +87,37 @@ def save_all(request, form, template_name, model, template_name2, mycontext):
                 id_membre = system.membre.id
                 print(id_membre)
 
-                print(bam + '1')
                 if bam == "Bamiléké":
-                    print(bam + '2')
-
                     member = get_object_or_404(User, id=id_membre)
                     member.don_bam = True
                     member.save()
                     print(member)
 
                 if bam == "Zoulou":
-                    print(bam + '3')
-
                     member = get_object_or_404(User, id=id_membre)
                     member.don_bam = True
-                    member.don_zou = True
+                    # member.don_zou = True
                     member.save()
                     print(member)
 
                     print(member.don_bam, member.don_zou)
                 if bam == "Maya":
-                    print(bam + '4')
-
                     member = get_object_or_404(User, id=id_membre)
                     member.don_bam = True
-                    member.don_zou = True
-                    member.don_maya = True
+                    # member.don_zou = True
+                    # member.don_maya = True
                     member.save()
                     print(member)
 
                 if bam == "Mandingue":
-                    print(bam + '5')
-
                     member = get_object_or_404(User, id=id_membre)
                     member.don_bam = True
-                    member.don_zou = True
-                    member.don_maya = True
-                    member.don_mand = True
+                    # member.don_zou = True
+                    # member.don_maya = True
+                    # member.don_mand = True
                     member.save()
                     print(member)
+
                 system.save()
                 data['form_is_valid'] = True
                 data[model] = render_to_string(template_name2, mycontext)
