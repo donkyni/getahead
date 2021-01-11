@@ -68,6 +68,7 @@ urlpatterns = [
     #
     url(r'^payement$', views.payement, name="payement"),
     url(r'^createpayement$', views.createpayement, name="createpayement"),
+    url(r'^createpayementzou$', views.createpayementzou, name="createpayementzou"),
     url(r'^(?P<id>\d+)/updatepayement$', views.updatepayement, name="updatepayement"),
     url(r'^(?P<id>\d+)/deletepayement$', views.deletepayement, name="deletepayement"),
 

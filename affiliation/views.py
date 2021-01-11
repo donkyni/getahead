@@ -4,7 +4,6 @@
 import datetime
 from random import shuffle
 
-
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -311,6 +310,74 @@ def bamileke(request):
     manageurs_mand = User.objects.filter(palier=mandingue, don_bam=False)
 
     return controllers(request, 'affiliation/niveau1/bamileke.html', droit, locals())
+
+
+@login_required
+def save_all_zou(request, form, template_name, model, template_name2, mycontext):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            if model == "niveau1":
+                form.save(commit=False)
+                system = form.save()
+
+                bam = system.membre.palier.nom_du_palier
+                id_membre = system.membre.id
+                print(id_membre)
+
+                if bam == "Zoulou":
+                    member = get_object_or_404(User, id=id_membre)
+                    # member.don_bam = True
+                    member.don_zou = True
+                    member.save()
+                    print(member)
+
+                    print(member.don_bam, member.don_zou)
+                if bam == "Maya":
+                    member = get_object_or_404(User, id=id_membre)
+                    # member.don_bam = True
+                    member.don_zou = True
+                    # member.don_maya = True
+                    member.save()
+                    print(member)
+
+                if bam == "Mandingue":
+                    member = get_object_or_404(User, id=id_membre)
+                    # member.don_bam = True
+                    member.don_zou = True
+                    # member.don_maya = True
+                    # member.don_mand = True
+                    member.save()
+                    print(member)
+
+                system.save()
+                data['form_is_valid'] = True
+                data[model] = render_to_string(template_name2, mycontext)
+            else:
+                form.save()
+                data['form_is_valid'] = True
+                data[model] = render_to_string(template_name2, mycontext)
+        else:
+            data['form_is_valid'] = False
+
+    context = {
+        'form': form
+    }
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def createpayementzou(request):
+    payements = Payement.objects.filter(archive=False)
+    mycontext = {
+        'payements': payements
+    }
+    if request.method == 'POST':
+        form = PayementForm(request.POST)
+    else:
+        form = PayementForm()
+    return save_all_zou(request, form, 'affiliation/niveau1/createpayementzou.html', 'niveau1',
+                        'affiliation/niveau1/listepayement.html', mycontext)
 
 
 @login_required
