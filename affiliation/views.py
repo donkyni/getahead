@@ -302,13 +302,13 @@ def bamileke(request):
     manageurs_bam = User.objects.filter(palier=bam, poste=poste, point=30, don_bam=False)
 
     zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
-    manageurs_zou = User.objects.filter(palier=zoulou, don_bam=False, don_zou=False)
+    manageurs_zou = User.objects.filter(palier=zoulou, don_bam=False)
 
     maya = get_object_or_404(Palier, nom_du_palier="Maya")
-    manageurs_maya = User.objects.filter(palier=maya, don_bam=False, don_zou=False, don_maya=False)
+    manageurs_maya = User.objects.filter(palier=maya, don_bam=False)
 
     mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
-    manageurs_mand = User.objects.filter(palier=mandingue, don_bam=False, don_zou=False, don_maya=False, don_mand=False)
+    manageurs_mand = User.objects.filter(palier=mandingue, don_bam=False)
 
     return controllers(request, 'affiliation/niveau1/bamileke.html', droit, locals())
 
@@ -318,10 +318,19 @@ def zoulou(request):
     droit = "Zoulou"
     zou = get_object_or_404(Palier, nom_du_palier="Zoulou")
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
-    manageurs_zou = User.objects.filter(palier=zou, poste=poste, point=120)
+
+    manageurs_zou = User.objects.filter(palier=zou, poste=poste, point=120, don_zou=False)
+
+    maya = get_object_or_404(Palier, nom_du_palier="Maya")
+    manageurs_maya = User.objects.filter(palier=maya, don_zou=False)
+
+    mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
+    manageurs_mand = User.objects.filter(palier=mandingue, don_zou=False)
 
     context = {
-        'manageurs_zou': manageurs_zou
+        'manageurs_zou': manageurs_zou,
+        'manageurs_maya': manageurs_maya,
+        'manageurs_mand': manageurs_mand,
     }
 
     return controllers(request, 'affiliation/niveau1/zoulou.html', droit, context)
