@@ -47,6 +47,58 @@
 {% endif %}
 {% empty %}
 <tr>
-    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun manageur n'est disponible pour le moment</td>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Tous les manageurs Maya ont reçus leur Don du palier Maya</td>
 </tr>
+{% endfor %}
+
+{% for manageur_mand in manageurs_mand %}
+    {% if manageur_mand.nb_pers_amene >= 2 %}
+        <tr>
+            <td>
+              <b class="badge badge-secondary">{{ manageur_mand.id }}</b>
+            </td>
+            <td>
+
+              <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_mand}}
+              </button>
+              <br>
+              <small>
+                  <i>Cliquez pour lui remmettre son payement</i>
+                  <br>
+                  <i>S'il continue, il a droit à 18000 FCA</i>
+                  <br>
+                  <i>S'il quitte le programme, il a droit à 288000 FCA</i>
+              </small>
+            </td>
+            <td class="text-right">
+              <b class="badge badge-primary" style="font-size:14px;">{{manageur_mand.groupe}}</b>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+          <td>
+              <b class="badge badge-danger">{{ manageur_mand.id }}</b>
+          </td>
+          <td>
+
+              <button class="btn btn-sm btn-danger">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_mand}}
+              </button>
+              <br>
+              <small>
+                  <i>Manageur non reconnu</i>
+                  <br>
+                  <i>Trouvez votre deuxième pied</i>
+              </small>
+          </td>
+          <td class="text-right">
+              <b class="badge badge-danger" style="font-size:14px;">{{manageur_mand.groupe}}</b>
+          </td>
+        </tr>
+    {% endif %}
+{% empty %}
+    <tr>
+        <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Tous les manageurs Mandingue ont reçus leur Don du palier Maya</td>
+    </tr>
 {% endfor %}
