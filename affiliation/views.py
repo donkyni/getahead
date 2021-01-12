@@ -404,14 +404,79 @@ def zoulou(request):
 
 
 @login_required
+def save_all_maya(request, form, template_name, model, template_name2, mycontext):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            if model == "niveau1":
+                form.save(commit=False)
+                system = form.save()
+
+                bam = system.membre.palier.nom_du_palier
+                id_membre = system.membre.id
+                print(id_membre)
+
+                if bam == "Maya":
+                    member = get_object_or_404(User, id=id_membre)
+                    # member.don_bam = True
+                    # member.don_zou = True
+                    member.don_maya = True
+                    member.save()
+                    print(member)
+
+                if bam == "Mandingue":
+                    member = get_object_or_404(User, id=id_membre)
+                    # member.don_bam = True
+                    # member.don_zou = True
+                    member.don_maya = True
+                    # member.don_mand = True
+                    member.save()
+                    print(member)
+
+                system.save()
+                data['form_is_valid'] = True
+                data[model] = render_to_string(template_name2, mycontext)
+            else:
+                form.save()
+                data['form_is_valid'] = True
+                data[model] = render_to_string(template_name2, mycontext)
+        else:
+            data['form_is_valid'] = False
+
+    context = {
+        'form': form
+    }
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def createpayementmaya(request):
+    payements = Payement.objects.filter(archive=False)
+    mycontext = {
+        'payements': payements
+    }
+    if request.method == 'POST':
+        form = PayementForm(request.POST)
+    else:
+        form = PayementForm()
+    return save_all_zou(request, form, 'affiliation/niveau1/createpayementmaya.html', 'niveau1',
+                        'affiliation/niveau1/listepayement.html', mycontext)
+
+
+@login_required
 def maya(request):
     droit = "Maya"
     maya = get_object_or_404(Palier, nom_du_palier="Maya")
     poste = get_object_or_404(Poste, nom_du_poste="Manageur")
-    manageurs_maya = User.objects.filter(palier=maya, poste=poste, point=480)
+
+    manageurs_maya = User.objects.filter(palier=maya, poste=poste, point=480, don_maya=False)
+
+    mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
+    manageurs_mand = User.objects.filter(palier=mandingue, don_maya=False)
 
     context = {
-        'manageurs_maya': manageurs_maya
+        'manageurs_maya': manageurs_maya,
+        'manageurs_mand': manageurs_mand,
     }
 
     return controllers(request, 'affiliation/niveau1/maya.html', droit, context)
