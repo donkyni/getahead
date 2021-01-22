@@ -146,8 +146,10 @@ active
                               <small><small>
                                   {{request.user.point_fictive_inv}}&nbsp;
                               </small></small> <small><small><small><small>point</small></small></small></small>
-                            {% elif request.user.poste.nom_du_poste != "Invité" %}
+                            {% elif request.user.poste.nom_du_poste != "Invité" and request.user.point_fictive_col < 0 %}
                                    <i class="fas fa-times-circle"></i>
+                            {% else %}
+                                   <i class="fas fa-check"></i>
                             {% endif %}
                           </span>
 
@@ -165,8 +167,10 @@ active
                               <small><small>
                                   {{request.user.point_fictive_col}}&nbsp;
                               </small></small> <small><small><small><small>points</small></small></small></small>
-                            {% elif request.user.poste.nom_du_poste != "Colibri" %}
+                            {% elif request.user.poste.nom_du_poste != "Colibri" and request.user.point_fictive_manag < 15 %}
                                    <i class="fas fa-times-circle"></i>
+                            {% else %}
+                                   <i class="fas fa-check"></i>
                             {% endif %}
                           </span>
 
@@ -186,8 +190,10 @@ active
                               <small><small>
                                   {{request.user.point_fictive_manag}}&nbsp;
                               </small></small> <small><small><small><small>points</small></small></small></small>
-                            {% elif request.user.poste.nom_du_poste != "Manageur" %}
+                            {% elif request.user.poste.nom_du_poste != "Manageur" and request.user.point_fictive_manag < 35 %}
                                    <i class="fas fa-times-circle"></i>
+                            {% else %}
+                                   <i class="fas fa-check"></i>
                             {% endif %}
                           </span>
 
@@ -258,8 +264,10 @@ active
                           <span class="info-box-icon bg-danger">
                             {% if request.user.palier.nom_du_palier == "Bamiléké" %}
                               <i class="fas fa-users"></i>
-                            {% elif request.user.palier.nom_du_palier != "Bamiléké" %}
-                                   <i class="fas fa-times"></i>
+                            {% elif request.user.palier.nom_du_palier != "Bamiléké" and request.user.stock_point < 0 %}
+                                   <i class="fas fa-times-circle"></i>
+                            {% else %}
+                                   <i class="fas fa-check"></i>
                             {% endif %}
                           </span>
 
@@ -296,8 +304,10 @@ active
                           <span class="info-box-icon bg-warning">
                             {% if request.user.palier.nom_du_palier == "Zoulou" %}
                               <i class="fas fa-users"></i>
-                            {% elif request.user.palier.nom_du_palier != "Zoulou" %}
-                                   <i class="fas fa-times"></i>
+                            {% elif request.user.palier.nom_du_palier != "Zoulou" and request.user.stock_point < 150 %}
+                                   <i class="fas fa-times-circle"></i>
+                            {% else %}
+                                   <i class="fas fa-check"></i>
                             {% endif %}
                           </span>
 
@@ -334,8 +344,10 @@ active
                           <span class="info-box-icon bg-info">
                             {% if request.user.palier.nom_du_palier == "Maya" %}
                               <i class="fas fa-users"></i>
-                            {% elif request.user.palier.nom_du_palier != "Maya" %}
-                                   <i class="fas fa-times"></i>
+                            {% elif request.user.palier.nom_du_palier != "Maya" and request.user.stock_point < 630 %}
+                                   <i class="fas fa-times-circle"></i>
+                            {% else %}
+                                   <i class="fas fa-check"></i>
                             {% endif %}
                           </span>
 
@@ -372,8 +384,10 @@ active
                           <span class="info-box-icon bg-success">
                             {% if request.user.palier.nom_du_palier == "Mandingue" %}
                               <i class="fas fa-users"></i>
-                            {% elif request.user.palier.nom_du_palier != "Mandingue" %}
-                                   <i class="fas fa-times"></i>
+                            {% elif request.user.palier.nom_du_palier != "Mandingue" and request.user.stock_point < 2550 %}
+                                   <i class="fas fa-times-circle"></i>
+                            {% else %}
+                                   <i class="fas fa-check"></i>
                             {% endif %}
                           </span>
 
