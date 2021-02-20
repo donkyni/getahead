@@ -31,7 +31,11 @@ nav .logo {
 nav ul {
     float: right;
     list-style: none;
+<<<<<<< HEAD
     margin-right: 40px;
+=======
+    margin-right:330px;
+>>>>>>> 15c173b7ebf2307e610df4e1987e80b00c1a9cdb
     position: relative;
 }
 

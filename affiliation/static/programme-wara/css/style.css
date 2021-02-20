@@ -1,0 +1,11 @@
+#mon_hover:hover{
+    color:purple;
+    text-decoration:underline
+}
+
+.table-sm {
+  th,
+  td {
+    padding: 0px;
+  }
+}

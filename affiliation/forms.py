@@ -1,6 +1,11 @@
 from django import forms
 
+<<<<<<< HEAD
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message
+=======
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message, Versions, \
+    Modules, Vague
+>>>>>>> 15c173b7ebf2307e610df4e1987e80b00c1a9cdb
 
 
 class DateInput(forms.DateInput):
@@ -22,7 +27,13 @@ class UserCreationForm(forms.ModelForm):
             'avatar', 'sexe',
         )
         widgets = {
+<<<<<<< HEAD
             'nom_du_parent': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'})
+=======
+            'nom_du_parent': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'}),
+            'pays_de_residence': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'}),
+            'groupe': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'})
+>>>>>>> 15c173b7ebf2307e610df4e1987e80b00c1a9cdb
         }
 
     def clean_password(self):
@@ -118,3 +129,38 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ('email', 'message',)
+<<<<<<< HEAD
+=======
+
+
+###################################################################################################
+
+class VersionsForm(forms.ModelForm):
+    class Meta:
+        model = Versions
+        fields = ('nom_de_version',)
+
+
+class ModulesForm(forms.ModelForm):
+    class Meta:
+        model = Modules
+        exclude = ('created', 'archive', )
+
+        widgets = {
+            'version': forms.Select(attrs={'class': 'form-control'}),
+            'nom_du_module': forms.TextInput(attrs={'class': 'form-control'}),
+            'intro_text': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+
+class VagueForm(forms.ModelForm):
+    class Meta:
+        model = Vague
+        exclude = ('created', 'archive', )
+
+        widgets = {
+            'nom_de_vague': forms.TextInput(attrs={'class': 'form-control'}),
+            'version': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'}),
+            'utilisateurs': forms.SelectMultiple(attrs={'class': 'selectpicker', 'multiple data-live-search': 'true'}),
+        }
+>>>>>>> 15c173b7ebf2307e610df4e1987e80b00c1a9cdb

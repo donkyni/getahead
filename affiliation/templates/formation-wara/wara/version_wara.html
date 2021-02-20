@@ -1,0 +1,167 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+{% block link %}
+<!-- Favicon -->
+<link rel="shortcut icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}">
+<link rel="icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}" type="image/x-icon">
+<!-- Custom CSS -->
+<link href="{% static 'programme-wara/plugins/assets/css/default.css' %}" rel="stylesheet" type="text/css">
+<!-- Data Table Css -->
+<link rel="stylesheet" type="text/css" href="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'programme-wara/plugins/vendors/bower_components/data-table/css/buttons.dataTables.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}">
+<!-- Summernote css -->
+<link rel="stylesheet" href="{% static 'programme-wara/plugins/vendors/bower_components/summernote/dist/summernote.css' %}" />
+{% endblock %}
+
+{% block title %}
+Version
+{% endblock %}
+
+{% block active-page-compte %}
+active-page
+{% endblock %}
+
+{% block active-type %}
+active
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">Types de version</h5>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="index-2.html">Tableau de bord</a></li>
+                    <li><a href="#"><span>Wara</span></a></li>
+                    <li class="active"><span>Types de version</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+        <br>
+        <button type="button" class="col-4 btn btn-primary btn-block btn-anim show-form" data-url="{% url 'create-version' %}">
+            <span class="btn-text">Ajoutez une nouvelle version au programme</span>
+            <i class="fa fa-pencil"></i>
+        </button>
+        <br>
+        <!-- /Title -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default card-view panel-refresh">
+                    <div class="refresh-container">
+                        <div class="preloader">
+                            <div class="circles-1">
+                                <div class="circles-1-center"></div>
+                                <div class="circles-1"></div>
+                                <div class="circles-1"></div>
+                                <div class="circles-1"></div>
+                                <div class="circles-1"></div>
+                                <div class="circles-1"></div>
+                                <div class="circles-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <h6 class="panel-title txt-dark">Les version de Wara</h6>
+                        </div>
+                        <div class="pull-right float-right">
+                            <a href="#" class="pull-left inline-block refresh mr-15"> <i class="mdi mdi-replay"></i> </a>
+                            <a href="#" class="pull-left inline-block full-screen mr-15"> <i class="mdi mdi-fullscreen"></i> </a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body pt-0">
+                            <div class="datatable-responsive table-responsive">
+                                <table id="base-style" class="table table-striped table-bordered nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Version</th>
+                                        <th>Intitulé</th>
+                                        <th>Date de création</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% include "formation-wara/wara/liste-version.html" %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Version</th>
+                                        <th>Intitulé</th>
+                                        <th>Date de création</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <div id="modal-version" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->
+    </div>
+
+    <div class="clearfix"></div>
+    <!-- Row-->
+    <!-- Footer -->
+    <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="pull-left text-dark pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
+                <div class="pull-right">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank">SRGIT</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</div>
+<!-- /Main Content -->
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'programme-wara/js/modalversion.js' %}"></script>
+<!-- data-table js -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<!-- data-table js -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/data-table/js/jszip.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/data-table/js/pdfmake.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/data-table/js/vfs_fonts.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+<!-- Slimscroll JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/jquery.slimscroll.js' %}"></script>
+<!-- Fancy Dropdown JS -->
+<script src="{% static 'programme-wara/plugins/assets/js/dropdown-bootstrap-extended.js' %}"></script>
+<!-- Switchery JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/switchery/dist/switchery.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/data-table/js/data-table-custom.js' %}"></script>
+<!-- Init JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/init.js' %}"></script>
+{% endblock %}

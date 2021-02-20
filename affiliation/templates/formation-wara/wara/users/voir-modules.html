@@ -1,0 +1,107 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+{% block title2 %}
+Accueil
+{% endblock %}
+
+{% block content2 %}
+<!-- Main Content -->
+
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">Modules</h5>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'formation-wara-utilisateur' %}">Wara</a></li>
+                    <li><a href="#"><span>Accueil</span></a></li>
+                    <li class="active"><span>Modules</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+        <!-- /Title -->
+
+        <!-- Row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default card-view">
+                    <div  class="panel-wrapper collapse in">
+                        <div  class="panel-body">
+                            <div class="demo-popover">
+                                {% for module in modules %}
+                                <a href="{% url 'voir_modules_detail' module.id %}">
+                                    <div class="popover" style="width:300px; height:250px">
+                                        <div class="arrow"></div>
+                                        <h3 class="popover-title" style="text-align:center">{{module.nom_du_module}}</h3>
+                                        <div class="popover-content">
+                                            <p style="text-align:justify">
+                                                {{module.intro_text|truncatewords:30}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                                {% empty %}
+                                <div class="popover" style="text-align:center">
+                                    <div class="arrow"></div>
+                                    <h3 class="popover-title">Module de Wara</h3>
+                                    <div class="popover-content">
+                                        <p style="text-align:center;font-weight:700">
+                                            Aucun module n'est disponible pour le moment
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->
+    </div>
+    <!-- Footer -->
+    <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="pull-left text-dark pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
+                <div class="pull-right">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank">SRGIT</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</div>
+
+<!-- End Content-->
+{% endblock %}
+
+
+{% block javascript2 %}
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<!-- Gallery JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/isotope.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/lightgallery-all.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/froogaloop2.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/gallery-data.js' %}"></script>
+<!-- Slimscroll JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/jquery.slimscroll.js' %}"></script>
+<!-- Fancy Dropdown JS -->
+<script src="{% static 'programme-wara/plugins/assets/js/dropdown-bootstrap-extended.js' %}"></script>
+<!-- Owl JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js' %}"></script>
+<!-- Switchery JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/switchery/dist/switchery.min.js' %}"></script>
+<!-- Init JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/init.js' %}"></script>
+{% endblock %}
+
