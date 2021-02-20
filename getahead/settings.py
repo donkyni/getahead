@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'getahead',
         'USER': 'getahead',
         'PASSWORD': 'getahead',
-        'HOST': '127.0.0.1',
+        'HOST': '127.0.0.1', #
         'PORT': '5432',
     }
 }
