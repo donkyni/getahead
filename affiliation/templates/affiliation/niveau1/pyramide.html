@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head-title %}
+    {{niveau1}}&nbsp;
+{% endblock %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+{% endblock %}
+
+{% block menu-niveau1 %}
+active
+{% endblock %}
+
+{% block menu-bamileke %}
+active
+{% endblock %}
+
+{% block position %}
+    Bamiléké
+{% endblock %}
+
+{% block chemin %}
+    {{niveau1}} / Bamiléké / {{group}}
+{% endblock %}
+
+{% block content %}
+<!-- Content -->
+<div class="content">
+    <div class="card">
+        <div class="card-header text-left text-muted">
+            <small style="font-size:15px">
+                <b style="font-size:18px">Groupe de <span style="font-size:10px" class="badge badge-primary"><h4><b>{{group.manageur_du_groupe}}</b></h4></span></b>
+            </small>
+            <a href="{% url 'bamileke' %}" style="color:#fff;" class="float-right btn btn-dark">
+                <small style="font-weight:600" class="float-left">Retour&nbsp;</small>
+                <small>
+                  <i style="font-weight:600;" class="fas fa-angle-right mt-1 float-left"></i>
+                </small>
+              <b>&nbsp;Bamiléké</b>
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="col-md-3 offset-md-9">
+                <div class="text-right text-secondary"><b><i class="badge badge-success">Manageurs</i></b></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 offset-md-4 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 1</h3></div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="col-md-3 offset-md-9">
+                <div class=" mb-3 text-right text-secondary"><b><i class="badge badge-info">Animateurs</i></b></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 offset-md-2 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 1</h3></div>
+                    </section>
+                </div>
+                <div class="col-md-3 offset-md-2 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 2</h3></div>
+                    </section>
+                </div>
+            </div>
+
+            <br>
+            <div class="col-md-3 offset-md-9">
+                <div class=" mb-3 text-right text-secondary"><b><i class="badge badge-warning">Colibris</i></b></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2 mx-auto offset-md-2 ">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 1</h3></div>
+                    </section>
+                </div>
+                <div class="col-md-2 mx-auto offset-md-1">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 2</h3></div>
+                    </section>
+                </div>
+                <div class="col-md-2 mx-auto offset-md-2 ">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 3</h3></div>
+                    </section>
+                </div>
+                <div class="col-md-2 mx-auto offset-md-1">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 4</h3></div>
+                    </section>
+                </div>
+            </div>
+
+            <br>
+            <div class="col-md-3 offset-md-9">
+                <div class=" mb-3 text-right text-secondary"><b><i class="badge badge-danger">Invités</i></b></div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 1</h3></div>
+                    </section>
+                </div>
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 2</h3></div>
+                    </section>
+                </div>
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 3</h3></div>
+                    </section>
+                </div>
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 4</h3></div>
+                    </section>
+                </div>
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 5</h3></div>
+                    </section>
+                </div>
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 6</h3></div>
+                    </section>
+                </div>
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 7</h3></div>
+                    </section>
+                </div>
+                <div class="col-xs-1 mx-auto">
+                    <section class="card text-center">
+                        <div class="card-body badge badge- badge-secondary text-light"><h3>CASE 8</h3></div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .content -->
+{% endblock %}

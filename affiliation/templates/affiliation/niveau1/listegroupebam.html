@@ -1,0 +1,209 @@
+{% load static %}
+
+{% for manageur_bam in manageurs_bam %}
+    {% if manageur_bam.nb_pers_amene >= 2 %}
+        <tr>
+            <td>
+              <b class="badge badge-secondary">{{ manageur_bam.id }}</b>
+            </td>
+            <td>
+
+              <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_bam}}
+              </button>
+              <br>
+              <small>
+                  <i>Cliquez pour lui remmettre son payement</i>
+                  <br>
+                  <i>S'il continue, il a droit à 6300 FCA</i>
+                  <br>
+                  <i>S'il quitte le programme, il a droit à 20000 FCA</i>
+              </small>
+            </td>
+            <td class="text-right">
+              <b class="badge badge-primary" style="font-size:14px;">{{manageur_bam.groupe}}</b>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+          <td>
+              <b class="badge badge-danger">{{ manageur_bam.id }}</b>
+          </td>
+          <td>
+
+              <button class="btn btn-sm btn-danger">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_bam}}
+              </button>
+              <br>
+              <small>
+                  <i>Manageur non reconnu</i>
+                  <br>
+                  <i>Trouvez votre deuxième pied</i>
+              </small>
+          </td>
+          <td class="text-right">
+              <b class="badge badge-danger" style="font-size:14px;">{{manageur_bam.groupe}}</b>
+          </td>
+        </tr>
+    {% endif %}
+{% empty %}
+    <tr>
+        <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Tous les manageurs Bamiléké ont reçus leur Don</td>
+    </tr>
+{% endfor %}
+
+{% for manageur_zou in manageurs_zou %}
+    {% if manageur_zou.nb_pers_amene >= 2 %}
+        <tr>
+            <td>
+              <b class="badge badge-secondary">{{ manageur_zou.id }}</b>
+            </td>
+            <td>
+
+              <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_zou}}
+              </button>
+              <br>
+              <small>
+                  <i>Cliquez pour lui remmettre son payement</i>
+                  <br>
+                  <i>S'il continue, il a droit à 6300 FCA</i>
+                  <br>
+                  <i>S'il quitte le programme, il a droit à 20000 FCA</i>
+              </small>
+            </td>
+            <td class="text-right">
+              <b class="badge badge-primary" style="font-size:14px;">{{manageur_zou.groupe}}</b>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+          <td>
+              <b class="badge badge-danger">{{ manageur_zou.id }}</b>
+          </td>
+          <td>
+
+              <button class="btn btn-sm btn-danger">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_zou}}
+              </button>
+              <br>
+              <small>
+                  <i>Manageur non reconnu</i>
+                  <br>
+                  <i>Trouvez votre deuxième pied</i>
+              </small>
+          </td>
+          <td class="text-right">
+              <b class="badge badge-danger" style="font-size:14px;">{{manageur_zou.groupe}}</b>
+          </td>
+        </tr>
+    {% endif %}
+{% empty %}
+    <tr>
+        <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Tous les manageurs Zoulou ont reçus leur Don</td>
+    </tr>
+{% endfor %}
+
+{% for manageur_maya in manageurs_maya %}
+    {% if manageur_maya.nb_pers_amene >= 2 %}
+        <tr>
+            <td>
+              <b class="badge badge-secondary">{{ manageur_maya.id }}</b>
+            </td>
+            <td>
+
+              <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_maya}}
+              </button>
+              <br>
+              <small>
+                  <i>Cliquez pour lui remmettre son payement</i>
+                  <br>
+                  <i>S'il continue, il a droit à 6300 FCA</i>
+                  <br>
+                  <i>S'il quitte le programme, il a droit à 20000 FCA</i>
+              </small>
+            </td>
+            <td class="text-right">
+              <b class="badge badge-primary" style="font-size:14px;">{{manageur_maya.groupe}}</b>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+          <td>
+              <b class="badge badge-danger">{{ manageur_maya.id }}</b>
+          </td>
+          <td>
+
+              <button class="btn btn-sm btn-danger">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_maya}}
+              </button>
+              <br>
+              <small>
+                  <i>Manageur non reconnu</i>
+                  <br>
+                  <i>Trouvez votre deuxième pied</i>
+              </small>
+          </td>
+          <td class="text-right">
+              <b class="badge badge-danger" style="font-size:14px;">{{manageur_maya.groupe}}</b>
+          </td>
+        </tr>
+    {% endif %}
+{% empty %}
+    <tr>
+        <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Tous les manageurs Maya ont reçus leur Don</td>
+    </tr>
+{% endfor %}
+
+{% for manageur_mand in manageurs_mand %}
+    {% if manageur_mand.nb_pers_amene >= 2 %}
+        <tr>
+            <td>
+              <b class="badge badge-secondary">{{ manageur_mand.id }}</b>
+            </td>
+            <td>
+
+              <button class="btn btn-sm btn-success show-form" data-url="{% url 'createpayement' %}">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_mand}}
+              </button>
+              <br>
+              <small>
+                  <i>Cliquez pour lui remmettre son payement</i>
+                  <br>
+                  <i>S'il continue, il a droit à 6300 FCA</i>
+                  <br>
+                  <i>S'il quitte le programme, il a droit à 7000 FCA</i>
+              </small>
+            </td>
+            <td class="text-right">
+              <b class="badge badge-primary" style="font-size:14px;">{{manageur_mand.groupe}}</b>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+          <td>
+              <b class="badge badge-danger">{{ manageur_mand.id }}</b>
+          </td>
+          <td>
+
+              <button class="btn btn-sm btn-danger">
+                <i class="fa fa-user" aria-hidden="true"></i> {{manageur_mand}}
+              </button>
+              <br>
+              <small>
+                  <i>Manageur non reconnu</i>
+                  <br>
+                  <i>Trouvez votre deuxième pied</i>
+              </small>
+          </td>
+          <td class="text-right">
+              <b class="badge badge-danger" style="font-size:14px;">{{manageur_mand.groupe}}</b>
+          </td>
+        </tr>
+    {% endif %}
+{% empty %}
+    <tr>
+        <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Tous les manageurs Mandingue ont reçus leur Don du palier Bamiléké</td>
+    </tr>
+{% endfor %}

@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head-title %}
+    Liste des adhérents&nbsp;
+{% endblock %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+{% endblock %}
+
+{% block menu-donnee-base %}
+active
+{% endblock %}
+
+{% block active-liste-adherent %}
+active
+{% endblock %}
+
+{% block position %}
+    Liste des adhérents
+{% endblock %}
+
+{% block chemin %}
+    Liste des adhérents
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <a class="btn btn-outline-primary show-form" href="{% url 'ajouter' %}">
+            Ajouter un adhérent&nbsp;
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+        <br><br>
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Fiche total des adhérents</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fas fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="card-body p-2">
+          <table id="table-liste-adherent" class="text-center table table-striped table-hover projects">
+              <br>
+              <thead>
+                  <tr>
+                      <th style="width: 15%;font-size:14px">
+                          Nom
+                      </th>
+                      <th style="width: 10%;font-size:15px">
+                          Points <small>/ <span class="badge badge-secondary"> réel</span></small>
+                      </th>
+                      <th style="width: 12%;font-size:15px">
+                          Points <small>/ <span class="badge badge-secondary"> palier</span></small>
+                      </th>
+                      <th style="width: 10%;font-size:14px">
+                          Groupe
+                      </th>
+                      <th style="width: 15%;font-size:14px">
+                          Contact
+                      </th>
+                      <th style="width: 10%;font-size:14px">
+                          Pays
+                      </th>
+                      <th style="width: 12%;font-size:14px">
+                          Progression
+                      </th>
+                      <th style="font-size:14px">
+                          Sexe
+                      </th>
+                      <th style="width: 10%;font-size:14px">
+                          Actions
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for utilisateur in utilisateurs %}
+                 <tr>
+                  <td>
+                      <a href="{% url 'voirplus' utilisateur.id %}" class="btn btn-sm btn-primary text-light" style="font-weight:700">
+                          <i class="fa fa-user" aria-hidden="true"></i> {{utilisateur}}
+                      </a>
+                      <br>
+                      {% if utilisateur.nom_du_parent is None %}
+                        <small><i>Parrain : <span class="badge badge-info">Aucun</span></i></small>
+                      {% elif utilisateur.nom_du_parent is not None %}
+                        <small><i>Parrain : <span class="badge badge-success">{{ utilisateur.nom_du_parent }}</span></i></small>
+                      {% endif %}
+                  </td>
+                  <td>
+                      <b class="badge badge-info" style="font-size:14px;"><i>{{utilisateur.point|add:utilisateur.stock_point}}</i></b>
+                  </td>
+                  <td>
+                      {% if utilisateur.poste.nom_du_poste == "Invité" %}
+                      <b class="badge badge-secondary">{{ utilisateur.point_fictive_inv }}</b>
+                      {% elif utilisateur.poste.nom_du_poste == "Colibri" %}
+                      <b class="badge badge-secondary">{{ utilisateur.point_fictive_col }}</b>
+                      {% elif utilisateur.poste.nom_du_poste == "Manageur" %}
+                      <b class="badge badge-secondary">{{ utilisateur.point_fictive_manag }}</b>
+                      {% elif utilisateur.poste is None %}
+                      <small class="badge badge-secondary">Aucun</small>
+                      {% endif %}
+                  </td>
+                  <td>
+                      {% if utilisateur.groupe is not None%}
+                      <b class="badge badge-warning" style="font-size:14px;"><i>{{utilisateur.groupe}}</i></b>
+                      <small class="badge badge-secondary">Manageur : {{utilisateur.groupe.manageur_du_groupe}}</small>
+                      {% elif utilisateur.groupe is None %}
+                      <small class="badge badge-secondary">Aucun</small>
+                      {% endif %}
+                  </td>
+                  <td>
+                      <b style="font-size:14px;">{{utilisateur.telephone}}</b><br>
+                      <small class="badge badge-secondary"><i>{{utilisateur.adresse}}</i></small>
+                  </td>
+                  <td>
+                      <b style="font-size:14px;">{{utilisateur.pays_de_residence.pays}}</b>
+                  </td>
+                  <td>
+                      {% if utilisateur.palier is not None %}
+                      <b style="font-size:14px;">{{utilisateur.poste}}</b><br>
+                      <small class="badge badge-secondary"><i>{{utilisateur.palier}}</i></small>
+                      {% elif utilisateur.palier is None %}
+                      <small class="badge badge-secondary"><i>Aucune</i></small>
+                      {% endif %}
+                  </td>
+                  <td class="project-actions">
+                      <b style="font-size:14px;">{{utilisateur.sexe}}</b>
+                  </td>
+                  <td class="">
+                      <a href="{% url 'listeupdateuser' utilisateur.id %}" class="btn btn-info btn-sm show-form-update">
+                          <i class="fas fa-pencil-alt"></i>
+                      </a>
+                      <a class="btn btn-danger btn-sm show-form-delete" href="{% url 'listesuppruser' utilisateur.id %}">
+                          <i class="fas fa-trash"></i>
+                      </a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun utilisateur n'est disponible</td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+          </table>
+            <!-- Popup ajouter nouvelle personne -->
+            <div class="modal fade" id="modal-liste-adherent">
+                <div class="modal-dialog">
+                    <div class="modal-content"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'affiliation/js/modal-liste-adherent.js' %}"></script>
+<!-- DataTables -->
+<script src="{% static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{% static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+<!-- page script -->
+<script>
+  $(function () {
+    $("#table-liste-adherent").DataTable();
+  });
+</script>
+{% endblock %}

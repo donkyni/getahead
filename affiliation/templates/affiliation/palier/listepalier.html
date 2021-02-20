@@ -1,0 +1,30 @@
+{% load static %}
+{% for palier in paliers %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ palier.id }}</b>
+  </td>
+  <td>
+      <b class="badge badge-secondary" style="font-size:14px;">{{palier.nom_du_palier}}</b>
+  </td>
+  <td>
+      <b class="badge badge-secondary" style="font-size:14px;">{{palier.niveau}}</b>
+  </td>
+  <td class="project-actions">
+      <button class="btn btn-info btn-sm show-form-update" data-url="{% url 'updatepalier' palier.id %}">
+          <i class="fas fa-pencil-alt">
+          </i>
+          Editer
+      </button>
+      <button class="btn btn-danger btn-sm show-form-delete" data-url="{% url 'deletepalier' palier.id %}">
+          <i class="fas fa-trash">
+          </i>
+          Effacer
+      </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun palier n'est disponible</td>
+</tr>
+{% endfor %}

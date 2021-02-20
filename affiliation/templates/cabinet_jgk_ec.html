@@ -1,0 +1,155 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!-- Theme style
+  	<link rel="stylesheet" href="{% static 'affiliation/dist/css/adminlte.min.css' %}">-->
+  	<link rel="stylesheet" href="{% static 'affiliation/css/header.css' %}">
+  	<link rel="stylesheet" href="{% static 'affiliation/css/footer.css' %}">
+	<link rel="stylesheet" href="{% static 'affiliation/css/styles.css' %}">
+	<!-- Font Awesome -->
+  	<link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %}">
+	<title>Page d'acceuil de GET AHEAD</title>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<nav>
+		<div class="logo" style="cursor:pointer">
+			<span style="background: url('{% static 'affiliation/img/jgk.png' %}');background-size: cover;">
+				<span style="color:purple;opacity:0">Get Ahead &nbsp;</span>
+			</span>
+		</div>
+		<label for="btn" class="icon">
+			<span class="fa fa-bars"></span>
+		</label>
+		<input type="checkbox" id="btn">
+		<ul>
+			<li><a href="{% url 'acceuil' %}">Acceuil</a></li>
+			<li>
+				<label for="btn-1" class="show">Présentation +</label>
+				<a href="javascript:void(0)">Présentation</a>
+				<input type="checkbox" id="btn-1">
+				<ul>
+					<li><a href="{% url 'cabinet_jgk-ec' %}">Cabinet JGK-EC</a></li>
+					<li><a href="javascript:void(0)"><span style="">Dr Jean Gaspard KOMINA</span></a></li>
+				</ul>
+			</li>
+			<li>
+				<label for="btn-2" class="show">WARA +</label>
+				<a href="javascript:void(0)">WARA</a>
+				<input type="checkbox" id="btn-2">
+				<ul>
+					<li><a href="{% url 'acceuil' %}#inscription_wara">Inscription</a></li>
+					<li>
+						<label for="btn-3" class="show">Programme Wara +</label>
+						<a href="{% url 'programme_wara' %}">Programme Wara
+							<span class="fa fa-chevron-right"></span>
+						</a>
+						<input type="checkbox" id="btn-3">
+						<ul>
+							<li><a href="{% url 'programme_wara' %}#bonasavoir" style="font-size:14px">BON A SAVOIR</a></li>
+							<li><a href="{% url 'programme_wara' %}#concerne" style="font-size:14px">EN QUOI SUIS-JE CONCERNE ?</a></li>
+							<li><a href="{% url 'programme_wara' %}#module" style="font-size:14px">LES MODULES DE FORMATION</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<label for="btn-4" class="show">GET AHEAD +</label>
+				<a href="javascript:void(0)">GET AHEAD</a>
+				<input type="checkbox" id="btn-4">
+				<ul>
+					<li><a href="{% url 'presentation_get_ahead' %}">Présentation</a></li>
+					<li><a href="{% url 'login' %}">Connexion</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:void(0)">Actualités</a></li>
+			<li><a href="javascript:void(0)">Contacts</a></li>
+		</ul>
+	</nav>
+
+	<section>
+		<div class="blog-post">
+		<div class="blog-post__img">
+			<img src="{% static 'affiliation/img/jgk.png' %}" alt="">
+		</div>
+		<div class="blog-post__info">
+
+			<h1 class="blog-post__title">PRESENTATION JGK-EC</h1>
+			<p class="blog-post__text" style="line-height: 30px; text-align:justify">
+				Crée en 2013 et enregistré sous les N° : RCM  TG-LOM 2013 A 6046/TG-LOM 2016 B 40, NIF: 1000614225,
+				CNSS: 31 918 au Togo, en Afrique de l’ouest, JGK ENTREPRISES & CONSULTING (JGK-EC) s’est assigné
+				pour mission d’offrir des services de formations, de conseil et d'assistance technique pouvant
+				contribuer à l’amélioration des performances des individus et des organisations. <br><br>
+				Pour la réalisation de sa mission, JGK-EC met à contribution une équipe de consultants hautement
+				qualifiés. Il dispose en effet d’un important répertoire d’experts nationaux et internationaux
+				aux expériences multiples et variées. <br><br>
+				JGK-EC est reconnu, par la Banque Centrale des Etats de l’Afrique de l’Ouest (BCEAO), comme structure
+				de soutien au financement des PME/PMI.
+				Son Représentant est <span style="font-weight:700;">Docteur Jean-Gaspard KOMINA</span>.
+
+			</p>
+			<!-- <a href="" class="blog-post__cta">Voir plus</a> -->
+			<hr>
+
+			<span style="line-height:27px;font-size:15px;text-align:center;">
+				<span style="font-weight:700;text-align:center;">« Vous êtes des êtres divins, votre potentiel est illimité, <br>votre avenir est magnifique si vous le prenez en main. »</span>
+				<br>
+				<span style="text-align:center;font-style:italic">Gordon B. Hinckley</span>
+			</span>
+		</div>
+	</div>
+	</section>
+
+	<footer>
+		<div class="main-content">
+			<div class="center box">
+				<h2 style="font-size:15px;">Adresse</h2>
+				<div class="contentfoo">
+					<div class="place">
+						<span class="fa fa-map-marker-alt"></span>
+						<span class="text" style="font-size:15px;">317, Rue de la Liberté, Agbalepedo Lomé – Togo</span>
+					</div>
+					<div class="phone">
+						<span class="fa fa-phone-alt"></span>
+						<span class="text" style="font-size:15px;">+ 228 22 25 39 87</span>
+					</div>
+					<div class="email">
+						<span class="fa fa-envelope"></span>
+						<span class="text" style="font-size:15px;">jgkec@yahoo.fr</span>
+					</div>
+				</div>
+			</div>
+			<div class="right box">
+				<h2 style="font-size:15px;">Contacter nous</h2>
+				<div class="contentfoo">
+					<form class="form">
+						<div class="email">
+							<div class="text" style="font-size:15px;">Email *</div>
+							<input type="email" required id="emailfoo">
+						</div>
+						<div class="msg">
+							<div class="text" style="font-size:15px;">Message *</div>
+							<textarea name="" id="msgfoo" cols="25" rows="2" required></textarea>
+						</div>
+						<div class="btn-submit">
+							<button type="submit" class="btn-send" style="font-size:15px;">Envoyer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<center>
+				<span class="credit" style="font-size:15px;">Created by <a href="javascript:void(0)">JGK-EC</a> | </span>
+				<span class="far fa-copyright"></span><span style="font-size:15px;"> 2020 All rights reserved</span>
+			</center>
+		</div>
+	</footer>
+</body>
+</html>

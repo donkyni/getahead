@@ -1,0 +1,27 @@
+{% load static %}
+{% for niveau in niveaux %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ niveau.id }}</b>
+  </td>
+  <td>
+      <b class="badge badge-secondary" style="font-size:14px;">{{niveau.nom_du_niveau}}</b>
+  </td>
+  <td class="project-actions">
+      <button class="btn btn-info btn-sm show-form-update" data-url="{% url 'updateniveau' niveau.id %}">
+          <i class="fas fa-pencil-alt">
+          </i>
+          Editer
+      </button>
+      <button class="btn btn-danger btn-sm show-form-delete" data-url="{% url 'deleteniveau' niveau.id %}">
+          <i class="fas fa-trash">
+          </i>
+          Effacer
+      </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun niveau n'est disponible</td>
+</tr>
+{% endfor %}

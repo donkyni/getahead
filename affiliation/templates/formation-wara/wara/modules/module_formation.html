@@ -1,0 +1,108 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block link %}
+<!-- Favicon -->
+<link rel="shortcut icon" href="plugins/assets/img/favicon/favicon.png">
+<link rel="icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}" type="image/x-icon">
+<link href="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css' %}" rel="stylesheet">
+<!-- Page plugins css -->
+<link href="{% static 'programme-wara/plugins/vendors/bower_components/clockpicker/dist/jquery-clockpicker.min.css' %}" rel="stylesheet">
+<!-- Color picker plugins css -->
+<link href="{% static 'programme-wara/plugins/vendors/bower_components/jquery-asColorPicker-master/css/asColorPicker.css' %}" rel="stylesheet">
+<!-- Date picker plugins css -->
+<link href="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- Daterange picker plugins css -->
+<link href="{% static 'programme-wara/plugins/vendors/bower_components/timepicker/bootstrap-timepicker.min.css' %}" rel="stylesheet">
+<link href="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="{% static 'programme-wara/plugins/assets/css/default.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block title %}
+Version
+{% endblock %}
+
+{% block active-page-compte %}
+active-page
+{% endblock %}
+
+{% block active-module %}
+active
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark" style="text-transform:capitalize">Ajouter les modules pour cette formations</h5>
+      </div>
+      <!-- Breadcrumb -->
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="{% url 'acceuil' %}">Tableau de bord</a></li>
+          <li><a href="#"><span>Wara</span></a></li>
+          <li class="active"><span>Modules de formations</span></li>
+        </ol>
+      </div>
+      <!-- /Breadcrumb -->
+    </div>
+    <br><br>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="panel panel-default card-view">
+          <div class="panel-wrapper collapse in">
+            <div class="panel-body pt-0">
+              <div class="form-wrap">
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{form|crispy}}
+                  <button type="submit" class="btn btn-primary btn-block btn-anim mt-10">
+                    <i class="fa fa-pencil"></i><span class="btn-text">Enregistrer le module</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row -->
+  </div>
+  <!-- Footer -->
+  <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+    <div class="row">
+      <div class="col-sm-12 ">
+        <div class="pull-left text-dark pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
+        <div class="pull-right">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank">SRGIT</a></div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </footer>
+  <!-- /Footer -->
+</div>
+<!-- /Main Content -->
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/mask.js' %}"></script>
+<!-- Forms JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/forms-mod-bootstrap/dist/js/forms-mod-bootstrap.min.js' %}"></script>
+<!-- Slimscroll JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/jquery.slimscroll.js' %}"></script>
+<!-- Fancy Dropdown JS -->
+<script src="{% static 'programme-wara/plugins/assets/js/dropdown-bootstrap-extended.js' %}"></script>
+<!-- Switchery JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/switchery/dist/switchery.min.js' %}"></script>
+<!-- Init JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/init.js' %}"></script>
+{% endblock %}

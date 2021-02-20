@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{%static 'affiliation/dist/css/adminlte.min.css' %}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{%static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{%static 'affiliation/dist/css/adminlte.min.css' %}">
+{% endblock %}
+
+{% block head-title %}Mon groupe{% endblock %}
+
+{% block menu-espace %}
+active
+{% endblock %}
+
+{% block active-espace-groupe %}
+active
+{% endblock %}
+
+{% block position %}
+    Membres du groupe
+{% endblock %}
+
+{% block style %}
+    color:red;
+{% endblock %}
+
+{% block chemin %}
+    Mon espace / Mon groupe / Membres du groupe
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+
+            <br>
+            <a href="{% url 'liste' %}" style="color:#fff;" class="btn btn-block btn-dark">
+                <small style="font-weight:600" class="">Retour&nbsp;</small>
+                <small>
+                  <i style="font-weight:600;" class="fas fa-angle-right mt-1"></i>
+                </small>
+              <b>&nbsp;Liste total des membres</b>
+            </a>
+            <br>
+
+          <div class="card">
+            <div class="card-body">
+              <table id="table-voir-membre_palier" class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                  <th style="width:5%">Ordre</th>
+                  <th>Nom et prénom</th>
+                  <th>Téléphone</th>
+                  <th>Adresse</th>
+                  <th>Poste</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for membre in membres_bam %}
+                <tr>
+                    <td class="text-center"><span hidden>{{membre.point}}</span><span class="text-center">{% if membre.poste.nom_du_poste == "Invité" %}{{membre.point_fictive_inv}} points{% elif membre.poste.nom_du_poste == "Colibri" %}{{membre.point_fictive_col}} points{% elif membre.poste.nom_du_poste == "Manageur" %}{{membre.point_fictive_manag}} points{%endif%}</span></td>
+                  <td>{{membre}}</td>
+                  <td>{{membre.telephone}}</td>
+                  <td>{{membre.adresse}}</td>
+                  <td>{{membre.poste}} | {{membre.palier}}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center bg-primary"><b>Aucun membre n'est encore présent dans le groupe</b>
+                        <br><small>Lorsqu'un nouveau membre s'enrégistre et selon son palier, il s'affiche ici</small></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th style="width:5%">Ordre</th>
+                  <th>Nom et prénom</th>
+                  <th>Téléphone</th>
+                  <th>Adresse</th>
+                  <th>Poste</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block javascript %}
+<!-- DataTables -->
+<script src="{%static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{%static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+
+<!-- page script -->
+<script>
+  $(function () {
+    $("#table-voir-membre_palier").DataTable();
+  });
+</script>
+{% endblock %}

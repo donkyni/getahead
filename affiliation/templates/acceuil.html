@@ -1,0 +1,189 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="keywords" content="getahead, wara, wara-africa, africa, get, ahead, affiliation, parrainage" />
+	<!-- Theme style
+  	<link rel="stylesheet" href="{% static 'affiliation/dist/css/adminlte.min.css' %}">-->
+  	<link rel="stylesheet" href="{% static 'affiliation/css/header.css' %}">
+  	<link rel="stylesheet" href="{% static 'affiliation/css/headerget.css' %}">
+  	<!--<link rel="stylesheet" href="{% static 'affiliation/css/footer.css' %}">-->
+  	<!-- Font Awesome -->
+  	<link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %}">
+	<title>Page d'acceuil de GET AHEAD</title>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<nav>
+		<div class="logo" style="cursor:pointer">
+			<span style="background: url('{% static 'affiliation/img/jgk.png' %}');background-size: cover;">
+				<span style="color:purple;opacity:0">Get Ahead &nbsp;</span>
+			</span>
+		</div>
+		<label for="btn" class="icon">
+			<span class="fa fa-bars"></span>
+		</label>
+		<input type="checkbox" id="btn">
+		<ul>
+
+			<li><a href="javascript:void(0)" style="text-transform:uppercase">Acceuil</a></li>
+			<!--<li>
+				<label for="btn-1" class="show">Présentation +</label>
+				<a href="javascript:void(0)">Présentation</a>
+				<input type="checkbox" id="btn-1">
+				<ul>
+					<li><a href="{% url 'cabinet_jgk-ec' %}">Cabinet JGK-EC</a></li>
+					<li><a href="javascript:void(0)"><span style="">Dr Jean Gaspard KOMINA</span></a></li>
+				</ul>
+			</li>
+			-->
+			<li>
+				<label for="btn-2" class="show">WARA +</label>
+				<a href="javascript:void(0)">WARA</a>
+				<input type="checkbox" id="btn-2">
+				<ul>
+					<li><a href="{% url 'wlogin' %}">Connexion</a></li>
+					<li>
+						<label for="btn-3" class="show">Programme Wara +</label>
+						<a href="{% url 'programme_wara' %}">Programme Wara
+							<span class="fa fa-chevron-right"></span>
+						</a>
+						<input type="checkbox" id="btn-3">
+						<ul>
+							<li><a href="{% url 'programme_wara' %}#bonasavoir" style="font-size:14px">BON A SAVOIR</a></li>
+							<li><a href="{% url 'programme_wara' %}#concerne" style="font-size:14px">EN QUOI SUIS-JE CONCERNE ?</a></li>
+							<li><a href="{% url 'programme_wara' %}#module" style="font-size:14px">LES MODULES DE FORMATION</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<label for="btn-4" class="show">GET AHEAD +</label>
+				<a href="javascript:void(0)">GET AHEAD</a>
+				<input type="checkbox" id="btn-4">
+				<ul>
+					<li><a href="{% url 'login' %}">Connexion</a></li>
+					<li><a href="{% url 'presentation_get_ahead' %}">Présentation</a></li>
+				</ul>
+			</li>
+			<!--
+			<li><a href="javascript:void(0)">Actualités</a></li>
+			<li><a href="javascript:void(0)" style="text-transform:uppercase">Contacts</a></li>
+			-->
+		</ul>
+	</nav>
+
+	<section class="header" style="background: url('{% static 'affiliation/img/header6.jpeg' %}');background-size: cover;">
+		<div class="content">
+			<h2>GET AHEAD</h2>
+			<br>
+			<p>
+				<span style="font-weight:700;">« Vous êtes des êtres divins, votre potentiel est illimité, <br>votre avenir est magnifique si vous le prenez en main. »</span>
+				<br>
+				<span style="font-style:italic">Gordon B. Hinckley</span>
+			</p>
+		</div>
+		<div class="container">
+			<!--
+			<div id="connexion" class="headerinfo">
+				<div class="box">
+					<div class="text">
+						<h3 style="text-align: center;text-transform:uppercase;">Connectez-vous à votre compte <span style="background: #777;border-radius:5px;padding:3px">GET AHEAD</span></h3>
+						<br><br>
+						<p style="color:black;margin:130px 0; text-align:center">
+							Vous êtes membre GET AHEAD <a class="wara" href="{% url 'login' %}" style="text-decoration:none; color:red">connectez vous</a>
+							<br>Sinon passez à <a style="text-decoration:none" href="#inscription_wara"><span class="wara" style="font-style:italic; color:red">l'inscription WARA <i class="fa fa-arrow-right"></i></span></a>
+						</p>
+						<br>
+					</div>
+					<a class="logina" style="margin-top:50px;text-align: center;text-decoration:none; width:100%;background:#123;color:#fff;border:none;cursor:pointer;padding:10px;font-size:18px;" href="{% url 'login' %}">
+						CONNEXION MEMBRE
+					</a>
+				</div>
+			</div>
+			<div id="inscription_wara" class="headerform">
+				<form method="post">
+					{% csrf_token %}
+					<h3 style="">Inscription au programme <span style="background: #777;border-radius:5px;padding:3px">WARA</span></h3>
+					<div class="inputbox">
+						<label>Nom</label>
+						{{ w_form.nom }}
+					</div>
+					<div class="inputbox">
+						<label>Prenom</label>
+						{{ w_form.prenom }}
+					</div>
+					<div class="inputbox">
+						<label>Téléphone</label>
+						{{ w_form.telephone }}
+					</div>
+					<div class="inputbox">
+						<label>Email</label>
+						{{ w_form.email }}
+					</div>
+					<div class="inputbox">
+						<label>Parrain</label>
+						{{ w_form.parrain }}
+					</div>
+					<div class="inputbox">
+						<button>Send</button>
+					</div>
+				</form>
+			</div>
+			-->
+		</div>
+	</section>
+	<!--
+	<footer>
+		<div class="main-content">
+			<div class="center box">
+				<h2>Adresse</h2>
+				<div class="contentfoo">
+					<div class="place">
+						<span class="fa fa-map-marker-alt"></span>
+						<span class="text">317, Rue de la Liberté, Agbalepedo Lomé – Togo</span>
+					</div>
+					<div class="phone">
+						<span class="fa fa-phone-alt"></span>
+						<span class="text">+ 228 22 25 39 87</span>
+					</div>
+					<div class="email">
+						<span class="fa fa-envelope"></span>
+						<span class="text">jgkec@yahoo.fr</span>
+					</div>
+				</div>
+			</div>
+			<div class="right box">
+				<h2>Contacter nous</h2>
+				<div class="contentfoo">
+					<form class="form">
+						<div class="email">
+							<div class="text">Email *</div>
+							<input style="color:#FFF;" type="email" required id="emailfoo">
+						</div>
+						<div class="msg">
+							<div class="text">Message *</div>
+							<textarea style="color:#FFF;" name="" id="msgfoo" cols="25" rows="2" required></textarea>
+						</div>
+						<div class="btn-submit">
+							<button style="color:#FFF;" type="submit" class="btn-send">Envoyer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<center>
+				<span class="credit">Created by <a href="javascript:void(0)">JGK-EC</a> | </span>
+				<span class="far fa-copyright"></span><span> 2020 All rights reserved</span>
+			</center>
+		</div>
+	</footer>
+	-->
+</body>
+</html>

@@ -1,0 +1,38 @@
+Listen 8000
+<VirtualHost *:8000>
+
+	ServerAdmin webmaster@localhost
+	ServerName jgkec.com
+	ServerAlias www.jgkec.com
+	
+##	WSGIProcessGroup getahead
+
+	WSGIScriptAlias / /var/www/html/django/jgk/jgk/wsgi.py
+#	WSGIApplicationGroup %{GLOBAL}
+	Alias /static/ /var/www/html/django/jgk/static/
+	Alias /fichier_static/ /var/www/html/django/jgk/fichier_static/
+	
+	<Directory /var/www/html/django/jgk/static>
+		Require all granted
+	</Directory>
+
+	<Directory /var/www/html/django/jgk/fichier_static>
+		Require all granted
+        </Directory>
+
+	<Directory /var/www/html/django/jgk>        
+		 <IfVersion < 2.4>                
+				 Order allow,deny           
+				 Allow from all
+	         </IfVersion>
+	         <IfVersion >= 2.4>
+	                 Require all granted
+	         </IfVersion>
+        </Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/ecjgk_error.log
+	CustomLog ${APACHE_LOG_DIR}/ecjgk_access.log combined
+
+</VirtualHost>
+
+

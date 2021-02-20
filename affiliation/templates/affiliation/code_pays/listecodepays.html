@@ -1,0 +1,20 @@
+{% for code in codes %}
+<tr>
+    <td class="text-center"><span class="badge badge-secondary">{{code.id}}</span></td>
+    <td class="text-center">{{code.pays}}</td>
+    <td class="text-center">{{code.code_pays}}</td>
+    <td class="text-center">
+        <button class="btn btn-sm btn-warning show-form-update" data-url="{% url 'updatecodepays' code.id %}">
+            <i class="fa fa-pencil-alt" aria-hidden="true"></i> Editer
+        </button>
+        <button class="btn btn-sm btn-danger show-form-delete" data-url="{% url 'deletecodepays' code.id %}">
+            <i class="fa fa-trash" aria-hidden="true"></i> Supprimer
+        </button>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td style="font-weight:700" colspan="4" class="text-center text-light bg-primary">Aucun code de pays n'est disponible pour le moment
+    </td>
+</tr>
+{% endfor %}

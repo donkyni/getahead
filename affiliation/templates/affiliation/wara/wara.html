@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+{% endblock %}
+
+{% block head-title %}WARA{% endblock %}
+
+{% block menu-wara %}
+active
+{% endblock %}
+
+{% block active-wara %}
+active
+{% endblock %}
+
+{% block position %}
+    WARA
+{% endblock %}
+
+{% block chemin %}
+    WARA
+{% endblock %}
+
+
+{% block content %}
+<section class="content">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Projects</h3>
+
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+          <i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+          <i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <table id="table-wara" class="table table-striped projects">
+          <thead>
+              <tr>
+                  <th>
+                      #
+                  </th>
+                  <th>
+                      Nom
+                  </th>
+                  <th>
+                      Prénom
+                  </th>
+                  <th>
+                      Téléphone
+                  </th>
+                  <th>
+                      Email
+                  </th>
+                  <th>
+                      Parrain
+                  </th>
+                  <th>
+                      Date
+                  </th>
+                  <th>
+                      Actions
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for wara in waras %}
+              <tr>
+                  <td>
+                      #
+                  </td>
+                  <td>
+                      {{wara.nom}}
+                  </td>
+                  <td>
+                      {{wara.prenom}}
+                  </td>
+                  <td class="project-state">
+                      <span class="badge badge-dark">{{wara.telephone}}</span>
+                  </td>
+                  <td class="project-state">
+                      <span class="badge badge-secondary">{{wara.email}}</span>
+                  </td>
+                  <td class="project-state">
+                      <span class="badge badge-warning">
+                          {% if wara.parrain %}
+                            {{wara.parrain}}
+                          {% elif wara.parrain is None %}
+                            Aucun
+                          {% endif %}
+                      </span>
+                  </td>
+                  <td class="project-state">
+                      <span class="badge badge-secondary">{{wara.date}}</span>
+                  </td>
+                  <td class="project-actions text-right">
+                      <a class="btn btn-primary btn-sm" href="#">
+                          <i class="fas fa-folder">
+                          </i>
+                          View
+                      </a>
+                      <a class="btn btn-danger btn-sm" href="#">
+                          <i class="fas fa-trash">
+                          </i>
+                          Delete
+                      </a>
+                  </td>
+              </tr>
+          {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun inscrit à afficher</td>
+                </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- /.content -->
+{% endblock %}
+
+{% block javascript %}
+<!-- DataTables -->
+<script src="{% static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{% static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+<!-- page script -->
+<script>
+  $(function () {
+    $("#table-wara").DataTable();
+  });
+</script>
+{% endblock %}

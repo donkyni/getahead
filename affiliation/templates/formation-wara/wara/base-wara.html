@@ -1,0 +1,1292 @@
+{% if request.user.profil.nom == "Administrateur" and request.user.nom_d_utilisateur == "theghost" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}&nbsp;{% endblock %} | Wara</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="wara, wara-africa, get, ahead, getahead, affiliation, parrainage, formations, jgk, jgkec, plan, affaire," />
+    <meta name="author" content="JGKEC"/>
+    {% block link %}
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}">
+    <link rel="icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}" type="image/x-icon">
+    <!-- Data table CSS -->
+    <link href="{% static 'programme-wara/plugins/vendors/bower_components/datatables/media/css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'programme-wara/plugins/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link href="{% static 'programme-wara/plugins/assets/css/default.css' %}" rel="stylesheet" type="text/css">
+    {% endblock %}
+</head>
+<body>
+<!-- Preloader -->
+<div class="preloader-it">
+    <div class="preloader">
+        <div class="circles-1">
+            <div class="circles-1-center"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+        </div>
+    </div>
+</div>
+<!-- //Preloader -->
+<div class="wrapper light-theme ">
+    <!-- Top Header -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="mobile-only-brand pull-left">
+            <div class="nav-header pull-left">
+                <div class="logo-wrap"> <a href="{% url 'formation-wara' %}"> <img class="brand-img" src="{% static 'programme-wara/plugins/assets/img/logo.png' %}" alt="brand"/> <span class="brand-text">W<strong>ARA</strong></span> </a> </div>
+            </div>
+            <a id="toggle-btn" class="toggle-left-nav-btn inline-block ml-20 pull-left" href="javascript:void(0);"><i class="mdi mdi-format-list-bulleted"></i></a> <a id="toggle_mobile_search" data-toggle="collapse" data-target="#search_form" class="mobile-only-view" href="javascript:void(0);"><i class="mdi mdi-search"></i></a> <a id="toggle_mobile_nav" class="mobile-only-view" href="javascript:void(0);"><i class="mdi mdi-more"></i></a>
+        </div>
+        <div id="mobile_right_sidebar" class="mobile-right-sidebar pull-right">
+            <ul class="nav navbar-right top-nav pull-right">
+                <li> <a id="open_right_sidebar" href="#"><i class="pe-7s-chat top-nav-icon"></i></a> </li>
+                <li class="dropdown auth-drp"> <a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user_auth" class="user-auth-img img-circle"/><span class="user-online-status"></span></a>
+                    <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <li> <a href="profile.html"><i class="mdi mdi-account"></i><span>Profile</span></a> </li>
+                        <li> <a href="email-inbox.html"><i class="mdi mdi-email"></i><span>Inbox</span></a> </li>
+                        <li class="divider"></li>
+                        <li class="sub-menu show-on-hover"> <a href="#" class="dropdown-toggle pr-0 level-2-drp"><i class="mdi mdi-check text-success"></i> available</a>
+                            <ul class="dropdown-menu open-left-side">
+                                <li> <a href="#"><i class="mdi mdi-check text-success"></i><span>available</span></a> </li>
+                                <li> <a href="#"><i class="mdi mdi-circle-o text-warning"></i><span>busy</span></a> </li>
+                                <li> <a href="#"><i class="mdi mdi-minus-circle-outline text-danger"></i><span>offline</span></a> </li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li> <a href="#"><i class="mdi mdi-power"></i><span>Log Out</span></a> </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- /Top Menu Items -->
+    <!-- Left Sidebar Menu -->
+    <div class="fixed-sidebar-left">
+        <ul class="nav navbar-nav side-nav nicescroll-bar">
+            <li class="navigation-header"> <span>Données de base</span> <i class="mdi mdi-more"></i> </li>
+            <li>
+                <a class="{% block active-page-tableau %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#admin-dash">
+                    <div class="pull-left"><i class="mdi mdi-apps mr-20"></i><span class="right-nav-text">Tableau de bord</span></div>
+                    <div class="pull-right"><i class="mdi mdi-chevron-down"></i></div>
+                    <div class="clearfix"></div>
+                </a>
+                <ul id="admin-dash" class="collapse collapse-level-1 in">
+                    <li><a href="{% url 'formation-wara' %}" class="{% block active-accueil %}{% endblock %}">Accueil</a></li>
+                </ul>
+            </li>
+            <li>
+                <hr class="light-grey-hr mb-10"/>
+            </li>
+            <li class="navigation-header"> <span>Données systèmes</span> <i class="mdi mdi-more"></i> </li>
+            <li>
+                <a class="{% block active-page-wara %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#ui_element">
+                    <div class="pull-left"><i class="mdi mdi-puzzle mr-20"></i><span class="right-nav-text">Wara</span></div>
+                    <div class="pull-right"><i class="mdi mdi-chevron-down"></i></div>
+                    <div class="clearfix"></div>
+                </a>
+                <ul id="ui_element" class="collapse collapse-level-1 two-col-list">
+                    {% for v in versions %}
+                        <li><a href="{% url 'version_module' v.id %}" class="{% block {{v.version}} %}{% endblock %}">{{v.nom_de_version}}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li>
+                <a class="{% block active-page-forum %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#forum">
+                    <div class="pull-left"><i class="mdi mdi-cube-outline mr-20"></i><span class="right-nav-text">Forum</span></div>
+                    <div class="pull-right"><i class="mdi mdi-chevron-down"></i></div>
+                    <div class="clearfix"></div>
+                </a>
+                <ul id="forum" class="collapse collapse-level-1">
+                    <li><a href="javascript:void(0)">Accédez aux forums</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="{% block active-page-attestation %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#icon_list">
+                    <div class="pull-left"><i class="mdi mdi-cube-outline mr-20"></i><span class="right-nav-text">Attestions</span></div>
+                    <div class="pull-right"><i class="mdi mdi-chevron-down"></i></div>
+                    <div class="clearfix"></div>
+                </a>
+                <ul id="icon_list" class="collapse collapse-level-1">
+                    <li><a href="javascript:void(0)">Voir les attestions générées</a></li>
+                </ul>
+            </li>
+            <!-- Profiles -->
+            <li>
+                <hr class="light-grey-hr mb-10"/>
+            </li>
+            <li class="navigation-header"> <span>Paramètre du compte</span> <i class="mdi mdi-more"></i> </li>
+            <li>
+                <a class="{% block active-page-compte %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#pages_ecommerce">
+                    <div class="pull-left"><i class="mdi mdi-cart mr-20"></i><span class="right-nav-text">Configurations</span></div>
+                    <div class="pull-right"><i class="mdi mdi-chevron-down"></i></div>
+                    <div class="clearfix"></div>
+                </a>
+                <ul id="pages_ecommerce" class="collapse collapse-level-2">
+                    <li><a href="{% url 'version-wara' %}" class="{% block active-type %}{% endblock %}">Ajouter une nouvelle version</a></li>
+                    <li><a href="{% url 'module_formation' %}" class="{% block active-module %}{% endblock %}">Ajouter un module de formation</a></li>
+                    <li><a href="{% url 'vague_formation' %}" class="{% block active-vague %}{% endblock %}">Ajouter une vague de formation</a></li>
+                    <li> <a href="javascript:void(0)">Modifier vos informations</a> </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- /Left Sidebar Menu -->
+    <!-- Right Sidebar Menu -->
+    <div class="fixed-sidebar-right">
+        <ul class="right-sidebar">
+            <li>
+                <div  class="tab-struct user-tabs">
+                    <ul role="tablist" class="nav nav-tabs" id="right_sidebar_tab">
+                        <li class="active" role="presentation"><a aria-expanded="true"  data-toggle="tab" role="tab" id="chat_tab_btn" href="#chat_tab"><i class="pe-7s-chat"></i></a></li>
+                        <li role="presentation" class=""><a  data-toggle="tab" id="messages_tab_btn" role="tab" href="#messages_tab" aria-expanded="false"><i class="pe-7s-mail"></i></a></li>
+                        <li role="presentation" class=""><a  data-toggle="tab" id="settings_tab_btn" role="tab" href="#settings_tab" aria-expanded="false"><i class="pe-7s-keypad"></i></a></li>
+                    </ul>
+                    <div class="tab-content" id="right_sidebar_content">
+                        <div  id="chat_tab" class="tab-pane fade active in" role="tabpanel">
+                            <div class="chat-cmplt-wrap">
+                                <div class="chat-box-wrap">
+                                    <div class="add-friend"> <span class="inline-block txt-dark">Recent Chats</span> <a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="mdi mdi-plus"></i></a> <a href="javascript:void(0)" class="inline-block txt-grey"> <i class="mdi mdi-more"></i> </a>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div id="chat_list_scroll">
+                                        <div class="nicescroll-bar">
+                                            <ul class="chat-list-wrap">
+                                                <li class="chat-list">
+                                                    <div class="chat-body"> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Peter Wyatt</span> <span class="time block truncate txt-grey' %}">Neque porro quisquam est.</span> </div>
+                                                            <div class="status away"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-1.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Vivian Rox</span> <span class="time block truncate txt-grey">Neque porro quisquam est.</span> </div>
+                                                            <div class="status offline"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-3.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Mr. Danielle</span> <span class="time block truncate txt-grey">Neque porro quisquam est.</span> </div>
+                                                            <div class="status online"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-4.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Suzi Cole</span> <span class="time block truncate txt-grey">Neque porro quisquam est..</span> </div>
+                                                            <div class="status online"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Tom Taylor</span> <span class="time block truncate txt-grey">Neque porro quisquam est.</span> </div>
+                                                            <div class="status offline"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-1.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Mitch Blue</span> <span class="time block truncate txt-grey">Neque porro quisquam est.</span> </div>
+                                                            <div class="status online"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-3.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Jason Rudd</span> <span class="time block truncate txt-grey">Neque porro quisquam est.</span> </div>
+                                                            <div class="status away"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-4.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Michelle</span> <span class="time block truncate txt-grey">Neque porro quisquam est.</span> </div>
+                                                            <div class="status online"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> <a href="javascript:void(0)">
+                                                        <div class="chat-data"> <img class="user-img img-circle"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-5.jpg' %}" alt="user"/>
+                                                            <div class="user-data"> <span class="name block capitalize-font">Ludacris Stack</span> <span class="time block truncate txt-grey">Neque porro quisquam est.</span> </div>
+                                                            <div class="status away"></div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </a> </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="recent-chat-box-wrap">
+                                    <div class="recent-chat-wrap">
+                                        <div class="panel-heading ma-0">
+                                            <div class="goto-back"> <a  id="goto_back" href="javascript:void(0)" class="inline-block txt-grey"> <i class="mdi mdi-chevron-left"></i> </a> <span class="inline-block txt-dark">Max</span> <a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="mdi mdi-more"></i></a>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                            <div class="panel-body pa-0">
+                                                <div class="chat-content">
+                                                    <ul class="nicescroll-bar pt-20">
+                                                        <li class="friend">
+                                                            <div class="friend-msg-wrap"> <img class="user-img img-circle block pull-left"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user"/>
+                                                                <div class="msg pull-left">
+                                                                    <p class="msng-name">Sam Wrote:</p>
+                                                                    <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet?</p>
+                                                                    <div class="msg-per-detail text-right"> <span class="msg-time txt-grey">5:01 PM</span> </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="self mb-10">
+                                                            <div class="self-msg-wrap">
+                                                                <div class="msg block pull-right"> Neque porro quisquam est qui dolorem ipsum quia dolor sit amet
+                                                                    <div class="msg-per-detail text-right"> <span class="msg-time txt-light">5:01 pm</span> </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="self">
+                                                            <div class="self-msg-wrap">
+                                                                <div class="msg block pull-right"> Consectetur, adipisci velit.
+                                                                    <div class="msg-per-detail text-right"> <span class="msg-time txt-light">5:13 pm</span> </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="friend">
+                                                            <div class="friend-msg-wrap"> <img class="user-img img-circle block pull-left"  src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user"/>
+                                                                <div class="msg pull-left">
+                                                                    <p class="msng-name">Sam Wrote:</p>
+                                                                    <p>Neque porro quisquam.</p>
+                                                                    <div class="msg-per-detail  text-right"> <span class="msg-time txt-grey">6:35 pm</span> </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="input-group">
+                                                    <input type="text" id="input_msg_send" name="send-msg" class="input-msg-send form-control" placeholder="Type something">
+                                                    <div class="input-group-btn emojis">
+                                                        <div class="dropup">
+                                                            <button type="button" class="btn  btn-default  dropdown-toggle" data-toggle="dropdown" ><i class="mdi mdi-mood"></i></button>
+                                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                                <li><a href="javascript:void(0)">Action</a></li>
+                                                                <li><a href="javascript:void(0)">Another action</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="javascript:void(0)">Separated link</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group-btn attachment">
+                                                        <div class="fileupload btn  btn-default"><i class="mdi mdi-attachment-alt"></i>
+                                                            <input type="file" class="upload">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="messages_tab" class="tab-pane fade" role="tabpanel">
+                            <div class="message-box-wrap">
+                                <div class="add-friend"> <span class="inline-block txt-dark">messages</span> <a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="mdi mdi-search"></i></a> <a href="javascript:void(0)" class="inline-block txt-grey"> <i class="mdi mdi-more"></i> </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="set-height-wrap">
+                                    <div class="streamline message-box nicescroll-bar"> <a href="javascript:void(0)">
+                                        <div class="sl-item">
+                                            <div class="sl-avatar avatar avatar-sm avatar-circle"> <img class="img-responsive img-circle" src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="avatar"/> </div>
+                                            <div class="sl-content"> <span class="inline-block capitalize-font   pull-left message-per">Peter Wyatt</span> <span class="inline-block font-11  pull-right message-time">12:28 AM</span>
+                                                <div class="clearfix"></div>
+                                                <span class=" truncate message-subject">Neque porro quisquam est qui dolorem ipsu messm quia dolor sit amet consectetur</span>
+                                                <p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsu messm quia dolor sit amet consectetur, adipisci velit</p>
+                                            </div>
+                                        </div>
+                                    </a> <a href="javascript:void(0)">
+                                        <div class="sl-item">
+                                            <div class="sl-avatar avatar avatar-sm avatar-circle"> <img class="img-responsive img-circle" src="{% static 'programme-wara/plugins/assets/img/users/avatar-1.jpg' %}" alt="avatar"/> </div>
+                                            <div class="sl-content"> <span class="inline-block capitalize-font   pull-left message-per">Vivian Rox</span> <span class="inline-block font-11  pull-right message-time">1 Feb</span>
+                                                <div class="clearfix"></div>
+                                                <span class=" truncate message-subject">Neque porro quisquam est qui dolorem ipsu messm quia dolor sit amet consectetur</span>
+                                                <p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur, adipisci velit</p>
+                                            </div>
+                                        </div>
+                                    </a> <a href="javascript:void(0)">
+                                        <div class="sl-item">
+                                            <div class="sl-avatar avatar avatar-sm avatar-circle"> <img class="img-responsive img-circle" src="{% static 'programme-wara/plugins/assets/img/users/avatar-3.jpg' %}" alt="avatar"/> </div>
+                                            <div class="sl-content"> <span class="inline-block capitalize-font   pull-left message-per">Mr. Danielle</span> <span class="inline-block font-11  pull-right message-time">31 Jan</span>
+                                                <div class="clearfix"></div>
+                                                <span class=" truncate message-subject">Neque porro quisquam est qui dolorem ipsu messm quia dolor sit amet consectetur nominees</span>
+                                                <p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur, adipisci velit</p>
+                                            </div>
+                                        </div>
+                                    </a> <a href="javascript:void(0)">
+                                        <div class="sl-item">
+                                            <div class="sl-avatar avatar avatar-sm avatar-circle"> <img class="img-responsive img-circle" src="{% static 'programme-wara/plugins/assets/img/users/avatar-4.jpg' %}" alt="avatar"/> </div>
+                                            <div class="sl-content"> <span class="inline-block capitalize-font   pull-left message-per">Tom Taylor</span> <span class="inline-block font-11  pull-right message-time">29 Jan</span>
+                                                <div class="clearfix"></div>
+                                                <span class=" truncate message-subject">Neque porro quisquam est qui dolorem ipsu messm quia dolor sit amet consectetur</span>
+                                                <p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur, adipisci velit</p>
+                                            </div>
+                                        </div>
+                                    </a> <a href="javascript:void(0)">
+                                        <div class="sl-item">
+                                            <div class="sl-avatar avatar avatar-sm avatar-circle"> <img class="img-responsive img-circle" src="{% static 'programme-wara/plugins/assets/img/users/avatar-5.jpg' %}" alt="avatar"/> </div>
+                                            <div class="sl-content"> <span class="inline-block capitalize-font   pull-left message-per">Mitch Blue</span> <span class="inline-block font-11  pull-right message-time">27 Jan</span>
+                                                <div class="clearfix"></div>
+                                                <span class=" truncate message-subject">Neque porro quisquam.</span>
+                                                <p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur, adipisci velit</p>
+                                            </div>
+                                        </div>
+                                    </a> <a href="javascript:void(0)">
+                                        <div class="sl-item">
+                                            <div class="sl-avatar avatar avatar-sm avatar-circle"> <img class="img-responsive img-circle" src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="avatar"/> </div>
+                                            <div class="sl-content"> <span class="inline-block capitalize-font   pull-left message-per">Michelle</span> <span class="inline-block font-11  pull-right message-time">19 Jan</span>
+                                                <div class="clearfix"></div>
+                                                <span class=" truncate message-subject">Neque porro quisquam es.</span>
+                                                <p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur, adipisci velit</p>
+                                            </div>
+                                        </div>
+                                    </a> <a href="javascript:void(0)">
+                                        <div class="sl-item">
+                                            <div class="sl-avatar avatar avatar-sm avatar-circle"> <img class="img-responsive img-circle" src="{% static 'programme-wara/plugins/assets/img/users/avatar-1.jpg' %}" alt="avatar"/> </div>
+                                            <div class="sl-content"> <span class="inline-block capitalize-font   pull-left message-per">Linda Stack</span> <span class="inline-block font-11  pull-right message-time">13 Jan</span>
+                                                <div class="clearfix"></div>
+                                                <span class=" truncate message-subject">Neque porro quisquam.</span>
+                                                <p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur, adipisci velit</p>
+                                            </div>
+                                        </div>
+                                    </a> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="settings_tab" class="tab-pane fade" role="tabpanel">
+                            <div class="settings-box-wrap">
+                                <div class="add-settings text-center txt-dark pt-15"> General Settings
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="set-height-wrap">
+                                    <!-- settings-List -->
+                                    <ul class="settings-list nicescroll-bar">
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Email Notifications</div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Site Tracking</div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" checked class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">SMS Alerts </div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Backup Storage</div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" checked class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Audit Logs</div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="add-settings text-center txt-dark pt-15"> SYSTEM SETTINGS
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">System Logs </div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Error Reporting </div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" checked class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Applications Logs </div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" checked class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Backup Servers</div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                        <li class="settings-item">
+                                            <div class="list-settings">
+                                                <div class="pull-left">Audit Logs</div>
+                                                <div class="pull-right">
+                                                    <input type="checkbox" class="switch-setting-bar switch-setting" data-color="#716aca" data-size="small"/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- /settings-List -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- /Right Sidebar Menu -->
+    {% block content %}
+    <!--
+    -->
+
+    <!-- Main Content -->
+    <div class="page-wrapper">
+        <div class="container-fluid pt-25">
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">123,456</span></span> <span class="weight-500 uppercase-font block">UTILISATEURS TOTAL</span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0 pt-30 data-wrap-right">
+                                                <div id="sparkline_3" class="sparkline-w-100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">12.34</span>%</span> <span class="weight-500 uppercase-font block">VAGUE DE FORMATIONS </span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0  pt-30 data-wrap-right">
+                                                <div id="sparkline_4" class="sparkline-w-100-h-50"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">1,234,568</span></span> <span class="weight-500 uppercase-font block">MODULES DE FORMATIONS </span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0 pt-20 data-wrap-right">
+                                                <div id="e_chart_1" class="h-50"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">35.13</span>%</span> <span class="weight-500 uppercase-font block">VERSIONS DE WARA </span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0 pt-25  data-wrap-right">
+                                                <div class="flot-container h-55">
+                                                    <div id="real_time_chart" class="demo-placeholder"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->
+        <!-- Row-->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-default card-view  pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body  pa-0">
+                        <div class="profile-box">
+                            <div class="profile-cover-pic">
+                                <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                    <input class="upload" type="file">
+                                </div>
+                                <div class="profile-image-overlay"></div>
+                            </div>
+                            <div class="profile-info text-center">
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/plugins/assets/img/users/img-user.jpg' %}" alt="user"/>
+                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                        <input class="upload" type="file">
+                                    </div>
+                                </div>
+                                <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">Michelle Abraham</h5>
+                                <h6 class="block capitalize-font pb-10">CEO Xyz</h6>
+                            </div>
+                            <div class="social-info">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">345</span></span> <span class="counts-text block">post</span> </div>
+                                    <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">246</span></span> <span class="counts-text block">followers</span> </div>
+                                    <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">898</span></span> <span class="counts-text block">tweets</span> </div>
+                                </div>
+                                <button class="btn btn-primary btn-block  btn-anim mt-10" data-toggle="modal" data-target="#myModal1"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></button>
+                                <div id="myModal1" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h5 class="modal-title" id="myModalLabel">Edit Profile</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="">
+                                                            <div class="panel-wrapper collapse in">
+                                                                <div class="panel-body pa-0">
+                                                                    <div class="col-sm-12 col-xs-12">
+                                                                        <div class="form-wrap">
+                                                                            <form action="#">
+                                                                                <div class="form-body overflow-hide">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputuname_1">Name</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-account"></i></div>
+                                                                                            <input type="text" class="form-control" id="exampleInputuname_1" placeholder="willard bryant">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputEmail_1">Email address</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-email"></i></div>
+                                                                                            <input type="email" class="form-control" id="exampleInputEmail_1" placeholder="xyz@gmail.com">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputContact_1">Contact number</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-cellphone"></i></div>
+                                                                                            <input type="email" class="form-control" id="exampleInputContact_1" placeholder="+102 9388333">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputpwd_1">Password</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-lock"></i></div>
+                                                                                            <input type="password" class="form-control" id="exampleInputpwd_1" placeholder="Enter pwd" value="password">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Gender</label>
+                                                                                        <div>
+                                                                                            <div class="radio">
+                                                                                                <input type="radio" name="radio1" id="radio_1" value="option1" checked="">
+                                                                                                <label for="radio_1"> Male </label>
+                                                                                            </div>
+                                                                                            <div class="radio">
+                                                                                                <input type="radio" name="radio1" id="radio_2" value="option2">
+                                                                                                <label for="radio_2"> Female </label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Country</label>
+                                                                                        <select class="form-control" data-placeholder="Choose a Category" tabindex="1">
+                                                                                            <option value="Category 1">USA</option>
+                                                                                            <option value="Category 2">Austrailia</option>
+                                                                                            <option value="Category 3">India</option>
+                                                                                            <option value="Category 4">UK</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <button type="button" class="btn btn-success waves-effect" data-dismiss="modal">Save</button>
+                                                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 ">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Vagues de formations</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper">
+                    <div class="panel-body row pa-0">
+                        <div class="table-wrapper">
+                            <div class="table-responsive">
+                                <table class="table border-none" id="data_table_employee">
+                                    <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><span class="txt-dark">#123654</span></td>
+                                        <td>Irina Sampio</td>
+                                        <td>Chart Analyst</td>
+                                        <td><span class="label label-danger">Terminated</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#564798</span></td>
+                                        <td>Michell Mark</td>
+                                        <td>Design Lead</td>
+                                        <td><span class="label label-warning">Offline</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#6547861</span></td>
+                                        <td>Tom Fiege</td>
+                                        <td>UI Development</td>
+                                        <td><span class="label label-danger">Terminated</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#3124564</span></td>
+                                        <td>James Nolan</td>
+                                        <td>Programming</td>
+                                        <td><span class="label label-success">active</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#7894612</span></td>
+                                        <td>Chris Jackson</td>
+                                        <td>Finance</td>
+                                        <td><span class="label label-success">active</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#3579514</span></td>
+                                        <td>Wanda Runners</td>
+                                        <td>Accounting</td>
+                                        <td><span class="label label-success">active</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Row-->
+        <!-- Footer -->
+        <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="pull-left text-dark pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
+                    <div class="pull-right">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank">SRGIT</a></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </footer>
+        <!-- /Footer -->
+    </div>
+    <!-- End Main Content -->
+
+    <!--
+    -->
+    {% endblock %}
+</div>
+{% block javascript %}
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<!-- Data table JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
+<!-- Slimscroll JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/jquery.slimscroll.js' %}"></script>
+<!-- Owl JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js' %}"></script>
+<!-- Progressbar Animation JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/waypoints/lib/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery.counterup/jquery.counterup.min.js' %}"></script>
+<!-- Fancy Dropdown JS -->
+<script src="{% static 'programme-wara/plugins/assets/js/dropdown-bootstrap-extended.js' %}"></script>
+<!-- FlotChart JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/flot/jquery.flot.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/flot-data-dashboard.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/skycons/skycons.js' %}"></script>
+<!-- Sparkline JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/jquery.sparkline/dist/jquery.sparkline.min.js' %}"></script>
+<!-- Switchery JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/switchery/dist/switchery.min.js' %}"></script>
+<!-- EChartJS JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/echarts/dist/echarts-en.min.js' %}"></script>
+<!-- Toast JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js' %}"></script>
+<!-- Init JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/init.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/dashboard-dark.init.js' %}"></script>
+{% endblock %}
+</body>
+
+</html>
+
+{% elif request.user.profil.nom == "Utilisateur" %}
+{% if vague_utilisateur %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title2 %}Acceuil&nbsp;{% endblock %}| Wara</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="wara, wara-africa, get, ahead, getahead, affiliation, parrainage, formations, jgk, jgkec, plan, affaire," />
+    <meta name="author" content="JGKEC"/>
+    {% block link2 %}
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}">
+    <link rel="icon" href="{% static 'progamme-wara/plugins/assets/img/favicon/favicon.png' %}" type="image/x-icon">
+    <!-- Data table CSS -->
+    <link href="{% static 'programme-wara/plugins/vendors/bower_components/datatables/media/css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'programme-wara/plugins/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link href="{% static 'programme-wara/plugins/assets/css/default.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'programme-wara/plugins/assets/css/mega-menu.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    {% endblock %}
+    {% block link2_suite %}{% endblock %}
+    <!--
+    <SCRIPT LANGUAGE="JavaScript">
+        function disableselect(e){
+        return false
+        }
+
+        function reEnable(){
+        return true
+        }
+
+        //if IE4+
+        document.onselectstart=new Function ("return false")
+        document.oncontextmenu=new Function ("return false")
+        //if NS6
+        if (window.sidebar){
+        document.onmousedown=disableselect
+        document.onclick=reEnable
+        }
+    </script>
+    -->
+</head>
+<body>
+<!-- Preloader -->
+<div class="preloader-it">
+    <div class="preloader">
+        <div class="circles-1">
+            <div class="circles-1-center"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+            <div class="circles-1"></div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper light-theme wrapper-boxed">
+    <!-- Top Header -->
+    <nav class="navbar navbar-inverse mega-menu-container navbar-fixed-top">
+        <div class="mobile-only-brand pull-left">
+            <div class="nav-header pull-left">
+                <div class="logo-wrap">
+                    <a href="{% url 'formation-wara-utilisateur' %}">
+                        <img class="brand-img" src="{% static 'programme-wara/plugins/assets/img/logo.png' %}" alt="brand"/>
+                        <span class="brand-text">W<strong>ARA</strong></span>
+                    </a>
+                </div>
+            </div>
+            <div style="padding-left:350px;" class="mega-menu-main collapse navbar-collapse justify-content-end" id="navbarNavMenuMain">
+                <ul class="navbar-nav">
+                    <li style="padding-right:30px" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-mainNav-33" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Versions </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-mainNav-33">
+
+                        {% for key, values in dict.items %}
+                            {% for v in values %}
+                                {% for w in v.utilisateurs.all %}
+                                    {% if w == participant %}
+                                        <a class="dropdown-item" href="{% url 'voir_modules' v.version.id %}">{{v.version}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                        </div>
+                    </li>
+                    <li style="padding-right:30px" class="nav-item">
+                        <a target="_blank" class="nav-link" href="documentation/index.html"> Forums </a>
+                    </li>
+                    <li style="padding-right:30px" class="nav-item">
+                        <a target="_blank" class="nav-link" href="documentation/index.html"> Attestation </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="mobile_right_sidebar" class="mobile-right-sidebar pull-right">
+            <ul class="nav navbar-right top-nav pull-right">
+                <li class="dropdown auth-drp">
+                    <a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown">
+                        <img src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user_auth" class="user-auth-img img-circle"/>
+                        <span class="user-online-status"></span>
+                    </a>
+                    <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                        <li> <a href="profile.html"><i class="mdi mdi-account"></i><span>Profile</span></a> </li>
+                        <li> <a href="#"><i class="mdi mdi-credit-card"></i><span>my balance</span></a> </li>
+                        <li> <a href="email-inbox.html"><i class="mdi mdi-email"></i><span>Inbox</span></a> </li>
+                        <li> <a href="#"><i class="mdi mdi-settings"></i><span>Settings</span></a> </li>
+                        <li class="divider"></li>
+                        <li class="sub-menu show-on-hover"> <a href="#" class="dropdown-toggle pr-0 level-2-drp"><i class="mdi mdi-check text-success"></i> available</a>
+                            <ul class="dropdown-menu open-left-side">
+                                <li> <a href="#"><i class="mdi mdi-check text-success"></i><span>available</span></a> </li>
+                                <li> <a href="#"><i class="mdi mdi-circle-o text-warning"></i><span>busy</span></a> </li>
+                                <li> <a href="#"><i class="mdi mdi-minus-circle-outline text-danger"></i><span>offline</span></a> </li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li> <a href="#"><i class="mdi mdi-power"></i><span>Log Out</span></a> </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- /Top Menu Items -->
+
+    {% block content2 %}
+    <!--
+    -->
+
+    <!-- Main Content -->
+    <div class="page-wrapper">
+        <div class="container-fluid pt-25">
+            <!-- Row-->
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="panel panel-default card-view  pa-0">
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body  pa-0">
+                            <div class="profile-box">
+                                <div class="profile-cover-pic">
+                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                        <input class="upload" type="file">
+                                    </div>
+                                    <div class="profile-image-overlay"></div>
+                                </div>
+                                <div class="profile-info text-center">
+                                    <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/plugins/assets/img/users/img-user.jpg' %}" alt="user"/>
+                                        <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                            <input class="upload" type="file">
+                                        </div>
+                                    </div>
+                                    <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">Michelle Abraham</h5>
+                                    <h6 class="block capitalize-font pb-10">CEO Xyz</h6>
+                                </div>
+                                <div class="social-info">
+                                    <div class="row">
+                                        <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">345</span></span> <span class="counts-text block">post</span> </div>
+                                        <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">246</span></span> <span class="counts-text block">followers</span> </div>
+                                        <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">898</span></span> <span class="counts-text block">tweets</span> </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-block  btn-anim mt-10" data-toggle="modal" data-target="#myModal1"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></button>
+                                    <div id="myModal1" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <h5 class="modal-title" id="myModalLabel">Edit Profile</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Row -->
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="">
+                                                                <div class="panel-wrapper collapse in">
+                                                                    <div class="panel-body pa-0">
+                                                                        <div class="col-sm-12 col-xs-12">
+                                                                            <div class="form-wrap">
+                                                                                <form action="#">
+                                                                                    <div class="form-body overflow-hide">
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label mb-10" for="exampleInputuname_1">Name</label>
+                                                                                            <div class="input-group">
+                                                                                                <div class="input-group-addon"><i class="mdi mdi-account"></i></div>
+                                                                                                <input type="text" class="form-control" id="exampleInputuname_1" placeholder="willard bryant">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label mb-10" for="exampleInputEmail_1">Email address</label>
+                                                                                            <div class="input-group">
+                                                                                                <div class="input-group-addon"><i class="mdi mdi-email"></i></div>
+                                                                                                <input type="email" class="form-control" id="exampleInputEmail_1" placeholder="xyz@gmail.com">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label mb-10" for="exampleInputContact_1">Contact number</label>
+                                                                                            <div class="input-group">
+                                                                                                <div class="input-group-addon"><i class="mdi mdi-cellphone"></i></div>
+                                                                                                <input type="email" class="form-control" id="exampleInputContact_1" placeholder="+102 9388333">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label mb-10" for="exampleInputpwd_1">Password</label>
+                                                                                            <div class="input-group">
+                                                                                                <div class="input-group-addon"><i class="mdi mdi-lock"></i></div>
+                                                                                                <input type="password" class="form-control" id="exampleInputpwd_1" placeholder="Enter pwd" value="password">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label mb-10">Gender</label>
+                                                                                            <div>
+                                                                                                <div class="radio">
+                                                                                                    <input type="radio" name="radio1" id="radio_1" value="option1" checked="">
+                                                                                                    <label for="radio_1"> Male </label>
+                                                                                                </div>
+                                                                                                <div class="radio">
+                                                                                                    <input type="radio" name="radio1" id="radio_2" value="option2">
+                                                                                                    <label for="radio_2"> Female </label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label mb-10">Country</label>
+                                                                                            <select class="form-control" data-placeholder="Choose a Category" tabindex="1">
+                                                                                                <option value="Category 1">USA</option>
+                                                                                                <option value="Category 2">Austrailia</option>
+                                                                                                <option value="Category 3">India</option>
+                                                                                                <option value="Category 4">UK</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <button type="button" class="btn btn-success waves-effect" data-dismiss="modal">Save</button>
+                                                                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 ">
+                <div class="panel panel-default card-view">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <h6 class="panel-title txt-dark">Vague de : </h6>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-wrapper">
+                        <div class="panel-body row pa-0">
+                            <div class="table-wrapper">
+                                <div class="table-responsive">
+                                    <table class="table border-none mb-0" id="data_table_employee">
+                                        <thead>
+                                        <tr>
+                                            <th style="font-weight:700;width:30%">Version</th>
+                                            <th style="font-weight:700">Participants</th>
+                                            <th style="font-weight:700">Vague</th>
+                                            <th style="font-weight:700">Statut</th>
+                                            <th style="font-weight:700">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for key, values in dict.items %}
+                                            {% for v in values %}
+                                                {% for w in v.utilisateurs.all %}
+                                                    {% if w == participant %}
+                                                        <tr>
+                                                            <td>
+                                                                <span class="txt-dark badge badge-warning">
+                                                                    <a href="{% url 'voir_modules' v.version.id %}">{{v.version}}</a>
+                                                                </span>
+                                                                <br>
+                                                                <a href="{% url 'voir_modules' v.version.id %}">
+                                                                    <span style="font-style:italic">Cliquez pour voir les modules de cette formation</span>
+                                                                </a>
+                                                            </td>
+                                                            <td><span style="font-size:14px" class="badge badge-secondary">{{v.utilisateurs.count}}</span> <span style="font-size:14px" class="badge badge-secondary">personnes</span></td>
+                                                            <td><span class="badge badge-secondary">{{v.date_deb|date:"d N"}}</span> - <span class="badge badge-secondary">{{v.date_fin|date:"d N Y"}}</span></td>
+                                                            <td><span class="label label-primary" style="font-size:13px">En cours</span></td>
+                                                            <td class="text-center">
+                                                                <a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip">
+                                                                    <i class="mdi mdi-lead-pencil"></i>
+                                                                </a>
+                                                                <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip">
+                                                                    <i class="mdi mdi-delete"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th style="font-weight:700">Version</th>
+                                            <th style="font-weight:700">Participants</th>
+                                            <th style="font-weight:700">Vague</th>
+                                            <th style="font-weight:700">Statut</th>
+                                            <th style="font-weight:700">Actions</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="clearfix"></div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <video controls onselectstart="return false" oncontextmenu="return false" ondragstart="return false" onMouseOver="window.status='..message perso .. '; return true;">
+                    <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+                </video>
+            </div>
+            -->
+            <div class="clearfix"></div>
+        </div>
+        <!-- Row-->
+        <!-- Footer -->
+        <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="pull-left txt-light pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
+                    <div class="pull-right txt-light">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank" class="txt-light">SRGIT</a></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </footer>
+        <!-- /Footer -->
+    </div>
+    <!-- /Main Content -->
+
+    <!--
+    -->
+    {% endblock %}
+</div>
+
+{% block javascript2 %}
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<!-- Data table JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js' %}"></script>
+<!-- Slimscroll JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/jquery.slimscroll.js' %}"></script>
+<!-- Owl JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js' %}"></script>
+<!-- Progressbar Animation JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/waypoints/lib/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery.counterup/jquery.counterup.min.js' %}"></script>
+<!-- Fancy Dropdown JS -->
+<script src="{% static 'programme-wara/plugins/assets/js/dropdown-bootstrap-extended.js' %}"></script>
+<!-- FlotChart JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/flot/jquery.flot.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/flot-data-dashboard.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/skycons/skycons.js' %}"></script>
+<!-- Sparkline JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/jquery.sparkline/dist/jquery.sparkline.min.js' %}"></script>
+<!-- Switchery JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/switchery/dist/switchery.min.js' %}"></script>
+<!-- EChartJS JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/echarts/dist/echarts-en.min.js' %}"></script>
+<!-- Toast JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js' %}"></script>
+<!-- Init JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/init.js' %}"></script>
+<script src="{% static 'programme-wara/plugins/assets/js/dashboard.init.js' %}"></script>
+{% endblock %}
+
+</body>
+
+</html>
+
+{% else %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wara | ERREUR 500</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'affiliation/dist/css/adminlte.min.css' %}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Wara</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{% url 'acceuil' %}">Accueil</a></li>
+                            <li class="breadcrumb-item active">Wara / Page d'erreur 500</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content" style="margin-top:200px">
+            <div class="error-page">
+                <h2 class="headline text-danger">500</h2>
+
+                <div class="error-content" style="text-align:left;font-weight:700">
+                    <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Un problème est survenu.</h3>
+
+                    <p>
+                        Vous ne faites parti d'aucune vague de formation pour le moment.
+                        Inscrivez-vous auprès du cabinet pour avoir accès à cette espace ou <a href="{% url 'acceuil' %}">revenir à la page d'accueil</a><br>
+                    </p>
+                    <p><span style="text-align:center;font-weight:700">Merci !</span></p>
+                </div>
+            </div>
+            <!-- /.error-page -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{% static 'affiliation/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'affiliation/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'affiliation/dist/js/adminlte.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'affiliation/dist/js/demo.js' %}"></script>
+</body>
+</html>
+{% endif %}
+{% endif %}

@@ -1,0 +1,157 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+{% block link %}
+<!-- Favicon -->
+<link rel="shortcut icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}">
+<link rel="icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}" type="image/x-icon">
+<!-- Custom CSS -->
+<link href="{% static 'programme-wara/plugins/assets/css/default.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block title %}
+Version
+{% endblock %}
+
+{% block active-page-tableau %}
+active-page
+{% endblock %}
+
+{% block active-version %}
+active
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <a href="{% url 'version_module' module.version.id %}"><h5 class="txt-dark">{{module.version}}</h5></a>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'acceuil' %}">Tableau de bord</a></li>
+                    <li><a href="#"><span>Wara</span></a></li>
+                    <li class="active"><span>{{module.version}} / {{module}}</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+        <br>
+        <!-- /Title -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default card-view">
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <div class="panel-group accordion-struct" id="accordion_1" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading activestate" role="tab" id="heading_1"> <a role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapse_1" aria-expanded="true">{{module}}</a> </div>
+                                    <div id="collapse_1" class="panel-collapse collapse in" role="tabpanel">
+                                        <div class="panel-body pa-15">
+                                            {{module.intro_text}}
+                                            <br><br>
+                                            {% if module.audio1 %}
+                                            <audio style="width:100%" controls="controls">
+                                                <source src="{{module.audio1.url}}" type="audio/mp3">
+                                            </audio>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.audio2 %}
+                                            <audio style="width:100%" controls="controls">
+                                                <source src="{{module.audio2.url}}" type="audio/mp3">
+                                            </audio>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.audio3 %}
+                                            <audio style="width:100%" controls="controls">
+                                                <source src="{{module.audio3.url}}" type="audio/mp3">
+                                            </audio>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.audio4 %}
+                                            <audio style="width:100%" controls="controls">
+                                                <source src="{{module.audio4.url}}" type="audio/mp3">
+                                            </audio>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.audio5 %}
+                                            <audio style="width:100%" controls="controls">
+                                                <source src="{{module.audio5.url}}" type="audio/mp3">
+                                            </audio>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.video6 %}
+                                            <video width="100%" height="100%" controls="controls">
+                                                <source src="{{module.video6.url}}" type="video/mp4">
+                                            </video>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.video7 %}
+                                            <video width="100%" height="100%" controls="controls">
+                                                <source src="{{module.video7.url}}" type="video/mp4">
+                                            </video>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.video8 %}
+                                            <video width="100%" height="100%" controls="controls">
+                                                <source src="{{module.video8.url}}" type="video/mp4">
+                                            </video>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.video9 %}
+                                            <video width="100%" height="100%" controls="controls">
+                                                <source src="{{module.video9.url}}" type="video/mp4">
+                                            </video>
+                                            {% endif %}
+                                            <br><br>
+                                            {% if module.video10 %}
+                                            <video width="100%" height="100%" controls="controls">
+                                                <source src="{{module.video10.url}}" type="video/mp4">
+                                            </video>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row -->
+    </div>
+    <!-- Footer -->
+    <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="pull-left text-dark pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
+                <div class="pull-right">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank">SRGIT</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</div>
+<!-- /Main Content -->
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<!-- Slimscroll JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/jquery.slimscroll.js' %}"></script>
+<!-- Fancy Dropdown JS -->
+<script src="{% static 'programme-wara/plugins/assets/js/dropdown-bootstrap-extended.js' %}"></script>
+<!-- Switchery JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/switchery/dist/switchery.min.js' %}"></script>
+<!-- Init JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/init.js' %}"></script>
+<!-- Toggle JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/toggle.js' %}"></script>
+{% endblock %}
