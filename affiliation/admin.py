@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from affiliation.models import Poste, Niveau, Palier, Groupe, CodePays, Droits, Profils, Payement, Wara, Message, User, \
-    DroitsProfils
+    DroitsProfils, Versions, Modules, Vague
 
 
 class PosteAdmin(admin.ModelAdmin):
@@ -190,3 +190,37 @@ class MessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Message, MessageAdmin)
+
+
+class VersionsAdmin(admin.ModelAdmin):
+    list_display = ('nom_de_version', 'libelle', 'created', 'archive')
+    list_filter = ('nom_de_version',)
+    date_hierarchy = 'created'
+    ordering = ('nom_de_version',)
+    search_fields = ('nom_de_version',)
+
+
+admin.site.register(Versions, VersionsAdmin)
+
+
+class ModulesAdmin(admin.ModelAdmin):
+    list_display = ('version', 'nom_du_module', 'intro_text', 'video6', 'video7', 'video8', 'video9', 'video10',
+                    'audio1', 'audio2', 'audio3', 'audio4', 'audio5', 'created', 'archive')
+    list_filter = ('version',)
+    date_hierarchy = 'created'
+    ordering = ('version',)
+    search_fields = ('version',)
+
+
+admin.site.register(Modules, ModulesAdmin)
+
+
+class VagueAdmin(admin.ModelAdmin):
+    list_display = ('nom_de_vague', 'version', 'date_deb', 'date_fin', 'created', 'archive')
+    list_filter = ('nom_de_vague',)
+    date_hierarchy = 'created'
+    ordering = ('nom_de_vague',)
+    search_fields = ('nom_de_vague',)
+
+
+admin.site.register(Vague, VagueAdmin)

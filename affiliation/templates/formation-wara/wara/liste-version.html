@@ -1,0 +1,36 @@
+{% load static %}
+{% for version in versions %}
+ <tr>
+  <td>
+      <b class="badge badge-secondary">{{ version.nom_de_version }}</b>
+  </td>
+  <td>
+      <b style="font-size:14px;">
+          {% if version.libelle is None %}
+            <span class="badge badge-primary" style="font-size:12px">Rien est mentionné pour cette version</span>
+          {% elif version.libelle is not None %}
+          <span class="badge badge-secondary" style="font-size:14px">{{version.libelle}}</span>
+          {% endif %}
+      </b>
+  </td>
+  <td>
+      <b class="badge badge-secondary" style="font-size:14px;">{{version.created}}</b>
+  </td>
+  <td class="project-actions">
+      <button class="btn btn-warning btn-sm show-form-update" data-url="">
+          <i class="fas fa-pencil-alt">
+          </i>
+          Editer
+      </button>
+      <button class="btn btn-danger btn-sm show-form-delete" data-url="">
+          <i class="fas fa-trash">
+          </i>
+          Effacer
+      </button>
+  </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="3 " class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucune version n'est disponible</td>
+</tr>
+{% endfor %}

@@ -1,0 +1,306 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block active-page-tableau %}
+    active-page
+{% endblock %}
+
+{% block active-accueil %}
+    active
+{% endblock %}
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="page-wrapper">
+        <div class="container-fluid pt-25">
+            <!-- Row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">123,456</span></span> <span class="weight-500 uppercase-font block">UTILISATEURS TOTAL</span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0 pt-30 data-wrap-right">
+                                                <div id="sparkline_3" class="sparkline-w-100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">12.34</span>%</span> <span class="weight-500 uppercase-font block">VAGUE DE FORMATIONS </span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0  pt-30 data-wrap-right">
+                                                <div id="sparkline_4" class="sparkline-w-100-h-50"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">1,234,568</span></span> <span class="weight-500 uppercase-font block">MODULES DE FORMATIONS </span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0 pt-20 data-wrap-right">
+                                                <div id="e_chart_1" class="h-50"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="panel panel-default card-view pa-0">
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="sm-data-box">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">35.13</span>%</span> <span class="weight-500 uppercase-font block">VERSIONS DE WARA </span> </div>
+                                            <div class="col-xs-6 text-center  pl-0 pr-0 pt-25  data-wrap-right">
+                                                <div class="flot-container h-55">
+                                                    <div id="real_time_chart" class="demo-placeholder"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->
+        <!-- Row-->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-default card-view  pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body  pa-0">
+                        <div class="profile-box">
+                            <div class="profile-cover-pic">
+                                <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                    <input class="upload" type="file">
+                                </div>
+                                <div class="profile-image-overlay"></div>
+                            </div>
+                            <div class="profile-info text-center">
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/plugins/assets/img/users/img-user.jpg' %}" alt="user"/>
+                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                        <input class="upload" type="file">
+                                    </div>
+                                </div>
+                                <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">Michelle Abraham</h5>
+                                <h6 class="block capitalize-font pb-10">CEO Xyz</h6>
+                            </div>
+                            <div class="social-info">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">345</span></span> <span class="counts-text block">post</span> </div>
+                                    <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">246</span></span> <span class="counts-text block">followers</span> </div>
+                                    <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">898</span></span> <span class="counts-text block">tweets</span> </div>
+                                </div>
+                                <button class="btn btn-primary btn-block  btn-anim mt-10" data-toggle="modal" data-target="#myModal1"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></button>
+                                <div id="myModal1" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h5 class="modal-title" id="myModalLabel">Edit Profile</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="">
+                                                            <div class="panel-wrapper collapse in">
+                                                                <div class="panel-body pa-0">
+                                                                    <div class="col-sm-12 col-xs-12">
+                                                                        <div class="form-wrap">
+                                                                            <form action="#">
+                                                                                <div class="form-body overflow-hide">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputuname_1">Name</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-account"></i></div>
+                                                                                            <input type="text" class="form-control" id="exampleInputuname_1" placeholder="willard bryant">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputEmail_1">Email address</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-email"></i></div>
+                                                                                            <input type="email" class="form-control" id="exampleInputEmail_1" placeholder="xyz@gmail.com">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputContact_1">Contact number</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-cellphone"></i></div>
+                                                                                            <input type="email" class="form-control" id="exampleInputContact_1" placeholder="+102 9388333">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputpwd_1">Password</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="mdi mdi-lock"></i></div>
+                                                                                            <input type="password" class="form-control" id="exampleInputpwd_1" placeholder="Enter pwd" value="password">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Gender</label>
+                                                                                        <div>
+                                                                                            <div class="radio">
+                                                                                                <input type="radio" name="radio1" id="radio_1" value="option1" checked="">
+                                                                                                <label for="radio_1"> Male </label>
+                                                                                            </div>
+                                                                                            <div class="radio">
+                                                                                                <input type="radio" name="radio1" id="radio_2" value="option2">
+                                                                                                <label for="radio_2"> Female </label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Country</label>
+                                                                                        <select class="form-control" data-placeholder="Choose a Category" tabindex="1">
+                                                                                            <option value="Category 1">USA</option>
+                                                                                            <option value="Category 2">Austrailia</option>
+                                                                                            <option value="Category 3">India</option>
+                                                                                            <option value="Category 4">UK</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <button type="button" class="btn btn-success waves-effect" data-dismiss="modal">Save</button>
+                                                                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 ">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">Vagues de formations</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper">
+                    <div class="panel-body row pa-0">
+                        <div class="table-wrapper">
+                            <div class="table-responsive">
+                                <table class="table border-none" id="data_table_employee">
+                                    <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><span class="txt-dark">#123654</span></td>
+                                        <td>Irina Sampio</td>
+                                        <td>Chart Analyst</td>
+                                        <td><span class="label label-danger">Terminated</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#564798</span></td>
+                                        <td>Michell Mark</td>
+                                        <td>Design Lead</td>
+                                        <td><span class="label label-warning">Offline</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#6547861</span></td>
+                                        <td>Tom Fiege</td>
+                                        <td>UI Development</td>
+                                        <td><span class="label label-danger">Terminated</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#3124564</span></td>
+                                        <td>James Nolan</td>
+                                        <td>Programming</td>
+                                        <td><span class="label label-success">active</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#7894612</span></td>
+                                        <td>Chris Jackson</td>
+                                        <td>Finance</td>
+                                        <td><span class="label label-success">active</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="txt-dark">#3579514</span></td>
+                                        <td>Wanda Runners</td>
+                                        <td>Accounting</td>
+                                        <td><span class="label label-success">active</span></td>
+                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Row-->
+        <!-- Footer -->
+        <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="pull-left text-dark pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
+                    <div class="pull-right">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank">SRGIT</a></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </footer>
+        <!-- /Footer -->
+    </div>
+{% endblock %}

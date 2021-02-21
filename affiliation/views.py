@@ -1,5 +1,3 @@
-# augmenter le nombre de caractere du champs telephone
-# ajouter l'id au niveau de liste total adherent
 
 import datetime
 from random import shuffle
@@ -9,14 +7,14 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
-    UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm
+    UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
-    Wara
+    Wara, Versions, Modules, Vague
 
 
 def acceuil(request):
@@ -70,7 +68,7 @@ def controllers(request, url, droit, context):
                     print(permission)
                     return render(request, url, context)
                 else:
-                    return HttpResponse("<h3>ACCESS NON AUTORISE</h3>")
+                    return render(request, 'access_denied.html')
 
 
 @login_required
@@ -667,7 +665,14 @@ def ajouter(request):
                     systeme.save()
                 elif membre.nom_du_parent is not None:
                     while membre.nom_du_parent is not None:
+                        """
+                        Quand on place un membre dans un groupe pour avoir un gam,
+                        tout se passe bien sauf qu'au moment ou ce dernier qui a ete placé decide
+                        de mettre un invité sous lui, non seulement il recoit les points
+                        mais aussi son parrain dans l'autre groupe et ainsi de suite recoit les points
+                        """
                         membre = get_object_or_404(User, id=membre.nom_du_parent.id)
+                        # membre = get_object_or_404(User, id=membre.nom_du_parent.id, groupe=group)
                         # membre.point += 5
                         total_parrainages = User.objects.filter(nom_du_parent=membre).count()
                         membre.nb_pers_amene = total_parrainages
@@ -830,7 +835,8 @@ def ajouter(request):
                                         elif 75 < membre.point == 1915:
                                             membre.point_fictive_manag = 25
                                     elif membre.point == 1920:
-                                        membre.stock_point += 1920  # ici on devrait avoir 150 + 480 + 1920 = 2550 points
+                                        membre.stock_point += 1920  # ici on devrait avoir 150 + 480 + 1920 = 2550
+                                        # points
                                         poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                         membre.poste = poste_manageur
                                         print(
@@ -841,6 +847,8 @@ def ajouter(request):
                                         membre.point = membre.stock_point
                             elif groupe != membre.groupe and membre == systeme.nom_du_parent:
                                 membre.gam += 1
+                                membre.save()
+                                break
                         else:
                             if membre.palier.nom_du_palier == "Bamiléké":
 
@@ -1388,3 +1396,209 @@ def wara(request):
         "waras": waras
     }
     return render(request, 'affiliation/wara/wara.html', context)
+
+
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+
+"""
+PARTIE CONCERNANT LA PARTIE DE WARA : FORMATION EN LIGNE
+"""
+
+from django.contrib.auth.views import LoginView
+
+
+class WaraLoginView(LoginView):
+    template_name = 'formation-wara/wlogin.html'
+
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        """dict = {}
+        user = self.user
+        if user:
+            vagues = Vague.objects.filter(archive=False)
+            dict[user] = vagues
+            for vague in vagues:
+                if vague.utilisateurs == user:
+                    if user.profil.nom_du_profil == "Utilisateur":
+                        return url or '/formation-wara-utilisateur/'
+                    elif user.profil.nom_du_profil == "Aministrateur":
+                        pass"""
+        # return url or '/formation-wara/'
+        return url or '/base/'
+
+
+"""ACCUEIL : WARA"""
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def base(request):
+    participant = request.user
+    dict = {}
+    data = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+
+    versions = Versions.objects.filter(archive=False)
+
+    for vague in vagues:
+        for utilisateur in vague.utilisateurs.filter(nom=participant.nom):
+            if utilisateur:
+                modules = Modules.objects.filter(version=vague.version, archive=False)
+                data[vague.version] = modules
+                modules_total = Modules.objects.filter(version=vague.version, archive=False).count()
+
+                print(vague.version, ' | ', modules_total, 'modules')
+                vague_version = vague.version
+
+                print(utilisateur)
+                vague_utilisateur = utilisateur
+
+                print(vague.utilisateurs.count(), 'personnes\n')
+                vague_utilisateur_total = vague.utilisateurs.count()
+
+    return render(request, 'formation-wara/wara/base-wara.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def voir_modules(request, id):
+    participant = request.user
+    dict = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+    modules = Modules.objects.filter(version=id, archive=False)
+    return render(request, 'formation-wara/wara/users/voir-modules.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def voir_modules_detail(request, id):
+    versions = Versions.objects.filter(archive=False)
+    participant = request.user
+    dict = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+    module = get_object_or_404(Modules, id=id)
+    return render(request, 'formation-wara/wara/users/voir-modules-detail.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def formation_wara(request):
+    versions = Versions.objects.filter(archive=False)
+    return render(request, 'formation-wara/wara/formation-wara.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def formation_wara_utilisateur(request):
+    versions = Versions.objects.filter(archive=False)
+    participant = request.user
+    dict = {}
+    data = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+
+    for vague in vagues:
+        for utilisateur in vague.utilisateurs.filter(nom=participant.nom):
+            if utilisateur:
+                modules = Modules.objects.filter(version=vague.version, archive=False)
+                data[vague.version] = modules
+                modules_total = Modules.objects.filter(version=vague.version, archive=False).count()
+
+                print(vague.version, ' | ', modules_total, 'modules')
+                vague_version = vague.version
+
+                print(utilisateur)
+                vague_utilisateur = utilisateur
+
+                print(vague.utilisateurs.count(), 'personnes\n')
+                vague_utilisateur_total = vague.utilisateurs.count()
+    return render(request, 'formation-wara/wara/formation-wara-utilisateur.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def version_module(request, id):
+    versions = Versions.objects.filter(archive=False)
+    version = get_object_or_404(Versions, archive=False, id=id)
+    modules = Modules.objects.filter(archive=False, version=version)
+    return render(request, 'formation-wara/wara/versions/version_module.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def version_module_detail(request, id):
+    versions = Versions.objects.filter(archive=False)
+    module = get_object_or_404(Modules, id=id)
+    return render(request, 'formation-wara/wara/versions/version_module_detail.html', locals())
+
+
+"""MODULE DE FORMATION : WARA"""
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def module_formation(request):
+    versions = Versions.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = ModulesForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            redirect('module_formation')
+    else:
+        form = ModulesForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'formation-wara/wara/modules/module_formation.html', locals())
+
+
+"""VAGUE DE FORMATION : WARA"""
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def vague_formation(request):
+    versions = Versions.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = VagueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('module_formation')
+    else:
+        form = VagueForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'formation-wara/wara/vagues/vague_formation.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def version_wara(request):
+    versions = Versions.objects.filter(archive=False)
+    return render(request, 'formation-wara/wara/version_wara.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def save_all_wara(request, form, template_name, model, template_name2, mycontext):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            data[model] = render_to_string(template_name2, mycontext)
+        else:
+            data['form_is_valid'] = False
+
+    context = {
+        'form': form
+    }
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def create_version(request):
+    versions = Versions.objects.filter(archive=False)
+    if request.method == 'POST':
+        form = VersionsForm(request.POST)
+    else:
+        form = VersionsForm()
+    mycontext = {'versions': versions, 'form': form}
+
+    return save_all_wara(request, form, 'formation-wara/wara/create-version.html',
+                         'version', 'formation-wara/wara/liste-version.html', mycontext)

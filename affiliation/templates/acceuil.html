@@ -11,7 +11,7 @@
   	<link rel="stylesheet" href="{% static 'affiliation/dist/css/adminlte.min.css' %}">-->
   	<link rel="stylesheet" href="{% static 'affiliation/css/header.css' %}">
   	<link rel="stylesheet" href="{% static 'affiliation/css/headerget.css' %}">
-  	<link rel="stylesheet" href="{% static 'affiliation/css/footer.css' %}">
+  	<!--<link rel="stylesheet" href="{% static 'affiliation/css/footer.css' %}">-->
   	<!-- Font Awesome -->
   	<link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %}">
 	<title>Page d'acceuil de GET AHEAD</title>
@@ -30,8 +30,9 @@
 		</label>
 		<input type="checkbox" id="btn">
 		<ul>
-			<li><a href="javascript:void(0)">Acceuil</a></li>
-			<li>
+
+			<li><a href="javascript:void(0)" style="text-transform:uppercase">Acceuil</a></li>
+			<!--<li>
 				<label for="btn-1" class="show">Présentation +</label>
 				<a href="javascript:void(0)">Présentation</a>
 				<input type="checkbox" id="btn-1">
@@ -40,12 +41,13 @@
 					<li><a href="javascript:void(0)"><span style="">Dr Jean Gaspard KOMINA</span></a></li>
 				</ul>
 			</li>
+			-->
 			<li>
 				<label for="btn-2" class="show">WARA +</label>
 				<a href="javascript:void(0)">WARA</a>
 				<input type="checkbox" id="btn-2">
 				<ul>
-					<li><a href="#inscription_wara">Inscription</a></li>
+					<li><a href="{% url 'wlogin' %}">Connexion</a></li>
 					<li>
 						<label for="btn-3" class="show">Programme Wara +</label>
 						<a href="{% url 'programme_wara' %}">Programme Wara
@@ -65,12 +67,14 @@
 				<a href="javascript:void(0)">GET AHEAD</a>
 				<input type="checkbox" id="btn-4">
 				<ul>
+					<li><a href="{% url 'login' %}">Connexion</a></li>
 					<li><a href="{% url 'presentation_get_ahead' %}">Présentation</a></li>
-					<li><a href="#connexion">Connexion</a></li>
 				</ul>
 			</li>
+			<!--
 			<li><a href="javascript:void(0)">Actualités</a></li>
-			<li><a href="javascript:void(0)">Contacts</a></li>
+			<li><a href="javascript:void(0)" style="text-transform:uppercase">Contacts</a></li>
+			-->
 		</ul>
 	</nav>
 
@@ -85,6 +89,7 @@
 			</p>
 		</div>
 		<div class="container">
+			<!--
 			<div id="connexion" class="headerinfo">
 				<div class="box">
 					<div class="text">
@@ -130,8 +135,10 @@
 					</div>
 				</form>
 			</div>
+			-->
 		</div>
 	</section>
+	<!--
 	<footer>
 		<div class="main-content">
 			<div class="center box">
@@ -177,5 +184,6 @@
 			</center>
 		</div>
 	</footer>
+	-->
 </body>
 </html>

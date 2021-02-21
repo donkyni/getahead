@@ -158,6 +158,10 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     point_fictive_manag = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     # gam = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     gam = models.DecimalField(null=True, blank=True, default=0, decimal_places=2, max_digits=5)
+
+    """
+    Django settings
+    """
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     date_d_ajout = models.DateTimeField(auto_now_add=True, null=True,
@@ -229,3 +233,69 @@ class Message(models.Model):
     email = models.EmailField(null=True)
     message = models.TextField(null=True)
     archive = models.BooleanField(default=False, null=True)
+
+
+###########################################    PROGRAMME WARA      ###################################################
+
+class Versions(models.Model):
+    nom_de_version = models.CharField(max_length=50, null=True)
+    libelle = models.CharField(max_length=255, null=True, blank=True)
+
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    archive = models.BooleanField(default=False, null=True, blank=True)
+
+    def __str__(self):
+        return self.nom_de_version
+
+
+class Modules(models.Model):
+    version = models.ForeignKey(Versions, on_delete=models.SET_NULL, null=True, verbose_name="Version Wara")
+    nom_du_module = models.CharField(max_length=100, null=True, verbose_name="Nom du module")
+    intro_text = models.TextField(null=True, blank=True, verbose_name="Mot d'introduction")
+
+    video6 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 1")
+    texte6 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+
+    video7 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 2")
+    texte7 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+
+    video8 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 3")
+    texte8 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+
+    video9 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 4")
+    texte9 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+
+    video10 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 5")
+    texte10 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+
+    audio1 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 1")
+    texte1 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+
+    audio2 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 2")
+    texte2 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+
+    audio3 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 3")
+    texte3 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+
+    audio4 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 4")
+    texte4 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+
+    audio5 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 5")
+    texte5 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    archive = models.BooleanField(default=False, null=True, blank=True)
+
+    def __str__(self):
+        return self.nom_du_module
+
+
+class Vague(models.Model):
+    nom_de_vague = models.CharField(max_length=150, null=True, blank=True)
+    version = models.ForeignKey(Versions, on_delete=models.SET_NULL, null=True)
+    utilisateurs = models.ManyToManyField(User, verbose_name="Participants")
+    date_deb = models.DateField(null=True, verbose_name="Date de début de la formation")
+    date_fin = models.DateField(null=True, verbose_name="Date de clôture de la formation")
+
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    archive = models.BooleanField(default=False, null=True, blank=True)
