@@ -236,7 +236,7 @@ class Message(models.Model):
 
 
 ###########################################    PROGRAMME WARA      ###################################################
-"""
+
 class Versions(models.Model):
     nom_de_version = models.CharField(max_length=50, null=True)
     libelle = models.CharField(max_length=255, null=True, blank=True)
@@ -299,4 +299,3 @@ class Vague(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)
-"""

@@ -1,9 +1,7 @@
 from django import forms
 
-"""from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message, Versions, \
-    Modules, Vague"""
-
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message
+from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message, Versions, \
+    Modules, Vague
 
 
 class DateInput(forms.DateInput):
@@ -126,7 +124,7 @@ class MessageForm(forms.ModelForm):
 
 
 ###################################################################################################
-"""
+
 class VersionsForm(forms.ModelForm):
     class Meta:
         model = Versions
@@ -155,4 +153,3 @@ class VagueForm(forms.ModelForm):
             'version': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'}),
             'utilisateurs': forms.SelectMultiple(attrs={'class': 'selectpicker', 'multiple data-live-search': 'true'}),
         }
-"""

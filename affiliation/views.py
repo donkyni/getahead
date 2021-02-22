@@ -12,14 +12,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
-    UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm
-from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
-    Wara
-
-"""from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
     UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
-    Wara, Versions, Modules, Vague"""
+    Wara, Versions, Modules, Vague
 
 
 def acceuil(request):
@@ -1413,13 +1408,13 @@ PARTIE CONCERNANT LA PARTIE DE WARA : FORMATION EN LIGNE
 
 from django.contrib.auth.views import LoginView
 
-"""
+
 class WaraLoginView(LoginView):
     template_name = 'formation-wara/wlogin.html'
 
     def get_success_url(self):
         url = self.get_redirect_url()
-        dict = {}
+        """dict = {}
         user = self.user
         if user:
             vagues = Vague.objects.filter(archive=False)
@@ -1429,15 +1424,14 @@ class WaraLoginView(LoginView):
                     if user.profil.nom_du_profil == "Utilisateur":
                         return url or '/formation-wara-utilisateur/'
                     elif user.profil.nom_du_profil == "Aministrateur":
-                        pass
+                        pass"""
         # return url or '/formation-wara/'
         return url or '/base/'
-"""
+
 
 """ACCUEIL : WARA"""
 
 
-"""
 @login_required(redirect_field_name='suivant', login_url='wlogin')
 def base(request):
     participant = request.user
@@ -1536,6 +1530,9 @@ def version_module_detail(request, id):
     return render(request, 'formation-wara/wara/versions/version_module_detail.html', locals())
 
 
+"""MODULE DE FORMATION : WARA"""
+
+
 @login_required(redirect_field_name='suivant', login_url='wlogin')
 def module_formation(request):
     versions = Versions.objects.filter(archive=False)
@@ -1550,6 +1547,9 @@ def module_formation(request):
         'form': form,
     }
     return render(request, 'formation-wara/wara/modules/module_formation.html', locals())
+
+
+"""VAGUE DE FORMATION : WARA"""
 
 
 @login_required(redirect_field_name='suivant', login_url='wlogin')
@@ -1602,5 +1602,3 @@ def create_version(request):
 
     return save_all_wara(request, form, 'formation-wara/wara/create-version.html',
                          'version', 'formation-wara/wara/liste-version.html', mycontext)
-"""
-
