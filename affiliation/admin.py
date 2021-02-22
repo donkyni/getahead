@@ -3,8 +3,11 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
+"""from affiliation.models import Poste, Niveau, Palier, Groupe, CodePays, Droits, Profils, Payement, Wara, Message, User, \
+    DroitsProfils, Versions, Modules, Vague"""
+
 from affiliation.models import Poste, Niveau, Palier, Groupe, CodePays, Droits, Profils, Payement, Wara, Message, User, \
-    DroitsProfils, Versions, Modules, Vague
+    DroitsProfils
 
 
 class PosteAdmin(admin.ModelAdmin):
@@ -191,7 +194,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 admin.site.register(Message, MessageAdmin)
 
-
+"""
 class VersionsAdmin(admin.ModelAdmin):
     list_display = ('nom_de_version', 'libelle', 'created', 'archive')
     list_filter = ('nom_de_version',)
@@ -224,3 +227,4 @@ class VagueAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Vague, VagueAdmin)
+"""
