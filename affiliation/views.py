@@ -1458,6 +1458,11 @@ def base(request):
                 print(vague.utilisateurs.count(), 'personnes\n')
                 vague_utilisateur_total = vague.utilisateurs.count()
 
+    list_total_member = User.objects.filter(is_active=True).count()
+    list_total_vague = Vague.objects.filter(archive=False).count()
+    list_total_module = Modules.objects.filter(archive=False).count()
+    list_total_version = Versions.objects.filter(archive=False).count()
+
     return render(request, 'formation-wara/wara/base-wara.html', locals())
 
 
@@ -1467,6 +1472,22 @@ def voir_modules(request, id):
     dict = {}
     vagues = Vague.objects.filter(archive=False)
     dict[participant] = vagues
+
+    for vague in vagues:
+        for utilisateur in vague.utilisateurs.filter(nom=participant.nom):
+            if utilisateur:
+                modules = Modules.objects.filter(version=vague.version, archive=False)
+                modules_total = Modules.objects.filter(version=vague.version, archive=False).count()
+
+                print(vague.version, ' | ', modules_total, 'modules')
+                vague_version = vague.version
+
+                print(utilisateur)
+                vague_utilisateur = utilisateur
+
+                print(vague.utilisateurs.count(), 'personnes\n')
+                vague_utilisateur_total = vague.utilisateurs.count()
+
     modules = Modules.objects.filter(version=id, archive=False)
     return render(request, 'formation-wara/wara/users/voir-modules.html', locals())
 
@@ -1479,11 +1500,31 @@ def voir_modules_detail(request, id):
     vagues = Vague.objects.filter(archive=False)
     dict[participant] = vagues
     module = get_object_or_404(Modules, id=id)
+    for vague in vagues:
+        for utilisateur in vague.utilisateurs.filter(nom=participant.nom):
+            if utilisateur:
+                modules = Modules.objects.filter(version=vague.version, archive=False)
+                modules_total = Modules.objects.filter(version=vague.version, archive=False).count()
+
+                print(vague.version, ' | ', modules_total, 'modules')
+                vague_version = vague.version
+
+                print(utilisateur)
+                vague_utilisateur = utilisateur
+
+                print(vague.utilisateurs.count(), 'personnes\n')
+                vague_utilisateur_total = vague.utilisateurs.count()
     return render(request, 'formation-wara/wara/users/voir-modules-detail.html', locals())
 
 
 @login_required(redirect_field_name='suivant', login_url='wlogin')
 def formation_wara(request):
+    list_total_member = User.objects.filter(is_active=True).count()
+    list_total_vague = Vague.objects.filter(archive=False).count()
+    list_total_module = Modules.objects.filter(archive=False).count()
+    list_total_version = Versions.objects.filter(archive=False).count()
+    vagues = Vague.objects.filter(archive=False)
+    
     versions = Versions.objects.filter(archive=False)
     return render(request, 'formation-wara/wara/formation-wara.html', locals())
 

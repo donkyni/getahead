@@ -144,6 +144,10 @@ class ModulesForm(forms.ModelForm):
 
 
 class VagueForm(forms.ModelForm):
+
+    date_deb = forms.DateTimeField(widget=DateInput)
+    date_fin = forms.DateTimeField(widget=DateInput)
+
     class Meta:
         model = Vague
         exclude = ('created', 'archive', )

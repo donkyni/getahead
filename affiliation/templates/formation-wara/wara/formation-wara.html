@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Main Content -->
+<!-- Main Content -->
     <div class="page-wrapper">
         <div class="container-fluid pt-25">
             <!-- Row -->
@@ -26,9 +26,11 @@
                                 <div class="sm-data-box">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">123,456</span></span> <span class="weight-500 uppercase-font block">UTILISATEURS TOTAL</span> </div>
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter">
+                                                <span class="counter-anim">{{list_total_member}}</span></span> <span class="weight-500 uppercase-font block">UTILISATEURS</span> </div>
                                             <div class="col-xs-6 text-center  pl-0 pr-0 pt-30 data-wrap-right">
-                                                <div id="sparkline_3" class="sparkline-w-100"></div>
+                                                <!--<div id="sparkline_3" class="sparkline-w-100"></div>-->
+                                                <i style="font-size:65px;color:#130f40" class="fas fa-users"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -44,9 +46,11 @@
                                 <div class="sm-data-box">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">12.34</span>%</span> <span class="weight-500 uppercase-font block">VAGUE DE FORMATIONS </span> </div>
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter">
+                                                <span class="counter-anim">{{list_total_vague}} </span></span><span class="weight-500 uppercase-font block">VAGUE DE FORMATIONS </span> </div>
                                             <div class="col-xs-6 text-center  pl-0 pr-0  pt-30 data-wrap-right">
-                                                <div id="sparkline_4" class="sparkline-w-100-h-50"></div>
+                                                <!--<div id="sparkline_4" class="sparkline-w-100-h-50"></div>-->
+                                                <i style="font-size:65px;color:purple" class="fas fa-chalkboard-teacher"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -62,9 +66,10 @@
                                 <div class="sm-data-box">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">1,234,568</span></span> <span class="weight-500 uppercase-font block">MODULES DE FORMATIONS </span> </div>
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter">
+                                                <span class="counter-anim">{{list_total_module}}</span></span> <span class="weight-500 uppercase-font block">MODULES DE FORMATIONS </span> </div>
                                             <div class="col-xs-6 text-center  pl-0 pr-0 pt-20 data-wrap-right">
-                                                <div id="e_chart_1" class="h-50"></div>
+                                                <i style="font-size:65px;color:#6ab04c" class="fas fa-graduation-cap"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -80,10 +85,11 @@
                                 <div class="sm-data-box">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter"><span class="counter-anim">35.13</span>%</span> <span class="weight-500 uppercase-font block">VERSIONS DE WARA </span> </div>
+                                            <div class="col-xs-6 pl-20 pr-0 data-wrap-left"> <span class="txt-dark block counter">
+                                                <span class="counter-anim">{{list_total_version}}</span></span> <span class="weight-500 uppercase-font block">VERSIONS DE WARA </span> </div>
                                             <div class="col-xs-6 text-center  pl-0 pr-0 pt-25  data-wrap-right">
                                                 <div class="flot-container h-55">
-                                                    <div id="real_time_chart" class="demo-placeholder"></div>
+                                                <i style="font-size:65px;color:#3f48cc" class="fas fa-code-branch"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -114,17 +120,17 @@
                                         <input class="upload" type="file">
                                     </div>
                                 </div>
-                                <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">Michelle Abraham</h5>
-                                <h6 class="block capitalize-font pb-10">CEO Xyz</h6>
+                                <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">{{request.user}}</h5>
+                                <h6 style="font-size:15px" class="block capitalize-font pb-10"><span class="badge badge-secondary">{{request.user.profil}}</span></h6>
                             </div>
                             <div class="social-info">
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">345</span></span> <span class="counts-text block">post</span> </div>
                                     <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">246</span></span> <span class="counts-text block">followers</span> </div>
                                     <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">898</span></span> <span class="counts-text block">tweets</span> </div>
-                                </div>
-                                <button class="btn btn-primary btn-block  btn-anim mt-10" data-toggle="modal" data-target="#myModal1"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></button>
-                                <div id="myModal1" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                </div>-->
+                                <button class="btn btn-primary btn-block  btn-anim mt-10" data-toggle="modal" data-target="#myModal1"><i class="fa fa-pencil"></i><span class=" weight-600 btn-text">{{request.user}}</span></button>
+                                <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -215,7 +221,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-12 ">
+        <div class="col-lg-8 col-md-12 ">
             <div class="panel panel-default card-view">
                 <div class="panel-heading">
                     <div class="pull-left">
@@ -230,56 +236,24 @@
                                 <table class="table border-none" id="data_table_employee">
                                     <thead>
                                     <tr>
-                                        <th>Employee ID</th>
-                                        <th>Name</th>
-                                        <th>Department</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
+                                        <th>Nom de vague</th>
+                                        <th>Version</th>
+                                        <th>Date de début</th>
+                                        <th>Date de clôture</th>
+                                        <th>Enregistrer le</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {% for vague in vagues %}
                                     <tr>
-                                        <td><span class="txt-dark">#123654</span></td>
-                                        <td>Irina Sampio</td>
-                                        <td>Chart Analyst</td>
-                                        <td><span class="label label-danger">Terminated</span></td>
-                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
+                                        <td><span  style="background-color:#4834d4;color:#fff;padding:5px;border-radius:5px;font-size:13px"><a class="txt-light" href="#">{{vague.nom_de_vague}}</a></span></td>
+                                        <td><span class="badge badge-secondary">{{vague.version}}</span></td>
+                                        <td><span class="badge badge-secondary">{{vague.date_deb}}</span></td>
+                                        <td><span class="badge badge-secondary">{{vague.date_fin}}</span></td>
+                                        <td class="text-center"><span style="background-color:#e58e26;color:#fff;padding:5px;border-radius:5px;">{{vague.created|date}}</span></td>
                                     </tr>
-                                    <tr>
-                                        <td><span class="txt-dark">#564798</span></td>
-                                        <td>Michell Mark</td>
-                                        <td>Design Lead</td>
-                                        <td><span class="label label-warning">Offline</span></td>
-                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="txt-dark">#6547861</span></td>
-                                        <td>Tom Fiege</td>
-                                        <td>UI Development</td>
-                                        <td><span class="label label-danger">Terminated</span></td>
-                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="txt-dark">#3124564</span></td>
-                                        <td>James Nolan</td>
-                                        <td>Programming</td>
-                                        <td><span class="label label-success">active</span></td>
-                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="txt-dark">#7894612</span></td>
-                                        <td>Chris Jackson</td>
-                                        <td>Finance</td>
-                                        <td><span class="label label-success">active</span></td>
-                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="txt-dark">#3579514</span></td>
-                                        <td>Wanda Runners</td>
-                                        <td>Accounting</td>
-                                        <td><span class="label label-success">active</span></td>
-                                        <td class="text-center"><a href="javascript:void(0)" class="text-inverse" title="Edit" data-toggle="tooltip"><i class="mdi mdi-lead-pencil"></i></a> <a href="javascript:void(0)" class="text-inverse" title="Delete" data-toggle="tooltip"><i class="mdi mdi-delete"></i></a></td>
-                                    </tr>
+                                    {% empty %}
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                                 <br>
@@ -303,4 +277,5 @@
         </footer>
         <!-- /Footer -->
     </div>
+    <!-- End Main Content -->
 {% endblock %}
