@@ -1414,18 +1414,6 @@ class WaraLoginView(LoginView):
 
     def get_success_url(self):
         url = self.get_redirect_url()
-        """dict = {}
-        user = self.user
-        if user:
-            vagues = Vague.objects.filter(archive=False)
-            dict[user] = vagues
-            for vague in vagues:
-                if vague.utilisateurs == user:
-                    if user.profil.nom_du_profil == "Utilisateur":
-                        return url or '/formation-wara-utilisateur/'
-                    elif user.profil.nom_du_profil == "Aministrateur":
-                        pass"""
-        # return url or '/formation-wara/'
         return url or '/base/'
 
 

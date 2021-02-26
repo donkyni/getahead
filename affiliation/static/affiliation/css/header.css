@@ -31,7 +31,7 @@ nav .logo {
 nav ul {
     float: right;
     list-style: none;
-    margin-right:330px;
+    margin-right:130px;
     position: relative;
 }
 
@@ -98,7 +98,7 @@ nav ul ul li a {
 nav ul ul ul li {
     position: relative;
     top: -70px;
-    left: 270px;
+    left: -270px;
 }
 
 .fa-chevron-right {
