@@ -9,19 +9,19 @@ Accueil
 <!-- Main Content -->
 
 <!-- Main Content -->
-<div class="page-wrapper">
+<div class="page-wrapper" style="background: url('{% static 'programme-wara/img/img5.jpg' %}');background-size: cover;">
     <div class="container-fluid">
         <!-- Title -->
         <div class="row heading-bg">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h5 class="txt-dark">Modules</h5>
+                <h5 class="txt-light">Modules</h5>
             </div>
             <!-- Breadcrumb -->
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <ol class="breadcrumb">
-                    <li><a href="{% url 'formation-wara-utilisateur' %}">Wara</a></li>
-                    <li><a href="#"><span>Accueil</span></a></li>
-                    <li class="active"><span>Modules</span></li>
+                    <li><a href="{% url 'formation-wara-utilisateur' %}"><span style="color:#fff">Wara</span></a></li>
+                    <li><a class="txt-light" href="#"><span class="txt-light ">Accueil</span></a></li>
+                    <li class="active"><span class="txt-light ">Modules</span></li>
                 </ol>
             </div>
             <!-- /Breadcrumb -->
@@ -31,7 +31,7 @@ Accueil
         <!-- Row -->
         <div class="row">
             <div class="col-sm-12">
-                <div class="panel panel-default card-view">
+                <div class="panel panel-default card-view" style="border:none;background: url('{% static 'programme-wara/img/img1.jpg' %}');background-size: cover;">
                     <div  class="panel-wrapper collapse in">
                         <div  class="panel-body">
                             <div class="demo-popover">
@@ -39,10 +39,10 @@ Accueil
                                 <a href="{% url 'voir_modules_detail' module.id %}">
                                     <div class="popover" style="width:300px; height:250px">
                                         <div class="arrow"></div>
-                                        <h3 class="popover-title" style="text-align:center">{{module.nom_du_module}}</h3>
+                                        <h3 class="popover-title" style="text-align:center;background-color:#474787">{{module.nom_du_module}}</h3>
                                         <div class="popover-content">
                                             <p style="text-align:justify">
-                                                {{module.intro_text|truncatewords:30}}
+                                                {{module.intro_text|truncatewords:34}}
                                             </p>
                                         </div>
                                     </div>

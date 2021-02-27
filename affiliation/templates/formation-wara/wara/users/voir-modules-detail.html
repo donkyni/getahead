@@ -14,19 +14,19 @@ Accueil
 <!-- Main Content -->
 
 <!-- Main Content -->
-<div class="page-wrapper">
+<div class="page-wrapper" style="background: url('{% static 'programme-wara/img/img5.jpg' %}');background-size: cover;">
     <div class="container-fluid">
         <!-- Title -->
         <div class="row heading-bg">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h5 class="txt-dark">Modules</h5>
+                <h5 class="txt-light">Modules</h5>
             </div>
             <!-- Breadcrumb -->
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <ol class="breadcrumb">
-                    <li><a href="{% url 'formation-wara-utilisateur' %}">Wara</a></li>
-                    <li><a href="#"><span>Accueil</span></a></li>
-                    <li class="active"><span>Modules</span></li>
+                    <li><a href="{% url 'formation-wara-utilisateur' %}"><span style="color:#fff">Wara</span></a></li>
+                    <li><a class="txt-light" href="#"><span class="txt-light ">Accueil</span></a></li>
+                    <li class="active"><span class="txt-light ">Modules</span></li>
                 </ol>
             </div>
             <!-- /Breadcrumb -->
@@ -34,7 +34,7 @@ Accueil
         <br><br>
         <!-- /Title -->
         <div class="col-lg-12 col-md-12 ">
-            <div class="panel panel-default card-view">
+            <div class="panel panel-default card-view" style="border:none;background: url('{% static 'programme-wara/img/img1.jpg' %}');background-size: cover;">
                 <div class="panel-wrapper">
                     <div class="panel-body row pa-0">
                         <div class="table-wrapper">
@@ -53,13 +53,13 @@ Accueil
                                     <tr>
                                         <td>
                                             <span class="txt-dark">
-                                                <button style="border:none" data-toggle="modal" data-target="#myModal1">
+                                                <button style="border:none" data-toggle="modal" data-target="#video6">
                                                     <i style="color:red;font-size:16px;color:purple" class="fab fa-youtube"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <!--<i style="color:red;font-size:16px;color:purple" class="fas fa-play"></i>&nbsp;&nbsp;&nbsp;&nbsp;-->
                                                     <span id="mon_hover" style="margin-top:25px">{{module.texte6}}</span>
                                                 </button>
                                             </span>
-                                            <div id="myModal1" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                            <div id="video6" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -107,7 +107,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result6}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -116,13 +116,13 @@ Accueil
                                     <tr>
                                         <td>
                                             <span class="txt-dark">
-                                                <button style="border:none" data-toggle="modal" data-target="#myModal1">
+                                                <button style="border:none" data-toggle="modal" data-target="#video7">
                                                     <i style="color:red;font-size:16px;color:purple" class="fab fa-youtube"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <!--<i style="color:red;font-size:16px;color:purple" class="fas fa-play"></i>&nbsp;&nbsp;&nbsp;&nbsp;-->
                                                     <span id="mon_hover" style="margin-top:25px">{{module.texte7}}</span>
                                                 </button>
                                             </span>
-                                            <div id="myModal1" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                            <div id="video7" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -170,7 +170,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result7}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -179,13 +179,13 @@ Accueil
                                     <tr>
                                         <td>
                                             <span class="txt-dark">
-                                                <button style="border:none" data-toggle="modal" data-target="#myModal1">
+                                                <button style="border:none" data-toggle="modal" data-target="#video8">
                                                     <i style="color:red;font-size:16px;color:purple" class="fab fa-youtube"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <!--<i style="color:red;font-size:16px;color:purple" class="fas fa-play"></i>&nbsp;&nbsp;&nbsp;&nbsp;-->
                                                     <span id="mon_hover" style="margin-top:25px">{{module.texte8}}</span>
                                                 </button>
                                             </span>
-                                            <div id="myModal1" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                            <div id="video8" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -233,7 +233,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result8}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -242,13 +242,13 @@ Accueil
                                     <tr>
                                         <td>
                                             <span class="txt-dark">
-                                                <button style="border:none" data-toggle="modal" data-target="#myModal1">
+                                                <button style="border:none" data-toggle="modal" data-target="#video9">
                                                     <i style="color:red;font-size:16px;color:purple" class="fab fa-youtube"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <!--<i style="color:red;font-size:16px;color:purple" class="fas fa-play"></i>&nbsp;&nbsp;&nbsp;&nbsp;-->
                                                     <span id="mon_hover" style="margin-top:25px">{{module.texte9}}</span>
                                                 </button>
                                             </span>
-                                            <div id="myModal1" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                            <div id="video9" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -296,7 +296,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result9}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -305,13 +305,13 @@ Accueil
                                     <tr>
                                         <td>
                                             <span class="txt-dark">
-                                                <button style="border:none" data-toggle="modal" data-target="#myModal1">
+                                                <button style="border:none" data-toggle="modal" data-target="#video10">
                                                     <i style="color:red;font-size:16px;color:purple" class="fab fa-youtube"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <!--<i style="color:red;font-size:16px;color:purple" class="fas fa-play"></i>&nbsp;&nbsp;&nbsp;&nbsp;-->
                                                     <span id="mon_hover" style="margin-top:25px">{{module.texte10}}</span>
                                                 </button>
                                             </span>
-                                            <div id="myModal1" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                            <div id="video10" class="modal fade in" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -359,7 +359,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result10}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -422,7 +422,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result1}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -485,7 +485,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result2}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -548,7 +548,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result3}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -611,7 +611,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result4}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
@@ -674,7 +674,7 @@ Accueil
                                             </div>
                                         </td>
                                         <td>
-                                            00:06:35
+                                            {{result5}}
                                         </td>
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>

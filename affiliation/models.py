@@ -255,33 +255,53 @@ class Modules(models.Model):
 
     video6 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 1")
     texte6 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+    longueur_video6 = models.FloatField(null=True, blank=True)
+    temps_lu_video6 = models.FloatField(null=True, blank=True)
 
     video7 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 2")
     texte7 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+    longueur_video7 = models.FloatField(null=True, blank=True)
+    temps_lu_video7 = models.FloatField(null=True, blank=True)
 
     video8 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 3")
     texte8 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+    longueur_video8 = models.FloatField(null=True, blank=True)
+    temps_lu_video8 = models.FloatField(null=True, blank=True)
 
     video9 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 4")
     texte9 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+    longueur_video9 = models.FloatField(null=True, blank=True)
+    temps_lu_video9 = models.FloatField(null=True, blank=True)
 
     video10 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier vidéo 5")
     texte10 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier video")
+    longueur_video10 = models.FloatField(null=True, blank=True)
+    temps_lu_video10 = models.FloatField(null=True, blank=True)
 
     audio1 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 1")
     texte1 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+    longueur_audio1 = models.FloatField(null=True, blank=True)
+    temps_lu_audio1 = models.FloatField(null=True, blank=True)
 
     audio2 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 2")
     texte2 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+    longueur_audio2 = models.FloatField(null=True, blank=True)
+    temps_lu_audio2 = models.FloatField(null=True, blank=True)
 
     audio3 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 3")
     texte3 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+    longueur_audio3 = models.FloatField(null=True, blank=True)
+    temps_lu_audio3 = models.FloatField(null=True, blank=True)
 
     audio4 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 4")
     texte4 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+    longueur_audio4 = models.FloatField(null=True, blank=True)
+    temps_lu_audio4 = models.FloatField(null=True, blank=True)
 
     audio5 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier audio 5")
     texte5 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier audio")
+    longueur_audio5 = models.FloatField(null=True, blank=True)
+    temps_lu_audio5 = models.FloatField(null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)

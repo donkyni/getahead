@@ -16,13 +16,16 @@
   	<link rel="stylesheet" href="{% static 'affiliation/plugins/fontawesome-free/css/all.min.css' %}">
 	<title>Page d'acceuil de GET AHEAD</title>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Cookie&family=Akaya+Telivigala&family=Dancing+Script:wght@700&family=Oswald:wght@600&family=Fredoka+One&display=swap" rel="stylesheet">
+
 
 </head>
 <body>
 	<nav>
 		<div class="logo" style="cursor:pointer">
 			<span style="background: url('{% static 'affiliation/img/jgk.png' %}');background-size: cover;">
-				<span style="color:purple;opacity:0">Get Ahead &nbsp;</span>
+				<span style="color:purple;opacity:0">Get Ahead&nbsp;</span>
 			</span>
 		</div>
 		<label for="btn" class="icon">
@@ -31,7 +34,7 @@
 		<input type="checkbox" id="btn">
 		<ul>
 
-			<li><a href="javascript:void(0)" style="text-transform:uppercase">Acceuil</a></li>
+			<li><a href="javascript:void(0)" style="text-transform:uppercase"><span class="menufont">Acceuil</span></a></li>
 			<!--<li>
 				<label for="btn-1" class="show">Présentation +</label>
 				<a href="javascript:void(0)">Présentation</a>
@@ -43,32 +46,32 @@
 			</li>
 			-->
 			<li>
-				<label for="btn-2" class="show">WARA +</label>
-				<a href="javascript:void(0)">WARA</a>
+				<label for="btn-2" class="show"><span class="menufont">WARA +</span></label>
+				<a href="javascript:void(0)"><span class="menufont">WARA</span></a>
 				<input type="checkbox" id="btn-2">
 				<ul>
-					<li><a href="{% url 'wlogin' %}">Connexion</a></li>
+					<li><a href="{% url 'wlogin' %}"><span class="menufont">Connexion</span></a></li>
 					<li>
-						<label for="btn-3" class="show">Programme Wara +</label>
-						<a href="{% url 'programme_wara' %}">Programme Wara
-							<span class="fa fa-chevron-right"></span>
+						<label for="btn-3" class="show"><span class="menufont">Programme Wara +</span></label>
+						<a href="{% url 'programme_wara' %}"><span class="menufont">Programme Wara</span>
+							<!--<span class="fa fa-chevron-right"></span>-->
 						</a>
 						<input type="checkbox" id="btn-3">
 						<ul>
-							<li><a href="{% url 'programme_wara' %}#bonasavoir" style="font-size:14px">BON A SAVOIR</a></li>
-							<li><a href="{% url 'programme_wara' %}#concerne" style="font-size:14px">EN QUOI SUIS-JE CONCERNE ?</a></li>
-							<li><a href="{% url 'programme_wara' %}#module" style="font-size:14px">LES MODULES DE FORMATION</a></li>
+							<li><a href="{% url 'programme_wara' %}#bonasavoir" style="font-size:14px"><span class="menufont">BON A SAVOIR</span></a></li>
+							<li><a href="{% url 'programme_wara' %}#concerne" style="font-size:14px"><span class="menufont">EN QUOI SUIS-JE CONCERNE ?</span></a></li>
+							<li><a href="{% url 'programme_wara' %}#module" style="font-size:14px"><span class="menufont">LES MODULES DE FORMATION</span></a></li>
 						</ul>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<label for="btn-4" class="show">GET AHEAD +</label>
-				<a href="javascript:void(0)">GET AHEAD</a>
+				<label for="btn-4" class="show"><span class="menufont">GET AHEAD +</span></label>
+				<a href="javascript:void(0)"><span class="menufont">GET AHEAD</span></a>
 				<input type="checkbox" id="btn-4">
 				<ul>
-					<li><a href="{% url 'login' %}">Connexion</a></li>
-					<li><a href="{% url 'presentation_get_ahead' %}">Présentation</a></li>
+					<li><a href="{% url 'login' %}"><span class="menufont">Connexion</span></a></li>
+					<li><a href="{% url 'presentation_get_ahead' %}"><span class="menufont">Présentation</span></a></li>
 				</ul>
 			</li>
 			<!--
@@ -78,14 +81,14 @@
 		</ul>
 	</nav>
 
-	<section class="header" style="background: url('{% static 'affiliation/img/header6.jpeg' %}');background-size: cover;">
+	<section class="header" style="background: url('{% static 'programme-wara/img/img6.jpg' %}');background-size: cover;">
 		<div class="content">
-			<h2>GET AHEAD</h2>
+			<h2 id="getahead">GET AHEAD</h2>
 			<br>
 			<p>
-				<span style="font-weight:700;">« Vous êtes des êtres divins, votre potentiel est illimité, <br>votre avenir est magnifique si vous le prenez en main. »</span>
-				<br>
-				<span style="font-style:italic">Gordon B. Hinckley</span>
+				<span id="citation" style="font-weight:500;font-size:25px">« Vous êtes des êtres divins, votre potentiel est illimité, <br>votre avenir est magnifique si vous le prenez en main. »</span>
+				<br><br>
+				<span id="auteur" style="font-style:italic;font-size:25px">Gordon B. Hinckley</span>
 			</p>
 		</div>
 		<div class="container">

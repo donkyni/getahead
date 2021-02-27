@@ -4,9 +4,8 @@ from random import shuffle
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -1502,6 +1501,82 @@ def voir_modules_detail(request, id):
 
                 print(vague.utilisateurs.count(), 'personnes\n')
                 vague_utilisateur_total = vague.utilisateurs.count()
+
+    import time
+
+    from mutagen.mp3 import MP3
+    from mutagen.mp4 import MP4
+
+    if module.video6:
+        audio = MP4(module.video6)
+        module.longueur_video6 = audio.info.length
+        module.save()
+        float_time = module.longueur_video6
+        result6 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.video7:
+        audio = MP4(module.video7)
+        module.longueur_video7 = audio.info.length
+        module.save()
+        float_time = module.longueur_video7
+        result7 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.video8:
+        audio = MP4(module.video8)
+        module.longueur_video8 = audio.info.length
+        module.save()
+        float_time = module.longueur_video8
+        result8 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.video9:
+        audio = MP4(module.video9)
+        module.longueur_video9 = audio.info.length
+        module.save()
+        float_time = module.longueur_video9
+        result9 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.video10:
+        audio = MP4(module.video10)
+        module.longueur_video10 = audio.info.length
+        module.save()
+        float_time = module.longueur_video10
+        result10 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.audio1:
+        audio = MP3(module.audio1)
+        module.longueur_audio1 = audio.info.length
+        module.save()
+        float_time = module.longueur_audio1
+        result1 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.audio2:
+        audio = MP3(module.audio2)
+        module.longueur_audio2 = audio.info.length
+        module.save()
+        float_time = module.longueur_audio2
+        result2 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.audio3:
+        audio = MP3(module.audio3)
+        module.longueur_audio3 = audio.info.length
+        module.save()
+        float_time = module.longueur_audio3
+        result3 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.audio4:
+        audio = MP3(module.audio4)
+        module.longueur_audio4 = audio.info.length
+        module.save()
+        float_time = module.longueur_audio
+        result4 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    if module.audio5:
+        audio = MP3(module.audio5)
+        module.longueur_audio5 = audio.info.length
+        module.save()
+        float_time = module.longueur_audio5
+        result5 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
     return render(request, 'formation-wara/wara/users/voir-modules-detail.html', locals())
 
 
@@ -1556,6 +1631,7 @@ def version_module(request, id):
 def version_module_detail(request, id):
     versions = Versions.objects.filter(archive=False)
     module = get_object_or_404(Modules, id=id)
+
     return render(request, 'formation-wara/wara/versions/version_module_detail.html', locals())
 
 

@@ -7,7 +7,7 @@ Accueil
 
 {% block content2 %}
 <!-- Main Content -->
-<div class="page-wrapper">
+<div class="page-wrapper" style="background: url('{% static 'programme-wara/img/img5.jpg' %}');background-size: cover;">
     <div class="container-fluid pt-25">
         <!-- Row-->
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -27,17 +27,17 @@ Accueil
                                         <input class="upload" type="file">
                                     </div>
                                 </div>
-                                <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">Michelle Abraham</h5>
-                                <h6 class="block capitalize-font pb-10">CEO Xyz</h6>
+                                <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">{{request.user}}</h5>
+                                <h6 style="font-size:15px" class="block capitalize-font pb-10"><span class="badge badge-secondary">{{request.user.profil}}</span></h6>
                             </div>
                             <div class="social-info">
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">345</span></span> <span class="counts-text block">post</span> </div>
                                     <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">246</span></span> <span class="counts-text block">followers</span> </div>
                                     <div class="col-xs-4 text-center"> <span class="counts block head-font"><span class="counter-anim">898</span></span> <span class="counts-text block">tweets</span> </div>
-                                </div>
-                                <button class="btn btn-primary btn-block  btn-anim mt-10" data-toggle="modal" data-target="#myModal1"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></button>
-                                <div id="myModal1" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                </div>-->
+                                <button class="btn btn-primary btn-block  btn-anim mt-10" data-toggle="modal" data-target="#myModal1"><i class="fa fa-pencil"></i><span class=" weight-600 btn-text">{{request.user}}</span></button>
+                                <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">

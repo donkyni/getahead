@@ -51,55 +51,55 @@
 
     <!-- Right navbar links -->
     {% if user.is_authenticated %}
-      <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          {% if request.user.avatar %}
+          <img style="height:30px;width:30px;background-size:cover" src="{{request.user.avatar.url}}" class="img-circle elevation-3" alt="User picture">&nbsp;&nbsp;&nbsp;{{request.user}}
+          {% else %}
+          {% if request.user.sexe == "Homme" %}
+          <img style="height:30px;width:30px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-3" alt="User picture"/>&nbsp;&nbsp;&nbsp;{{request.user}}
+          {% elif request.user.sexe == "Femme" %}
+          <img style="height:30px;width:30px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-3" alt="User picture"/>&nbsp;&nbsp;&nbsp;{{request.user}}
+          {% endif %}
+          {% endif %}
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right bg-gradient-dark ">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 ">
+            <div class="text-center mb-2">
               {% if request.user.avatar %}
-                <img style="height:30px;width:30px;background-size:cover" src="{{request.user.avatar.url}}" class="img-circle elevation-3" alt="User picture">&nbsp;&nbsp;&nbsp;{{request.user}}
+              <img style="height:75px;width:75px;background-size:cover" src="{{request.user.avatar.url}}" class="img-circle elevation-2" alt="User picture">
               {% else %}
-                {% if request.user.sexe == "Homme" %}
-                  <img style="height:30px;width:30px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-3" alt="User picture"/>&nbsp;&nbsp;&nbsp;{{request.user}}
-                {% elif request.user.sexe == "Femme" %}
-                  <img style="height:30px;width:30px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-3" alt="User picture"/>&nbsp;&nbsp;&nbsp;{{request.user}}
-                {% endif %}
+              {% if request.user.sexe == "Homme" %}
+              <img style="height:75px;width:75px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-2" alt="User picture"/>
+              {% elif request.user.sexe == "Femme" %}
+              <img style="height:75px;width:75px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-2" alt="User picture"/>
               {% endif %}
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right bg-gradient-dark ">
-              <!-- Sidebar user panel (optional) -->
-              <div class="user-panel mt-3 pb-3 mb-3 ">
-                  <div class="text-center mb-2">
-                    {% if request.user.avatar %}
-                      <img style="height:75px;width:75px;background-size:cover" src="{{request.user.avatar.url}}" class="img-circle elevation-2" alt="User picture">
-                    {% else %}
-                      {% if request.user.sexe == "Homme" %}
-                        <img style="height:75px;width:75px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-2" alt="User picture"/>
-                      {% elif request.user.sexe == "Femme" %}
-                        <img style="height:75px;width:75px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-2" alt="User picture"/>
-                      {% endif %}
-                    {% endif %}
-                    </div>
-                  <div class="text-center">
-                    <a href="{% url 'compte' %}" style="text-decoration:none;color:white;font-size:18px;font-weight:bold;">{{request.user}}</a>
-                  </div>
-                </div>
-                <div class="dropdown-divider"></div>
-                <a href="{% url 'compte' %}" style="color:white;" class="nav-link {% block active-conn %}{% endblock %}">
-                  <i class="nav-icon fas fa-user-cog"></i>
-                  &nbsp;<b style="font-size:15px">Modifer vos informations</b>
-                </a>
-                <a href="{% url 'mongroupe' %}" style="color:white;" class="nav-link {% block active-conn-group %}{% endblock %}">
-                  <i class="nav-icon fas fa-users"></i>
-                  &nbsp;<b style="font-size:15px">Faites un tour dans votre groupe</b>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="{% url 'logout' %}" style="color:white;" class="nav-link text-danger">
-                  <i class="nav-icon fas fa-sign-out-alt"></i>
-                  &nbsp;<b style="font-size:16px">Déconnexion</b>
-                </a>
-                <div class="dropdown-divider"></div>
+              {% endif %}
             </div>
-          </li>
-      </ul>
+            <div class="text-center">
+              <a href="{% url 'compte' %}" style="text-decoration:none;color:white;font-size:18px;font-weight:bold;">{{request.user}}</a>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="{% url 'compte' %}" style="color:white;" class="nav-link {% block active-conn %}{% endblock %}">
+            <i class="nav-icon fas fa-user-cog"></i>
+            &nbsp;<b style="font-size:15px">Modifer vos informations</b>
+          </a>
+          <a href="{% url 'mongroupe' %}" style="color:white;" class="nav-link {% block active-conn-group %}{% endblock %}">
+            <i class="nav-icon fas fa-users"></i>
+            &nbsp;<b style="font-size:15px">Faites un tour dans votre groupe</b>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{% url 'logout' %}" style="color:white;" class="nav-link text-danger">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            &nbsp;<b style="font-size:16px">Déconnexion</b>
+          </a>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+    </ul>
     {% endif %}
   </nav>
   <!-- /.navbar -->
@@ -119,13 +119,13 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           {% if request.user.avatar %}
-            <img style="height:35px;width:35px;background-size:cover" src="{{request.user.avatar.url}}" class="img-circle elevation-2" alt="User Image">
+          <img style="height:35px;width:35px;background-size:cover" src="{{request.user.avatar.url}}" class="img-circle elevation-2" alt="User Image">
           {% else %}
-            {% if request.user.sexe == "Homme" %}
-              <img style="height:35px;width:35px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-2" alt="User Image">
-            {% elif request.user.sexe == "Femme" %}
-              <img style="height:35px;width:35px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-2" alt="User Image">
-            {% endif %}
+          {% if request.user.sexe == "Homme" %}
+          <img style="height:35px;width:35px;background-size:cover" src="{% static 'affiliation/img/male1.jpg' %}" class="img-circle elevation-2" alt="User Image">
+          {% elif request.user.sexe == "Femme" %}
+          <img style="height:35px;width:35px;background-size:cover" src="{% static 'affiliation/img/female.jpg' %}" class="img-circle elevation-2" alt="User Image">
+          {% endif %}
           {% endif %}
         </div>
         <div class="info">
@@ -151,7 +151,12 @@
             <a href="#" class="nav-link {% block menu-espace %}{% endblock %}">
               <i class="nav-icon fas fa-home"></i>
               <p>
+
+                {% if request.user.profil.nom == "Administrateur" %}
                 Mon espace
+                {% elif request.user.profil.nom == "Utilisateur" %}
+                GET AHEAD V1.0
+                {% endif %}
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -387,7 +392,7 @@
 <script src="{% static 'affiliation/dist/js/pages/dashboard.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'affiliation/dist/js/demo.js' %}"></script>
-  <!-- pace-progress -->
+<!-- pace-progress -->
 <script src="{% static 'affiliation/plugins/pace-progress/pace.min.js' %}"></script>
 
 {% block javascript %}
