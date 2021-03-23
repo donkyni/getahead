@@ -1,5 +1,5 @@
-
 import datetime
+
 from random import shuffle
 
 from django.contrib import messages
@@ -11,9 +11,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
-    UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm
+    UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm, \
+    UserCreation20Form, ActivationForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
-    Wara, Versions, Modules, Vague
+    Wara, Versions, Modules, Vague, Packs
 
 
 def acceuil(request):
@@ -245,6 +246,13 @@ def mongroupe(request):
         solde = request.user.gam * 2000
     elif request.user.nb_pers_amene < 2:
         solde = 0
+
+    import uuid
+
+    utilisateur = request.user
+    if utilisateur.unique_id is None:
+        utilisateur.unique_id = uuid.uuid4()
+        utilisateur.save()
 
     context = {
         'groupe': groupe,
@@ -615,7 +623,7 @@ def deleteposte(request, id):
     return JsonResponse(data)
 
 
-def generatepassword(longueur):
+def generateuniqueid(longueur):
     caracteres = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
                   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -635,6 +643,7 @@ def ajouter(request):
     utilisateurs = User.objects.all()
     invite = User.objects.filter(poste__nom_du_poste="Invité").count()
     total_membre = User.objects.all().count()
+
     if request.method == 'POST':
         form = UserCreationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -644,6 +653,7 @@ def ajouter(request):
             palier_bam = get_object_or_404(Palier, nom_du_palier="Bamiléké")
             systeme.poste = poste_inv
             systeme.palier = palier_bam
+            # systeme.dix_milles = True
 
             profil = get_object_or_404(Profils, nom="Utilisateur")
             systeme.profil = profil
@@ -679,8 +689,15 @@ def ajouter(request):
                             if groupe == membre.groupe:
                                 if membre.palier.nom_du_palier == "Bamiléké":
 
-                                    membre.point += 5  # ce n'est qu'a ce palier qu'on donne du point aux parents
-                                    # lors de l'enregistrement de l'un de ses filleuls
+                                    if membre.dix_milles:
+                                        membre.point += 5  # ce n'est qu'a ce palier qu'on donne du point aux
+                                        # parents lors de l'enregistrement de l'un de ses filleuls
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5  # On stocke le point dans une variable
+                                        # pour tous les utilisateurs qui n'ont pas encore payé leur frais de
+                                        # formation 10.000
+                                        # Les points sont cumulées une fois l'administrateur change l'etat en True
+                                        # depuis son espace
 
                                     if 0 <= membre.point < 5:
                                         poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
@@ -721,9 +738,16 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                         membre.palier = palier_zoulou
+                                    member_pursue_maya = 700/2000
+                                    membre.gam += member_pursue_maya
 
                                 elif membre.palier.nom_du_palier == "Zoulou":
-                                    membre.point += 5
+
+                                    if membre.dix_milles:
+                                        membre.point += 5
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5
+
                                     if membre.point == 5:
                                         poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
                                         membre.poste = poste_invite
@@ -763,9 +787,16 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                         membre.palier = palier_maya
+                                    member_pursue_maya = 1000/2000
+                                    membre.gam += member_pursue_maya
 
                                 elif membre.palier.nom_du_palier == "Maya":
-                                    membre.point += 5
+
+                                    if membre.dix_milles:
+                                        membre.point += 5
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5
+
                                     if membre.point == 5:
                                         poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
                                         membre.poste = poste_invite
@@ -805,9 +836,16 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                         membre.palier = palier_mandingue
+                                    member_pursue_maya = 2000/2000
+                                    membre.gam += member_pursue_maya
 
                                 elif membre.palier.nom_du_palier == "Mandingue":
-                                    membre.point += 5
+
+                                    if membre.dix_milles:
+                                        membre.point += 5
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5
+
                                     if membre.point == 5:
                                         poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
                                         membre.poste = poste_invite
@@ -851,8 +889,15 @@ def ajouter(request):
                         else:
                             if membre.palier.nom_du_palier == "Bamiléké":
 
-                                membre.point += 5  # ce n'est qu'a ce palier qu'on donne du point aux parents
-                                # lors de l'enregistrement de l'un de ses filleuls
+                                if membre.dix_milles:
+                                    membre.point += 5  # ce n'est qu'a ce palier qu'on donne du point aux
+                                    # parents lors de l'enregistrement de l'un de ses filleuls
+                                elif not membre.dix_milles:
+                                    membre.point_a_affecter += 5  # On stocke le point dans une variable
+                                    # pour tous les utilisateurs qui n'ont pas encore payé leur frais de
+                                    # formation 10.000
+                                    # Les points sont cumulées une fois l'administrateur change l'etat en True
+                                    # depuis son espace
 
                                 if 0 <= membre.point < 5:
                                     poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
@@ -892,11 +937,16 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                     membre.palier = palier_zoulou
-                                    # member_pursue_bam = 700/2000
-                                    # membre.gam = member_pursue_bam
+                                    member_pursue_bam = 700/2000
+                                    membre.gam = member_pursue_bam
 
                             elif membre.palier.nom_du_palier == "Zoulou":
-                                membre.point += 5
+
+                                if membre.dix_milles:
+                                    membre.point += 5
+                                elif not membre.dix_milles:
+                                    membre.point_a_affecter += 5
+
                                 if membre.point == 5:
                                     poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
                                     membre.poste = poste_invite
@@ -935,11 +985,16 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                     membre.palier = palier_maya
-                                    # member_pursue_zou = 1000/2000
-                                    # membre.gam += member_pursue_zou
+                                    member_pursue_zou = 1000/2000
+                                    membre.gam += member_pursue_zou
 
                             elif membre.palier.nom_du_palier == "Maya":
-                                membre.point += 5
+
+                                if membre.dix_milles:
+                                    membre.point += 5
+                                elif not membre.dix_milles:
+                                    membre.point_a_affecter += 5
+
                                 if membre.point == 5:
                                     poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
                                     membre.poste = poste_invite
@@ -978,11 +1033,16 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                     membre.palier = palier_mandingue
-                                    # member_pursue_maya = 2000/2000
-                                    # membre.gam += member_pursue_maya
+                                    member_pursue_maya = 2000/2000
+                                    membre.gam += member_pursue_maya
 
                             elif membre.palier.nom_du_palier == "Mandingue":
-                                membre.point += 5
+
+                                if membre.dix_milles:
+                                    membre.point += 5
+                                elif not membre.dix_milles:
+                                    membre.point_a_affecter += 5
+
                                 if membre.point == 5:
                                     poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
                                     membre.poste = poste_invite
@@ -1041,6 +1101,7 @@ def ajouter(request):
 def liste(request):
     droit = "Liste"
     utilisateurs = User.objects.filter(is_active=True)
+
     context = {
         "utilisateurs": utilisateurs
     }
@@ -1085,7 +1146,7 @@ def change_password(request, id):
 
 
 @login_required
-def listesuppruser(request, id):
+def listesuppruser(id):
     user_s = get_object_or_404(User, id=id)
     user_s.is_active = False
     user_s.save()
@@ -1587,7 +1648,7 @@ def formation_wara(request):
     list_total_module = Modules.objects.filter(archive=False).count()
     list_total_version = Versions.objects.filter(archive=False).count()
     vagues = Vague.objects.filter(archive=False)
-    
+
     versions = Versions.objects.filter(archive=False)
     return render(request, 'formation-wara/wara/formation-wara.html', locals())
 
@@ -1707,3 +1768,740 @@ def create_version(request):
 
     return save_all_wara(request, form, 'formation-wara/wara/create-version.html',
                          'version', 'formation-wara/wara/liste-version.html', mycontext)
+
+
+#######################################################################################################################
+#######################################################################################################################
+#######################################################################################################################
+
+"""
+PARTIE CONCERNANT LA PARTIE DE GET AHEAD V2.0 : LES INVESTISSEMENTS
+"""
+
+
+def generate_lien(request, unique_id):
+    parrain = get_object_or_404(User, unique_id=unique_id)
+    groupe_parrain_html = parrain.groupe
+    nom_parrain_html = parrain
+
+    groupe_parrain = parrain.groupe
+    nom_parrain = parrain
+
+    if request.method == 'POST':
+        form = UserCreation20Form(request.POST, request.FILES,
+                                  initial={'groupe': groupe_parrain, 'nom_du_parent': nom_parrain})
+        if form.is_valid():
+            if form.is_valid():
+                form.save(commit=False)
+                systeme = form.save()
+                poste_inv = get_object_or_404(Poste, nom_du_poste="Invité")
+                palier_bam = get_object_or_404(Palier, nom_du_palier="Bamiléké")
+                systeme.poste = poste_inv
+                systeme.palier = palier_bam
+
+                profil = get_object_or_404(Profils, nom="Utilisateur")
+                systeme.profil = profil
+
+                # Faire une MAJ par rapport au groupe de l'adhérent, donc de retrouver le groupe de ce dernier
+                # group = systeme.groupe
+                group = groupe_parrain
+                # groupe = get_object_or_404(Groupe, nom_du_groupe=group)
+
+                if groupe:  # Si on a le groupe recherché alors '->
+
+                    nom_d_utilisateur = systeme.nom_d_utilisateur
+                    # nom_d_utilisateur = nom_parrain
+                    membre = get_object_or_404(User, nom_d_utilisateur=nom_d_utilisateur)
+                    if membre.nom_du_parent is None:
+                        print(membre.nom_du_parent)
+                        print("C'est le plus haut parent")
+                        systeme.save()
+                    elif membre.nom_du_parent is not None:
+                        while membre.nom_du_parent is not None:
+                            """
+                            Quand on place un membre dans un groupe pour avoir un gam,
+                            tout se passe bien sauf qu'au moment ou ce dernier qui a ete placé decide
+                            de mettre un invité sous lui, non seulement il recoit les points
+                            mais aussi son parrain dans l'autre groupe et ainsi de suite recoit les points
+                            """
+                            membre = get_object_or_404(User, id=membre.nom_du_parent.id)
+                            # membre = get_object_or_404(User, id=membre.nom_du_parent.id, groupe=group)
+                            # membre.point += 5
+                            total_parrainages = User.objects.filter(nom_du_parent=membre).count()
+                            membre.nb_pers_amene = total_parrainages
+                            if total_parrainages > 2 and membre == systeme.nom_du_parent:
+                                if groupe == membre.groupe:
+                                    if membre.palier.nom_du_palier == "Bamiléké":
+                                        if membre.dix_milles:
+                                            membre.point += 5  # ce n'est qu'a ce palier qu'on donne du point aux
+                                            # parents lors de l'enregistrement de l'un de ses filleuls
+                                        elif not membre.dix_milles:
+                                            membre.point_a_affecter += 5  # On stocke le point dans une variable
+                                            # pour tous les utilisateurs qui n'ont pas encore payé leur frais de
+                                            # formation 10.000
+                                            # Les points sont cumulées une fois l'administrateur change l'etat en True
+                                            # depuis son espace
+
+                                        if 0 <= membre.point < 5:
+                                            poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                            membre.poste = poste_invite
+                                            membre.point_fictive_inv = 0
+                                            print("Vous etes un invité, recruter 2 membres pour devenir un colibri")
+                                        elif membre.point == 5:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes un colibri")
+                                            membre.point_fictive_col = 5
+                                        elif membre.point == 10:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes un colibri reconnu")
+                                            membre.point_fictive_col = 10
+                                        elif 15 <= membre.point < 30:
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print("Vous etes manageur")
+                                            if membre.point == 15:
+                                                membre.point_fictive_manag = 15
+                                            elif membre.point == 20:
+                                                membre.point_fictive_manag = 20
+                                            elif membre.point == 25:
+                                                membre.point_fictive_manag = 25
+                                        elif membre.point == 30:
+                                            membre.stock_point = 30  # ICI ON STOCK LE POINT DU PALIER CI POUR LA SUITE
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print(
+                                                "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous "
+                                                "continuer pour le palier suviant ou arreter ?")
+                                            membre.point_fictive_manag = 30
+                                        elif membre.point == 35:
+                                            membre.point = 5
+                                            poste = get_object_or_404(Poste, nom_du_poste="Invité")
+                                            membre.poste = poste
+                                            palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
+                                            membre.palier = palier_zoulou
+                                            member_pursue_maya = 700/2000
+                                            membre.gam += member_pursue_maya
+
+                                    elif membre.palier.nom_du_palier == "Zoulou":
+
+                                        if membre.dix_milles:
+                                            membre.point += 5
+                                        elif not membre.dix_milles:
+                                            membre.point_a_affecter += 5
+
+                                        if membre.point == 5:
+                                            poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                            membre.poste = poste_invite
+                                            print("Vous etes invité")
+                                            membre.point_fictive_inv = 0
+                                        if 5 < membre.point < 40:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes colibri")
+                                            membre.point_fictive_col = 5
+                                        if membre.point == 40:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes colibri reconnu")
+                                            membre.point_fictive_col = 10
+                                        elif 40 < membre.point < 120:
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print("Vous etes manageur")
+                                            if membre.point == 45:
+                                                membre.point_fictive_manag = 15
+                                            elif 45 < membre.point == 75:
+                                                membre.point_fictive_manag = 20
+                                            elif 75 < membre.point == 115:
+                                                membre.point_fictive_manag = 25
+                                        elif membre.point == 120:
+                                            membre.stock_point += 120  # ici on devrait avoir 30 + 120 = 150 points
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print(
+                                                "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous "
+                                                "continuer pour le palier suviant ou arreter ?")
+                                            membre.point_fictive_manag = 30
+                                        elif membre.point == 125:
+                                            membre.point = 5
+                                            poste = get_object_or_404(Poste, nom_du_poste="Invité")
+                                            membre.poste = poste
+                                            palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
+                                            membre.palier = palier_maya
+                                            member_pursue_maya = 1000/2000
+                                            membre.gam += member_pursue_maya
+
+                                    elif membre.palier.nom_du_palier == "Maya":
+
+                                        if membre.dix_milles:
+                                            membre.point += 5
+                                        elif not membre.dix_milles:
+                                            membre.point_a_affecter += 5
+
+                                        if membre.point == 5:
+                                            poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                            membre.poste = poste_invite
+                                            print("Vous etes invité")
+                                            membre.point_fictive_inv = 0
+                                        if 5 < membre.point < 160:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes colibri")
+                                            membre.point_fictive_col = 5
+                                        if membre.point == 160:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes colibri reconnu")
+                                            membre.point_fictive_col = 10
+                                        elif 160 < membre.point < 480:
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print("Vous etes manageur")
+                                            if membre.point == 165:
+                                                membre.point_fictive_manag = 15
+                                            elif 45 < membre.point == 315:
+                                                membre.point_fictive_manag = 20
+                                            elif 75 < membre.point == 475:
+                                                membre.point_fictive_manag = 25
+                                        elif membre.point == 480:
+                                            membre.stock_point += 480  # ici on devrait avoir 150 + 480 = 630 points
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print(
+                                                "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous "
+                                                "continuer pour le palier suviant ou arreter ?")
+                                            membre.point_fictive_manag = 30
+                                        elif membre.point == 485:
+                                            membre.point = 5
+                                            poste = get_object_or_404(Poste, nom_du_poste="Invité")
+                                            membre.poste = poste
+                                            palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
+                                            membre.palier = palier_mandingue
+                                            member_pursue_maya = 2000/2000
+                                            membre.gam += member_pursue_maya
+
+                                    elif membre.palier.nom_du_palier == "Mandingue":
+
+                                        if membre.dix_milles:
+                                            membre.point += 5
+                                        elif not membre.dix_milles:
+                                            membre.point_a_affecter += 5
+
+                                        if membre.point == 5:
+                                            poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                            membre.poste = poste_invite
+                                            print("Vous etes invité")
+                                            membre.point_fictive_inv = 0
+                                        if 5 < membre.point < 640:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes colibri")
+                                            membre.point_fictive_col = 5
+                                        if membre.point == 640:
+                                            poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                            membre.poste = poste_colibri
+                                            print("Vous etes colibri reconnu")
+                                            membre.point_fictive_col = 10
+                                        elif 640 < membre.point < 1920:
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print("Vous etes manageur")
+                                            if membre.point == 645:
+                                                membre.point_fictive_manag = 15
+                                            elif 45 < membre.point == 1275:
+                                                membre.point_fictive_manag = 20
+                                            elif 75 < membre.point == 1915:
+                                                membre.point_fictive_manag = 25
+                                        elif membre.point == 1920:
+                                            membre.stock_point += 1920  # ici on devrait avoir 150 + 480 + 1920 = 2550
+                                            # points
+                                            poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                            membre.poste = poste_manageur
+                                            print(
+                                                "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
+                                                "pour le palier suviant ou arreter ?")
+                                            membre.point_fictive_manag = 30
+                                        elif membre.point == 1925:
+                                            membre.point = membre.stock_point
+                                elif groupe != membre.groupe and membre == systeme.nom_du_parent:
+                                    membre.gam += 1
+                                    membre.save()
+                                    break
+                            else:
+                                if membre.palier.nom_du_palier == "Bamiléké":
+
+                                    if membre.dix_milles:
+                                        membre.point += 5
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5
+
+                                    if 0 <= membre.point < 5:
+                                        poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                        membre.poste = poste_invite
+                                        membre.point_fictive_inv = 0
+                                        print("Vous etes un invité, recruter 2 membres pour devenir un colibri")
+                                    elif membre.point == 5:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes un colibri")
+                                        membre.point_fictive_col = 5
+                                    elif membre.point == 10:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes un colibri reconnu")
+                                        membre.point_fictive_col = 10
+                                    elif 15 <= membre.point < 30:
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print("Vous etes manageur")
+                                        if membre.point == 15:
+                                            membre.point_fictive_manag = 15
+                                        elif membre.point == 20:
+                                            membre.point_fictive_manag = 20
+                                        elif membre.point == 25:
+                                            membre.point_fictive_manag = 25
+                                    elif membre.point == 30:
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print(
+                                            "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
+                                            "pour le palier suviant ou arreter ?")
+                                        membre.point_fictive_manag = 30
+                                    elif membre.point == 35:
+                                        membre.stock_point = 30  # ICI ON STOCK LE POINT DU PALIER COURANT POUR LA SUITE
+                                        if membre.dix_milles:
+                                            membre.point = 5
+                                        elif not membre.dix_milles:
+                                            membre.point = 0
+                                        poste = get_object_or_404(Poste, nom_du_poste="Invité")
+                                        membre.poste = poste
+                                        palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
+                                        membre.palier = palier_zoulou
+                                        member_pursue_bam = 700/2000
+                                        membre.gam = member_pursue_bam
+
+                                elif membre.palier.nom_du_palier == "Zoulou":
+
+                                    if membre.dix_milles:
+                                        membre.point += 5
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5
+
+                                    if membre.point == 5:
+                                        poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                        membre.poste = poste_invite
+                                        print("Vous etes invité")
+                                        membre.point_fictive_inv = 0
+                                    if 5 < membre.point < 40:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes colibri")
+                                        membre.point_fictive_col = 5
+                                    if membre.point == 40:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes colibri reconnu")
+                                        membre.point_fictive_col = 10
+                                    elif 40 < membre.point < 120:
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print("Vous etes manageur")
+                                        if membre.point == 45:
+                                            membre.point_fictive_manag = 15
+                                        elif 45 < membre.point == 75:
+                                            membre.point_fictive_manag = 20
+                                        elif 75 < membre.point == 115:
+                                            membre.point_fictive_manag = 25
+                                    elif membre.point == 120:
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print(
+                                            "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
+                                            "pour le palier suviant ou arreter ?")
+                                        membre.point_fictive_manag = 30
+                                    elif membre.point == 125:
+                                        membre.stock_point += 120  # ici on devrait avoir 30 + 120 = 150 points
+
+                                        if membre.dix_milles:
+                                            membre.point = 5
+                                        elif not membre.dix_milles:
+                                            membre.point = 0
+
+                                        poste = get_object_or_404(Poste, nom_du_poste="Invité")
+                                        membre.poste = poste
+                                        palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
+                                        membre.palier = palier_maya
+                                        member_pursue_zou = 1000/2000
+                                        membre.gam += member_pursue_zou
+
+                                elif membre.palier.nom_du_palier == "Maya":
+
+                                    if membre.dix_milles:
+                                        membre.point += 5
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5
+
+                                    if membre.point == 5:
+                                        poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                        membre.poste = poste_invite
+                                        print("Vous etes invité")
+                                        membre.point_fictive_inv = 0
+                                    if 5 < membre.point < 160:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes colibri")
+                                        membre.point_fictive_col = 5
+                                    if membre.point == 160:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes colibri reconnu")
+                                        membre.point_fictive_col = 10
+                                    elif 160 < membre.point < 480:
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print("Vous etes manageur")
+                                        if membre.point == 165:
+                                            membre.point_fictive_manag = 15
+                                        elif 45 < membre.point == 315:
+                                            membre.point_fictive_manag = 20
+                                        elif 75 < membre.point == 475:
+                                            membre.point_fictive_manag = 25
+                                    elif membre.point == 480:
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print(
+                                            "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer"
+                                            "pour le palier suviant ou arreter ?")
+                                        membre.point_fictive_manag = 30
+                                    elif membre.point == 485:
+                                        membre.stock_point += 480  # ici on devrait avoir 150 + 480 = 630 points
+                                        membre.point = 5
+                                        poste = get_object_or_404(Poste, nom_du_poste="Invité")
+                                        membre.poste = poste
+                                        palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
+                                        membre.palier = palier_mandingue
+                                        member_pursue_maya = 2000/2000
+                                        membre.gam += member_pursue_maya
+
+                                elif membre.palier.nom_du_palier == "Mandingue":
+
+                                    if membre.dix_milles:
+                                        membre.point += 5
+                                    elif not membre.dix_milles:
+                                        membre.point_a_affecter += 5
+
+                                    if membre.point == 5:
+                                        poste_invite = get_object_or_404(Poste, nom_du_poste="Invité")
+                                        membre.poste = poste_invite
+                                        print("Vous etes invité")
+                                        membre.point_fictive_inv = 0
+                                    if 5 < membre.point < 640:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes colibri")
+                                        membre.point_fictive_col = 5
+                                    if membre.point == 640:
+                                        poste_colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+                                        membre.poste = poste_colibri
+                                        print("Vous etes colibri reconnu")
+                                        membre.point_fictive_col = 10
+                                    elif 640 < membre.point < 1920:
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print("Vous etes manageur")
+                                        if membre.point == 645:
+                                            membre.point_fictive_manag = 15
+                                        elif 45 < membre.point == 1275:
+                                            membre.point_fictive_manag = 20
+                                        elif 75 < membre.point == 1915:
+                                            membre.point_fictive_manag = 25
+                                    elif membre.point == 1920:
+                                        membre.stock_point += 1920  # ici on devrait avoir 150 + 480 + 1920 = 2550
+                                        # points
+                                        poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+                                        membre.poste = poste_manageur
+                                        print(
+                                            "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
+                                            "pour le palier suviant ou arreter ?")
+                                        membre.point_fictive_manag = 30
+                                    elif 1920 < membre.point:
+                                        membre.point = membre.stock_point
+
+                            membre.save()
+                            print(membre)
+                            print(total_parrainages, 'parrainé(s)')
+                        systeme.save()
+
+                return redirect('mongroupe')
+    else:
+        form = UserCreation20Form(initial={'groupe': groupe_parrain, 'nom_du_parent': nom_parrain})
+
+    return render(request, 'investissement/generate_lien.html', locals())
+
+
+def menu(request):
+    return render(request, 'investissement/menu.html', locals())
+
+
+def menu_user(request):
+    packs = Packs.objects.filter(archive=False)
+    return render(request, 'investissement/menu_user.html', locals())
+
+
+def activation_compte(request):
+    comptes = User.objects.filter(is_active=True, dix_milles=False, is_admin=False)
+    return render(request, 'investissement/activation_compte/activation_compte.html', locals())
+
+
+def gestion_investissement(request):
+    return render(request, 'investissement/gestion_investissement/gestion_investissement.html', locals())
+
+
+@login_required
+def save_activation(request, form, template_name, template_name2, mycontext):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save(commit=False)
+            system = form.save()
+
+            invite = get_object_or_404(Poste, nom_du_poste="Invité")
+            colibri = get_object_or_404(Poste, nom_du_poste="Colibri")
+            manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
+
+            bamileke = get_object_or_404(Palier, nom_du_palier="Bamiléké")
+            zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
+            maya = get_object_or_404(Palier, nom_du_palier="Maya")
+            mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
+
+            # id_compte = system.id
+            compte = system
+            print(compte)
+
+            palier = compte.palier
+
+            if palier == bamileke:
+                if 0 <= compte.point_a_affecter <= 35:
+                    if 0 <= compte.point_a_affecter < 5:
+                        compte.dix_milles = True
+                        compte.point += compte.point_a_affecter  # On met a jour le point du compte
+
+                        compte.point_fictive_inv = 0
+
+                        compte.poste = invite  # on met a jour le poste
+                        compte.palier = bamileke  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if 5 <= compte.point_a_affecter < 15:
+                        compte.dix_milles = True
+                        compte.point += compte.point_a_affecter  # On met a jour le point du compte
+
+                        if compte.point_a_affecter == 5:
+                            compte.point_fictive_col = 5
+                        elif compte.point_a_affecter == 10:
+                            compte.point_fictive_col = 10
+
+                        compte.poste = colibri  # on met a jour le poste
+                        compte.palier = bamileke  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if 15 <= compte.point_a_affecter < 35:
+                        compte.dix_milles = True
+                        compte.point += compte.point_a_affecter  # On met a jour le point du compte
+
+                        if compte.point_a_affecter == 15:
+                            compte.point_fictive_manag = 15
+                        elif compte.point_a_affecter == 20:
+                            compte.point_fictive_manag = 20
+                        elif compte.point_a_affecter == 25:
+                            compte.point_fictive_manag = 25
+                        elif compte.point_a_affecter == 30:
+                            compte.point_fictive_manag = 30
+
+                        compte.poste = manageur  # on met a jour le poste
+                        compte.palier = bamileke  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                        print(compte.poste, compte.palier, compte.point, compte.point_a_affecter)
+                    if compte.point_a_affecter == 35:
+                        compte.dix_milles = True
+                        compte.stock_point = 30
+                        compte.point = 5  # on ramène le point a 5
+
+                        compte.poste = invite  # on met a jour le poste
+                        compte.palier = zoulou  # on met a jour le palier
+                        compte.point_a_affecter = 0
+                elif 35 < compte.point_a_affecter <= 155:
+                    print("Boucle 2")
+                    if 35 < compte.point_a_affecter < 70:
+                        compte.dix_milles = True
+                        compte.stock_point = 30
+                        compte.point = compte.point_a_affecter - 30  # On met a jour le point du compte
+
+                        compte.point_fictive_col = 5
+
+                        compte.poste = colibri  # on met a jour le poste
+                        compte.palier = zoulou  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if compte.point_a_affecter == 70:
+                        compte.dix_milles = True
+                        compte.stock_point = 30
+                        compte.point = compte.point_a_affecter - 30  # On met a jour le point du compte
+
+                        compte.point_fictive_col = 10
+
+                        compte.poste = colibri  # on met a jour le poste
+                        compte.palier = zoulou  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if 70 < compte.point_a_affecter <= 150:
+                        compte.dix_milles = True
+                        compte.stock_point = 30
+                        compte.point = compte.point_a_affecter - 30  # On met a jour le point du compte
+
+                        if compte.point_a_affecter == 75:
+                            compte.point_fictive_manag = 15
+                        elif 75 < compte.point_a_affecter == 105:
+                            compte.point_fictive_manag = 20
+                        elif 105 < compte.point_a_affecter == 145:
+                            compte.point_fictive_manag = 25
+                        elif compte.point_a_affecter == 150:
+                            compte.point_fictive_manag = 30
+
+                        compte.poste = manageur  # on met a jour le poste
+                        compte.palier = zoulou  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if compte.point_a_affecter == 155:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120
+                        compte.point = 5  # on ramène le point a 5
+
+                        compte.poste = invite  # on met a jour le poste
+                        compte.palier = maya  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                elif 155 < compte.point_a_affecter <= 635:
+                    print("Boucle 3")
+                    if 155 < compte.point_a_affecter < 310:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120
+                        compte.point = compte.point_a_affecter - 150  # On met a jour le point du compte
+
+                        compte.point_fictive_col = 5
+
+                        compte.poste = colibri  # on met a jour le poste
+                        compte.palier = maya  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if compte.point_a_affecter == 310:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120
+                        compte.point = compte.point_a_affecter - 150  # On met a jour le point du compte
+
+                        compte.point_fictive_col = 10
+
+                        compte.poste = colibri  # on met a jour le poste
+                        compte.palier = maya  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if 310 < compte.point_a_affecter <= 630:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120
+                        compte.point = compte.point_a_affecter - 150  # On met a jour le point du compte
+
+                        if compte.point_a_affecter == 315:
+                            compte.point_fictive_manag = 15
+                        elif 315 < compte.point_a_affecter == 465:
+                            compte.point_fictive_manag = 20
+                        elif 465 < compte.point_a_affecter < 625:
+                            compte.point_fictive_manag = 25
+                        elif compte.point_a_affecter == 630:
+                            compte.point_fictive_manag = 30
+
+                        compte.poste = manageur  # on met a jour le poste
+                        compte.palier = zoulou  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if compte.point_a_affecter == 635:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120 + 480
+                        compte.point = 5  # on ramène le point a 5
+
+                        compte.poste = invite  # on met a jour le poste
+                        compte.palier = mandingue  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                elif 635 < compte.point_a_affecter:
+                    print("Boucle 4")
+                    if 635 < compte.point_a_affecter < 1120:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120 + 480
+                        compte.point = compte.point_a_affecter - 630  # On met a jour le point du compte
+
+                        compte.point_fictive_col = 5
+
+                        compte.poste = colibri  # on met a jour le poste
+                        compte.palier = mandingue  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if compte.point_a_affecter == 1120:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120 + 480
+                        compte.point = compte.point_a_affecter - 630  # On met a jour le point du compte
+
+                        compte.point_fictive_col = 10
+
+                        compte.poste = colibri  # on met a jour le poste
+                        compte.palier = mandingue  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if 1120 < compte.point_a_affecter <= 2550:
+                        compte.dix_milles = True
+                        compte.stock_point = 30 + 120 + 480
+                        compte.point = compte.point_a_affecter - 630  # On met a jour le point du compte
+
+                        if compte.point_a_affecter == 1120:
+                            compte.point_fictive_manag = 15
+                        elif 1120 < compte.point_a_affecter == 1975:
+                            compte.point_fictive_manag = 20
+                        elif 1975 < compte.point_a_affecter < 2545:
+                            compte.point_fictive_manag = 25
+                        elif compte.point_a_affecter == 2550:
+                            compte.point_fictive_manag = 30
+                            compte.stock_point = 30 + 120 + 480 + 1920
+
+                        compte.poste = manageur  # on met a jour le poste
+                        compte.palier = mandingue  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+                    if 2550 < compte.point_a_affecter:
+                        compte.dix_milles = True
+                        compte.point = compte.point_a_affecter  # on ramène le point a 5
+
+                        compte.poste = manageur  # on met a jour le poste
+                        compte.palier = mandingue  # on met a jour le palier
+                        compte.point_a_affecter = 0  # on ramène le point_a_affecter a 0
+
+                compte.save()
+            system.save()
+            data['form_is_valid'] = True
+            data['activation'] = render_to_string(template_name2, mycontext)
+        else:
+            data['form_is_valid'] = False
+
+    context = {
+        'form': form
+    }
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+
+def formulaire_activation(request, id):
+    comtpes = User.objects.filter(is_active=True, dix_milles=False, is_admin=False)
+    compte = get_object_or_404(User, id=id)
+    mycontext = {
+        'comptes': comtpes,
+        'compte': compte,
+    }
+    if request.method == 'POST':
+        form = ActivationForm(request.POST, instance=compte)
+    else:
+        form = ActivationForm(instance=compte)
+
+    return save_activation(request, form, 'investissement/activation_compte/formulaire_activation.html',
+                           'investissement/activation_compte/liste_compte_a_activer.html', mycontext)
+
+
+def packs(request):
+    packs = Packs.objects.filter(archive=False)
+    return render(request, 'investissement/nos_packs/packs.html', locals())

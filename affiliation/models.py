@@ -2,6 +2,28 @@ from django.db import models
 from django.contrib.auth import models as auth_models
 
 
+"""
+###########################################    GET AHEAD 2.0      ###################################################
+"""
+
+
+class Packs(models.Model):
+    ancien_nom = models.CharField(null=True, max_length=100, verbose_name="Nom du pack")
+    nouveau_nom = models.CharField(null=True, max_length=100, verbose_name="Nom du pack")
+    prix = models.DecimalField(decimal_places=2, max_digits=10, null=True)
+    jours = models.IntegerField(null=True, default=100)
+    archive = models.BooleanField(default=False)
+    date = models.DateTimeField(null=True, auto_now_add=True)
+
+    def __str__(self):
+        return self.nouveau_nom
+
+
+"""
+###########################################    GET AHEAD 1.0      ###################################################
+"""
+
+
 class Poste(models.Model):
     nom_du_poste = models.CharField(max_length=255, null=True, blank=False)
     archive = models.BooleanField(default=False)
@@ -157,8 +179,17 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     point_fictive_inv = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     point_fictive_col = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     point_fictive_manag = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
-    # gam = models.PositiveSmallIntegerField(null=True, blank=True, default=0)
     gam = models.DecimalField(null=True, blank=True, default=0, decimal_places=2, max_digits=5)
+
+    # auto inscription
+    unique_id = models.CharField(max_length=100, null=True, blank=True, unique=True)
+    dix_milles = models.BooleanField(default=False, null=True, blank=False)
+    point_a_affecter = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
+
+    # creditation du compte
+    espace = models.ForeignKey(Packs, on_delete=models.SET_NULL, null=True, blank=True)
+    # jours_ouvrable = models.DateField(auto_now_add=True, null=True)
+    jours_ouvrables = models.IntegerField(default=0, null=True, verbose_name='Durée du contrat')
 
     """
     Django settings
@@ -236,7 +267,10 @@ class Message(models.Model):
     archive = models.BooleanField(default=False, null=True)
 
 
+"""
 ###########################################    PROGRAMME WARA      ###################################################
+"""
+
 
 class Versions(models.Model):
     nom_de_version = models.CharField(max_length=50, null=True)
@@ -320,3 +354,4 @@ class Vague(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)
+

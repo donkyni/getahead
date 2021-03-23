@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block head-title %}Gestion des investissements{% endblock %}
+
+{% block getahead2 %}
+active
+{% endblock %}
+
+{% block active-getahead2 %}
+active
+{% endblock %}
+
+{% block position %}
+Gestion des investissements
+{% endblock %}
+
+{% block chemin %}
+Gestion des investissements
+{% endblock %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <a href="{% url 'menu' %}" style="background-color:#FFD32A;color:#000;border-radius:5px;border:none;padding:7px 7px 7px 7px">
+            Retour &nbsp;<i class="fas fa-angle-right"></i>
+        </a>
+        <br><br>
+        <div class="row">
+            <div class="col-lg-3 col-12">
+                <div class="small-box bg-gradient-dark">
+                    <div class="inner">
+                        <a href="" style="color:#fff"><h3> <b> <small><small>Ajouter une personne</small></small></b></h3>
+                            <p> <b><span class="count">6</span> Espaces disponibles</b></p>
+                        </a>
+                    </div>
+                    <a href="">
+                        <div class="icon">
+                            <i class="nav-icon fas fa-user text-light"></i>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="small-box-footer"> <b>Mall</b></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12">
+                <div class="small-box bg-gradient-dark">
+                    <div class="inner">
+                        <a href="" style="color:#fff"><h3> <b> <small><small>Activer un espace</small></small></b></h3>
+
+                            <p> <b><span class="count">6</span> espaces disponibles</b></p>
+                        </a>
+                    </div>
+                    <a href="">
+                        <div class="icon">
+                            <i class="nav-icon fas fa-user-lock text-light"></i>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0)" class="small-box-footer"> <b>Mall</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
