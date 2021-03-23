@@ -1101,6 +1101,9 @@ def ajouter(request):
 def liste(request):
     droit = "Liste"
     utilisateurs = User.objects.filter(is_active=True)
+    for utilisateur in utilisateurs:
+        utilisateur.dix_milles = True
+        utilisateur.save()
 
     context = {
         "utilisateurs": utilisateurs
