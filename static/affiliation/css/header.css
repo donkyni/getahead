@@ -1,8 +1,25 @@
+/**/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: cursive, 'Nunito', sans-serif;
+}
+
+#getahead{
+    font-family: 'Oswald', cursive;
+}
+
+.menufont{
+    font-family: 'Montserrat', cursive;
+}
+
+#citation{
+    font-family: 'Akaya Telivigala', cursive;
+}
+
+#auteur{
+    font-family: 'Dancing Script', cursive;
 }
 
 body {
@@ -31,7 +48,7 @@ nav .logo {
 nav ul {
     float: right;
     list-style: none;
-    margin-right: 40px;
+    margin-right:130px;
     position: relative;
 }
 
@@ -51,21 +68,21 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #94000F;
+    color: #a55eea;
     border-radius: 5px;
-    box-shadow: 0 0 5px #94000F,
-                0 0 5px #94000F;
+    box-shadow: 3px 3px 3px #a55eea,
+                3px 3px 3px #a55eea;
 }
 
 nav ul ul li a:hover  {
-    color: #94000F;
+    color: #a55eea;
     box-shadow: none;
 }
 
 nav ul ul {
     position: absolute;
     top: 90px;
-    border-top: 3px solid #94000F;
+    border-top: 3px solid #a55eea;
     opacity: 0;
     visibility: hidden;
     transition: top .3s;
@@ -98,7 +115,7 @@ nav ul ul li a {
 nav ul ul ul li {
     position: relative;
     top: -70px;
-    left: 270px;
+    left: -270px;
 }
 
 .fa-chevron-right {

@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'getahead',
-        'USER': 'postgres',
-        'PASSWORD': 't1o5o0r7!@#',
+        'USER': 'getahead',
+        'PASSWORD': 'getahead',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
