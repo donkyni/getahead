@@ -22,7 +22,7 @@ from django.urls import path, include
 from affiliation.views import acceuil, cabinet, presentation, programme, WaraLoginView, formation_wara, version_wara, \
     create_version, version_module, version_module_detail, module_formation, vague_formation, \
     formation_wara_utilisateur, base, voir_modules, voir_modules_detail, menu, generate_lien, activation_compte, \
-    packs, menu_user, gestion_investissement
+    packs, menu_user, gestion_investissement, formulaire_activation
 
 urlpatterns = [
     # url concernant la connexion pour le programme GET AHEAD
@@ -43,7 +43,7 @@ urlpatterns = [
     path('menu_user', menu_user,  name="menu_user"),
     path('activation_compte', activation_compte,  name="activation_compte"),
     path('gestion_investissement', gestion_investissement,  name="gestion_investissement"),
-    # path(r'^(?P<id>\d+)/formulaire_activation$', formulaire_activation, name="formulaire_activation"),
+    path(r'^(?P<id>\d+)/formulaire_activation$', formulaire_activation, name="formulaire_activation"),
     path('packs', packs,  name="packs"),
 
 
