@@ -12,9 +12,9 @@ from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
     UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm, \
-    UserCreation20Form, ActivationForm
+    UserCreation20Form
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
-    Wara, Versions, Modules, Vague, Packs
+    Wara, Versions, Modules, Vague
 
 
 def acceuil(request):
@@ -2486,7 +2486,7 @@ def save_activation(request, form, template_name, template_name2, mycontext):
     return JsonResponse(data)
 
 
-def formulaire_activation(request, id):
+"""def formulaire_activation(request, id):
     comtpes = User.objects.filter(is_active=True, dix_milles=False, is_admin=False)
     compte = get_object_or_404(User, id=id)
     mycontext = {
@@ -2500,8 +2500,9 @@ def formulaire_activation(request, id):
 
     return save_activation(request, form, 'investissement/activation_compte/formulaire_activation.html',
                            'investissement/activation_compte/liste_compte_a_activer.html', mycontext)
-
-
+"""
+"""
 def packs(request):
     packs = Packs.objects.filter(archive=False)
     return render(request, 'investissement/nos_packs/packs.html', locals())
+"""

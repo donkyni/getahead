@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from affiliation.models import Poste, Niveau, Palier, Groupe, CodePays, Droits, Profils, Payement, Wara, Message, User, \
-    DroitsProfils, Versions, Modules, Vague, Packs
+    DroitsProfils, Versions, Modules, Vague
 
 
 class PosteAdmin(admin.ModelAdmin):
@@ -131,16 +131,16 @@ class UserAdmin(BaseUserAdmin):
     list_display = (
         'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
         'pays_de_residence', 'telephone', 'groupe',
-        'avatar', 'sexe', 'profil', 'gam', 'unique_id', 'dix_milles', 'point_a_affecter', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
-        'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'espace', 'jours_ouvrables', 'don_mand', 'is_admin')
+        'avatar', 'sexe', 'profil', 'gam', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
+        'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'don_mand', 'is_admin')
     list_filter = ('is_admin', 'nom')
     fieldsets = (
         (None, {'fields': ('nom_d_utilisateur', 'password')}),
         ('Personal info', {'fields': (
             'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'groupe',
-            'avatar', 'sexe', 'profil', 'unique_id', 'dix_milles', 'point_a_affecter', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
-            'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'don_mand', 'espace', 'jours_ouvrables',)}),
+            'avatar', 'sexe', 'profil', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
+            'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'don_mand', )}),
         ('Permissions', {'fields': ('is_admin', 'is_active', 'groups', 'user_permissions',)}),
         ('Important dates', {'fields': ('last_login',)}),
     )
@@ -150,8 +150,8 @@ class UserAdmin(BaseUserAdmin):
             'fields': (
                 'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
                 'pays_de_residence', 'telephone', 'groupe',
-                'avatar', 'sexe', 'profil', 'unique_id', 'dix_milles', 'point_a_affecter', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col', 'point_fictive_manag',  'palier', 'poste', 'don_bam', 'don_zou', 'don_maya',
-                'don_mand', 'espace', 'jours_ouvrables', 'password'),
+                'avatar', 'sexe', 'profil', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col', 'point_fictive_manag',  'palier', 'poste', 'don_bam', 'don_zou', 'don_maya',
+                'don_mand', 'password'),
         }),
     )
     search_fields = ('nom_d_utilisateur', 'nom',)
@@ -227,7 +227,7 @@ class VagueAdmin(admin.ModelAdmin):
 
 admin.site.register(Vague, VagueAdmin)
 
-
+"""
 class PacksAdmin(admin.ModelAdmin):
     list_display = ('nouveau_nom', 'prix', 'jours', 'archive')
     list_filter = ('nouveau_nom',)
@@ -237,3 +237,4 @@ class PacksAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Packs, PacksAdmin)
+"""
