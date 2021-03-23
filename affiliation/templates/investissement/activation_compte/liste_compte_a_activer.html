@@ -1,0 +1,33 @@
+
+{% for utilisateur in comptes %}
+<tr>
+    <td class="text-left">
+        <a href="{% url 'voirplus' utilisateur.id %}" class="btn btn-sm btn-primary text-light" style="font-weight:700;font-size:16px">
+            <i class="fa fa-user" aria-hidden="true"></i> {{utilisateur}}
+        </a>
+        <br>
+        {% if utilisateur.nom_du_parent is None %}
+        <small><i>Parrain : <span class="badge badge-info" style="font-size:12px;background-color:#3B3B98;color:#fff;border-radius:5px;border:none;padding:3px 7px 3px 7px">Aucun</span></i></small>
+        {% elif utilisateur.nom_du_parent is not None %}
+        <small><i>Parrain : <span class="badge badge-secondary" style="font-size:12px;background-color:#40407a;color:#fff;border-radius:5px;border:none;padding:3px 7px 3px 7px">{{ utilisateur.nom_du_parent }}</span></i></small>
+        {% endif %}
+    </td>
+    <td class="text-center">
+        {% if utilisateur.groupe is not None%}
+        <b class="badge badge-info" style="font-size:15px;background-color:#3B3B98;color:#fff;border-radius:5px;border:none;padding:3px 7px 3px 7px"><i>{{utilisateur.groupe}}</i></b>
+        <small class="badge badge-secondary" style="font-size:14px;background-color:#40407a;color:#fff;border-radius:5px;border:none;padding:3px 7px 3px 7px">Manageur : {{utilisateur.groupe.manageur_du_groupe}}</small>
+        {% elif utilisateur.groupe is None %}
+        <small class="badge badge-secondary">Aucun</small>
+        {% endif %}
+    </td>
+    <td class="text-right">
+        <button data-url="{% url 'formulaire_activation' utilisateur.id %}" style="background-color:#05C46B;color:#fff;border-radius:5px;border:none;padding:3px 7px 3px 7px" class="show-form-update">
+            <span style="font-weight:500;font-style:italic">Activer</span> &nbsp;<i class="fas fa-unlock-alt"></i>
+        </button>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="8" class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun utilisateur n'est disponible</td>
+</tr>
+{% endfor %}

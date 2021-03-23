@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block head-title %}Menu{% endblock %}
+
+{% block getahead2 %}
+active
+{% endblock %}
+
+{% block active-getahead2 %}
+active
+{% endblock %}
+
+{% block position %}
+GET AHEAD V2.0
+{% endblock %}
+
+{% block chemin %}
+GET AHEAD V2.0
+{% endblock %}
+
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+        <br><br>
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <a href="{% url 'gestion_investissement' %}"><!-- #0097e6 -->
+                    <div class="small-box" style="padding-left:5px;padding-bottom:50px;padding-top:50px;background-color:#ffd32a">
+                        <div class="inner">
+                            <span style="font-size:20px;font-weight:600;text-transform:uppercase;color:#000"><span>Gestion des Investissements</span></span>
+                        </div>
+                        <div class="icon">
+                            <i class="pt-3 nav-icon fas fa-hand-holding-usd" style="color:#000"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-12">
+                <a href="#">
+                    <div class="small-box" style="padding-left:5px;padding-bottom:50px;padding-top:50px;background-color:#18dcff">
+                        <div class="inner">
+                            <span style="font-size:20px;font-weight:600;text-transform:uppercase;color:#000"><span>Gestion Des Contrats</span></span>
+                        </div>
+                        <div class="icon">
+                            <i class="pt-3 nav-icon fas fa-file-signature" style="color:#000"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-12">
+                <a href="#">
+                    <div class="small-box" style="padding-left:5px;padding-bottom:50px;padding-top:50px;background-color:#ff3838">
+                        <div class="inner">
+                            <span style="font-size:20px;font-weight:600;text-transform:uppercase;color:#000"><span>Nos Devises</span></span>
+                        </div>
+                        <div class="icon">
+                            <i class="pt-3 nav-icon fas fa-funnel-dollar" style="color:#000000"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-12">
+                <a href="{% url 'packs' %}">
+                    <div class="small-box" style="padding-left:5px;padding-bottom:50px;padding-top:50px;background-color:#2c2c54">
+                        <div class="inner">
+                            <span style="font-size:20px;font-weight:600;text-transform:uppercase;color:#fff"><span>Nos Packs</span></span>
+                        </div>
+                        <div class="icon">
+                            <i class="pt-3 nav-icon fas fa-box-open" style="color:#fff"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-12">
+                <a href="{% url 'activation_compte' %}">
+                    <div class="small-box" style="padding-left:5px;padding-bottom:50px;padding-top:50px;background-color:#05c46b">
+                        <div class="inner">
+                            <span style="font-size:20px;font-weight:600;text-transform:uppercase;color:#fff"><span>Activation Des Comptes</span></span>
+                        </div>
+                        <div class="icon">
+                            <i class="pt-3 nav-icon fas fas fa-user-lock" style="color:#fff"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
