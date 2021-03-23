@@ -202,13 +202,14 @@ class UserCreation20Form(forms.ModelForm):
         return user
 
 
-class ActivationForm(forms.ModelForm):
+"""class ActivationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('nom', 'prenom', 'dix_milles',)
         widgets = {
             'dix-milles': forms.CheckboxInput(attrs={'class': 'form-control'})
         }
+"""
 
 """
 class InvestissementForm(forms.ModelForm):
