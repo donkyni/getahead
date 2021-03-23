@@ -6,7 +6,7 @@ from django.contrib.auth import models as auth_models
 ###########################################    GET AHEAD 2.0      ###################################################
 """
 
-"""
+
 class Packs(models.Model):
     ancien_nom = models.CharField(null=True, max_length=100, verbose_name="Nom du pack")
     nouveau_nom = models.CharField(null=True, max_length=100, verbose_name="Nom du pack")
@@ -17,7 +17,7 @@ class Packs(models.Model):
 
     def __str__(self):
         return self.nouveau_nom
-"""
+
 
 """
 ###########################################    GET AHEAD 1.0      ###################################################
@@ -182,14 +182,14 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     gam = models.DecimalField(null=True, blank=True, default=0, decimal_places=2, max_digits=5)
 
     # auto inscription
-    # unique_id = models.CharField(max_length=100, null=True, blank=True, unique=True)
-    # dix_milles = models.BooleanField(default=False, null=True, blank=False)
-    # point_a_affecter = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
+    unique_id = models.CharField(max_length=100, null=True, blank=True, unique=True)
+    dix_milles = models.BooleanField(default=False, null=True, blank=False)
+    point_a_affecter = models.PositiveSmallIntegerField(null=True, blank=False, default=0)
 
     # creditation du compte
-    # espace = models.ForeignKey(Packs, on_delete=models.SET_NULL, null=True, blank=True)
+    espace = models.ForeignKey(Packs, on_delete=models.SET_NULL, null=True, blank=True)
     # jours_ouvrable = models.DateField(auto_now_add=True, null=True)
-    # jours_ouvrables = models.IntegerField(default=0, null=True, verbose_name='Durée du contrat')
+    jours_ouvrables = models.IntegerField(default=0, null=True, verbose_name='Durée du contrat')
 
     """
     Django settings
