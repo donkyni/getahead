@@ -131,16 +131,16 @@ class UserAdmin(BaseUserAdmin):
     list_display = (
         'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
         'pays_de_residence', 'telephone', 'groupe',
-        'avatar', 'sexe', 'profil', 'gam', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
-        'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'don_mand', 'is_admin')
+        'avatar', 'sexe', 'profil', 'gam', 'unique_id', 'dix_milles', 'point_a_affecter', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
+        'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'espace', 'jours_ouvrables', 'don_mand', 'is_admin')
     list_filter = ('is_admin', 'nom')
     fieldsets = (
         (None, {'fields': ('nom_d_utilisateur', 'password')}),
         ('Personal info', {'fields': (
             'nom_du_parent', 'nom', 'prenom', 'adresse',
             'pays_de_residence', 'telephone', 'groupe',
-            'avatar', 'sexe', 'profil', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
-            'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'don_mand', )}),
+            'avatar', 'sexe', 'profil', 'unique_id', 'dix_milles', 'point_a_affecter', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col',
+            'point_fictive_manag', 'palier', 'poste', 'don_bam', 'don_zou', 'don_maya', 'don_mand', 'espace', 'jours_ouvrables',)}),
         ('Permissions', {'fields': ('is_admin', 'is_active', 'groups', 'user_permissions',)}),
         ('Important dates', {'fields': ('last_login',)}),
     )
@@ -150,8 +150,8 @@ class UserAdmin(BaseUserAdmin):
             'fields': (
                 'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
                 'pays_de_residence', 'telephone', 'groupe',
-                'avatar', 'sexe', 'profil', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col', 'point_fictive_manag',  'palier', 'poste', 'don_bam', 'don_zou', 'don_maya',
-                'don_mand', 'password'),
+                'avatar', 'sexe', 'profil', 'unique_id', 'dix_milles', 'point_a_affecter', 'point', 'stock_point', 'point_fictive_inv', 'point_fictive_col', 'point_fictive_manag',  'palier', 'poste', 'don_bam', 'don_zou', 'don_maya',
+                'don_mand', 'espace', 'jours_ouvrables', 'password'),
         }),
     )
     search_fields = ('nom_d_utilisateur', 'nom',)
