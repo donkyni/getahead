@@ -2243,20 +2243,24 @@ def generate_lien(request, unique_id):
     return render(request, 'investissement/generate_lien.html', locals())
 
 
+@login_required
 def menu(request):
     return render(request, 'investissement/menu.html', locals())
 
 
+@login_required
 def menu_user(request):
     packs = Packs.objects.filter(archive=False)
     return render(request, 'investissement/menu_user.html', locals())
 
 
+@login_required
 def activation_compte(request):
     comptes = User.objects.filter(is_active=True, dix_milles=False, is_admin=False)
     return render(request, 'investissement/activation_compte/activation_compte.html', locals())
 
 
+@login_required
 def gestion_investissement(request):
     return render(request, 'investissement/gestion_investissement/gestion_investissement.html', locals())
 
@@ -2504,11 +2508,13 @@ def formulaire_activation(request, id):
                            'investissement/activation_compte/liste_compte_a_activer.html', mycontext)
 
 
+@login_required
 def packs(request):
     packs = Packs.objects.filter(archive=False)
     return render(request, 'investissement/nos_packs/packs.html', locals())
 
 
+@login_required
 def mall_achat(request):
     packs = Packs.objects.filter(archive=False)
     return render(request, 'investissement/menu_user/mall_achat/mall_achat.html', locals())

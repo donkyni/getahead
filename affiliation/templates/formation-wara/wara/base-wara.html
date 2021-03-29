@@ -56,7 +56,15 @@
         </div>
         <div id="mobile_right_sidebar" class="mobile-right-sidebar pull-right">
             <ul class="nav navbar-right top-nav pull-right">
-                <li class="dropdown auth-drp"> <a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user_auth" class="user-auth-img img-circle"/><span class="user-online-status"></span></a>
+                <li class="dropdown auth-drp">
+                    <a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown">
+                        {% if request.user.sexe == "Homme" %}
+                        <img src="{% static 'programme-wara/img/user-male-2.png' %}" alt="user_auth" class="user-auth-img img-circle"/>
+                        {% elif request.user.sexe == "Femme" %}
+                        <img src="{% static 'programme-wara/img/user-female.png' %}" alt="user_auth" class="user-auth-img img-circle"/>
+                        {% endif %}
+                        <span class="user-online-status"></span>
+                    </a>
                     <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                         <li> <a href="#"><i class="mdi mdi-account"></i><span>Profil</span></a> </li>
                         <li> <a href="#"><i class="mdi mdi-email"></i><span>Forum</span></a> </li>
@@ -590,11 +598,19 @@
                                 <div class="profile-image-overlay"></div>
                             </div>
                             <div class="profile-info text-center">
-                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/plugins/assets/img/users/img-user.jpg' %}" alt="user"/>
+                                {% if request.user.sexe == "Homme" %}
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-male-2.png' %}" alt="user"/>
                                     <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
                                         <input class="upload" type="file">
                                     </div>
                                 </div>
+                                {% elif request.user.sexe == "Femme" %}
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-female.png' %}" alt="user"/>
+                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                        <input class="upload" type="file">
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">{{request.user}}</h5>
                                 <h6 style="font-size:15px" class="block capitalize-font pb-10"><span class="badge badge-secondary">{{request.user.profil}}</span></h6>
                             </div>
@@ -899,7 +915,11 @@
             <ul class="nav navbar-right top-nav pull-right">
                 <li class="dropdown auth-drp">
                     <a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown">
-                        <img src="{% static 'programme-wara/plugins/assets/img/users/avatar-2.jpg' %}" alt="user_auth" class="user-auth-img img-circle"/>
+                        {% if request.user.sexe == "Homme" %}
+                        <img src="{% static 'programme-wara/img/user-male-2.png' %}" alt="user_auth" class="user-auth-img img-circle"/>
+                        {% elif request.user.sexe == "Femme" %}
+                        <img src="{% static 'programme-wara/img/user-female.png' %}" alt="user_auth" class="user-auth-img img-circle"/>
+                        {% endif %}
                         <span class="user-online-status"></span>
                     </a>
                     <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -909,7 +929,7 @@
                         <li class="divider"></li>
                         <li class="sub-menu show-on-hover"> <a href="#" class="dropdown-toggle pr-0 level-2-drp"><i class="mdi mdi-check text-success"></i> En ligne</a></li>
                         <li class="divider"></li>
-                        <li> <a href="#"><i class="mdi mdi-power"></i><span>Déconnexion</span></a> </li>
+                        <li> <a href="{% url 'logout' %}"><i class="mdi mdi-power"></i><span>Déconnexion</span></a> </li>
                     </ul>
                 </li>
             </ul>
@@ -937,11 +957,19 @@
                                     <div class="profile-image-overlay"></div>
                                 </div>
                                 <div class="profile-info text-center">
-                                    <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/plugins/assets/img/users/img-user.jpg' %}" alt="user"/>
-                                        <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
-                                            <input class="upload" type="file">
-                                        </div>
+                                {% if request.user.sexe == "Homme" %}
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-male-2.png' %}" alt="user"/>
+                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                        <input class="upload" type="file">
                                     </div>
+                                </div>
+                                {% elif request.user.sexe == "Femme" %}
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-female.png' %}" alt="user"/>
+                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                        <input class="upload" type="file">
+                                    </div>
+                                </div>
+                                {% endif %}
                                     <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">{{request.user}}</h5>
                                     <h6 style="font-size:15px" class="block capitalize-font pb-10"><span class="badge badge-secondary">{{request.user.profil}}</span></h6>
                                 </div>

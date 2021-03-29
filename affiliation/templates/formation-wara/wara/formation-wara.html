@@ -115,11 +115,19 @@
                                 <div class="profile-image-overlay"></div>
                             </div>
                             <div class="profile-info text-center">
-                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/plugins/assets/img/users/img-user.jpg' %}" alt="user"/>
+                                {% if request.user.sexe == "Homme" %}
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-male-2.png' %}" alt="user"/>
                                     <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
                                         <input class="upload" type="file">
                                     </div>
                                 </div>
+                                {% elif request.user.sexe == "Femme" %}
+                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-female.png' %}" alt="user"/>
+                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                        <input class="upload" type="file">
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">{{request.user}}</h5>
                                 <h6 style="font-size:15px" class="block capitalize-font pb-10"><span class="badge badge-secondary">{{request.user.profil}}</span></h6>
                             </div>
