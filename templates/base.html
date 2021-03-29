@@ -155,17 +155,44 @@
                 {% if request.user.profil.nom == "Administrateur" %}
                 Mon espace
                 {% elif request.user.profil.nom == "Utilisateur" %}
-                <span style="font-weight:bold;">GET AHEAD 1.0</span>
+                <span style="font-weight:bold;">Wara | Get Ahead</span>
                 {% endif %}
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-espace-groupe %}{% endblock %}">
-                  <i class="fas fa-users nav-icon"></i>
-                  <p><b>Mon groupe</b></p>
+                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-getahead2-menu-mall %}{% endblock %}">
+                  <i class="fas fa-box-open nav-icon"></i>
+                  <p><b>Mon espace commercial</b></p>
                 </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-getahead2-menu-gain %}{% endblock %}">
+                  <i class="fas fa-hand-holding-usd nav-icon"></i>
+                  <p><b>Mes gains journaliers</b></p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-getahead2-menu-1 %}{% endblock %}">
+                  <i class="fas fa-wallet nav-icon"></i>
+                  <p><b>1er système de bonus</b></p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-espace-groupe %}{% endblock %}">
+                  <i class="fas fa-wallet nav-icon"></i>
+                  <p><b>2è système de bonus</b></p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-getahead2-menu-3 %}{% endblock %}">
+                  <i class="fas fa-funnel-dollar nav-icon"></i>
+                  <p><b>3è système de bonus</b></p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <hr style="background-color:#fff">
               </li>
               <li class="nav-item">
                 <a href="{% url 'compte' %}" class="nav-link {% block active-espace-compte %}{% endblock %}">
@@ -174,18 +201,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'logout' %}" class="nav-link text-danger {% block active-espace-deconnexion %}{% endblock %}">
-                  <i class="fas fa-sign-out-alt nav-icon"></i>
+                <a href="{% url 'logout' %}" style="color:white;" class="nav-link text-danger">
+                  <i class="nav-icon fas fa-sign-out-alt"></i>
                   <p><b>Déconnexion</b></p>
                 </a>
               </li>
             </ul>
           </li>
 
-          <li class="nav-item has-treeview">
-            <hr style="background-color:#fff">
-          </li>
-
+          <!--
           {% if request.user.profil.nom == "Utilisateur" %}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link {% block menu-getahead2-menu %}{% endblock %}">
@@ -205,6 +229,7 @@
             </ul>
           </li>
           {% endif %}
+          -->
 
           {% if request.user.profil.nom == "Administrateur" %}
           <li class="nav-item has-treeview">

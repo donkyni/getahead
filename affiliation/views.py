@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 
 from random import shuffle
 
@@ -653,7 +654,7 @@ def ajouter(request):
             palier_bam = get_object_or_404(Palier, nom_du_palier="Bamiléké")
             systeme.poste = poste_inv
             systeme.palier = palier_bam
-            # systeme.dix_milles = True
+            systeme.dix_milles = True
 
             profil = get_object_or_404(Profils, nom="Utilisateur")
             systeme.profil = profil
@@ -738,8 +739,9 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                         membre.palier = palier_zoulou
-                                    member_pursue_maya = 700/2000
-                                    membre.gam += member_pursue_maya
+                                        member_pursue_bam = 700/2000
+                                        membre.gam = membre.gam + Decimal(member_pursue_bam)
+                                        print("Applique Gam")
 
                                 elif membre.palier.nom_du_palier == "Zoulou":
 
@@ -787,8 +789,8 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                         membre.palier = palier_maya
-                                    member_pursue_maya = 1000/2000
-                                    membre.gam += member_pursue_maya
+                                        member_pursue_zou = 1000/2000
+                                        membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                                 elif membre.palier.nom_du_palier == "Maya":
 
@@ -836,8 +838,8 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                         membre.palier = palier_mandingue
-                                    member_pursue_maya = 2000/2000
-                                    membre.gam += member_pursue_maya
+                                        member_pursue_maya = 2000/2000
+                                        membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                                 elif membre.palier.nom_du_palier == "Mandingue":
 
@@ -938,7 +940,7 @@ def ajouter(request):
                                     palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                     membre.palier = palier_zoulou
                                     member_pursue_bam = 700/2000
-                                    membre.gam = member_pursue_bam
+                                    membre.gam = membre.gam + Decimal(member_pursue_bam)
 
                             elif membre.palier.nom_du_palier == "Zoulou":
 
@@ -986,7 +988,7 @@ def ajouter(request):
                                     palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                     membre.palier = palier_maya
                                     member_pursue_zou = 1000/2000
-                                    membre.gam += member_pursue_zou
+                                    membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                             elif membre.palier.nom_du_palier == "Maya":
 
@@ -1034,7 +1036,7 @@ def ajouter(request):
                                     palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                     membre.palier = palier_mandingue
                                     member_pursue_maya = 2000/2000
-                                    membre.gam += member_pursue_maya
+                                    membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                             elif membre.palier.nom_du_palier == "Mandingue":
 
@@ -1881,8 +1883,8 @@ def generate_lien(request, unique_id):
                                             membre.poste = poste
                                             palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                             membre.palier = palier_zoulou
-                                            member_pursue_maya = 700/2000
-                                            membre.gam += member_pursue_maya
+                                            member_pursue_zou = 700/2000
+                                            membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                                     elif membre.palier.nom_du_palier == "Zoulou":
 
@@ -1931,7 +1933,7 @@ def generate_lien(request, unique_id):
                                             palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                             membre.palier = palier_maya
                                             member_pursue_maya = 1000/2000
-                                            membre.gam += member_pursue_maya
+                                            membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                                     elif membre.palier.nom_du_palier == "Maya":
 
@@ -1979,8 +1981,8 @@ def generate_lien(request, unique_id):
                                             membre.poste = poste
                                             palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                             membre.palier = palier_mandingue
-                                            member_pursue_maya = 2000/2000
-                                            membre.gam += member_pursue_maya
+                                            member_pursue_mand = 2000/2000
+                                            membre.gam = membre.gam + Decimal(member_pursue_mand)
 
                                     elif membre.palier.nom_du_palier == "Mandingue":
 
@@ -2080,7 +2082,7 @@ def generate_lien(request, unique_id):
                                         palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                         membre.palier = palier_zoulou
                                         member_pursue_bam = 700/2000
-                                        membre.gam = member_pursue_bam
+                                        membre.gam = membre.gam + Decimal(member_pursue_bam)
 
                                 elif membre.palier.nom_du_palier == "Zoulou":
 
@@ -2134,7 +2136,7 @@ def generate_lien(request, unique_id):
                                         palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                         membre.palier = palier_maya
                                         member_pursue_zou = 1000/2000
-                                        membre.gam += member_pursue_zou
+                                        membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                                 elif membre.palier.nom_du_palier == "Maya":
 
@@ -2183,7 +2185,7 @@ def generate_lien(request, unique_id):
                                         palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                         membre.palier = palier_mandingue
                                         member_pursue_maya = 2000/2000
-                                        membre.gam += member_pursue_maya
+                                        membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                                 elif membre.palier.nom_du_palier == "Mandingue":
 
@@ -2505,3 +2507,8 @@ def formulaire_activation(request, id):
 def packs(request):
     packs = Packs.objects.filter(archive=False)
     return render(request, 'investissement/nos_packs/packs.html', locals())
+
+
+def mall_achat(request):
+    packs = Packs.objects.filter(archive=False)
+    return render(request, 'investissement/menu_user/mall_achat/mall_achat.html', locals())

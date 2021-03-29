@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'getahead',
-        'USER': 'getahead',
-        'PASSWORD': 'getahead',
+        'USER': 'postgres',
+        'PASSWORD': 't1o5o0r7!@#',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -141,7 +141,7 @@ MEDIA_ROOT = (
 
 AUTH_USER_MODEL = 'affiliation.User'
 
-LOGIN_REDIRECT_URL = 'mongroupe'
+LOGIN_REDIRECT_URL = 'menu_user'
 LOGIN_URL = 'login'
 
 

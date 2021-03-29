@@ -30,6 +30,17 @@ Mon espace / Mon groupe
 {% block content %}
 <section class="content">
   <div class="container-fluid">
+    {% if request.user.profil.nom == "Utilisateur" %}
+    <a href="{% url 'menu_user' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-primary mb-3">Retour <i class="fas fa-angle-right"></i> Menu</a>
+    {% endif %}
+
+    {% if request.user.profil.nom == "Utilisateur" %}
+    <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#parrainer">
+      <b>Parrainer un filleule &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
+    </button>
+    <hr>
+    {% endif %}
+    
     <div class="row">
       <div class="col-md-3">
 
@@ -560,13 +571,7 @@ Mon espace / Mon groupe
           </div>
           <!-- /.card-body -->
         </div>
-        {% if request.user.profil.nom == "Utilisateur" %}
-        <br>
-        <hr>
-        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#parrainer">
-          <b>Parrainer un filleule &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
-        </button>
-        {% endif %}
+
       </div>
 
     </div>
@@ -611,7 +616,7 @@ Mon espace / Mon groupe
           <br>
           <p>
             <span style="font-size:18px">Vous n'avez pas encore payé vos frais de formation (10.000 F CFA).</span>
-              <br><br>
+            <br><br>
             <span style="font-size:18px">
               Suite à cela, vous ne verrez aucun avançement ni
               dans le programme GET AHEAD 1.0 ni dans GET AHEAD 2.0.
@@ -621,8 +626,8 @@ Mon espace / Mon groupe
           </p>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermez</button>
-            <button type="button" class="btn btn-primary" >Payer directement</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermez</button>
+          <button type="button" class="btn btn-primary" >Payer directement</button>
         </div>
       </div>
     </div>
