@@ -27,6 +27,7 @@ class Packs(models.Model):
 class Poste(models.Model):
     nom_du_poste = models.CharField(max_length=255, null=True, blank=False)
     archive = models.BooleanField(default=False)
+    # pass
 
     def __str__(self):
         return self.nom_du_poste
