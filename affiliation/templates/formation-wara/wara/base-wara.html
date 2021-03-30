@@ -945,6 +945,41 @@
     <div class="page-wrapper" style="background: url('{% static 'programme-wara/img/img5.jpg' %}');background-size: cover;">
         <div class="container-fluid pt-25">
             <!-- Row-->
+
+            {% if request.user.profil.nom == "Utilisateur" %}
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#parrainer">
+                        <b>Parrainer un filleule &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
+                    </button>
+                    <hr>
+                </div>
+            </div>
+            {% endif %}
+            <div class="modal fade" id="parrainer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Parrainer un filleule</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <span>Votre lien de parrainage</span>
+                            <br><br>
+                            <input class="form-control" readonly id="lien" type="text" value="http://wara-africa.com/{{request.user.unique_id}}/lien-generer-pour-l-inscription-a-getahead-2.0/$">
+                            <br>
+                            <span>Copiez le lien et envoyer le à votre ami. Une fois son inscription terminé, il sera reconnu comme votre filleule</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button class="btn btn-primary" onclick="myFunction()">Copiez !</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="panel panel-default card-view  pa-0">
                     <div class="panel-wrapper collapse in">
@@ -957,19 +992,19 @@
                                     <div class="profile-image-overlay"></div>
                                 </div>
                                 <div class="profile-info text-center">
-                                {% if request.user.sexe == "Homme" %}
-                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-male-2.png' %}" alt="user"/>
-                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
-                                        <input class="upload" type="file">
+                                    {% if request.user.sexe == "Homme" %}
+                                    <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-male-2.png' %}" alt="user"/>
+                                        <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                            <input class="upload" type="file">
+                                        </div>
                                     </div>
-                                </div>
-                                {% elif request.user.sexe == "Femme" %}
-                                <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-female.png' %}" alt="user"/>
-                                    <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
-                                        <input class="upload" type="file">
+                                    {% elif request.user.sexe == "Femme" %}
+                                    <div class="profile-img-wrap"> <img class="inline-block mb-10" src="{% static 'programme-wara/img/user-female.png' %}" alt="user"/>
+                                        <div class="fileupload btn btn-default"> <span class="btn-text"><i class="typcn typcn-pencil"></i></span>
+                                            <input class="upload" type="file">
+                                        </div>
                                     </div>
-                                </div>
-                                {% endif %}
+                                    {% endif %}
                                     <h5 class="block mt-5 mb-5 weight-500 capitalize-font txt-primary">{{request.user}}</h5>
                                     <h6 style="font-size:15px" class="block capitalize-font pb-10"><span class="badge badge-secondary">{{request.user.profil}}</span></h6>
                                 </div>
@@ -1173,6 +1208,23 @@
 </div>
 
 {% block javascript2 %}
+
+<script>
+
+  function myFunction() {
+   /* Get the text field */
+   var copyText = document.getElementById("lien");
+
+   /* Select the text field */
+   copyText.select();
+
+   /* Copy the text inside the text field */
+   document.execCommand("Copy");
+
+ };
+</script>
+
+
 <script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>

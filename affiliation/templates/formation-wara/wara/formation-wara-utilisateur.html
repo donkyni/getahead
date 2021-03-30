@@ -10,6 +10,41 @@ Accueil
 <div class="page-wrapper" style="background: url('{% static 'programme-wara/img/img5.jpg' %}');background-size: cover;">
     <div class="container-fluid pt-25">
         <!-- Row-->
+
+        {% if request.user.profil.nom == "Utilisateur" %}
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#parrainer">
+                    <b>Parrainer un filleule &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
+                </button>
+                <hr>
+            </div>
+        </div>
+        {% endif %}
+        <div class="modal fade" id="parrainer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Parrainer un filleule</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <span>Votre lien de parrainage</span>
+                        <br><br>
+                        <input class="form-control" readonly id="lien" type="text" value="http://wara-africa.com/{{request.user.unique_id}}/lien-generer-pour-l-inscription-a-getahead-2.0/$">
+                        <br>
+                        <span>Copiez le lien et envoyer le à votre ami. Une fois son inscription terminé, il sera reconnu comme votre filleule</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button class="btn btn-primary" onclick="myFunction()">Copiez !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="panel panel-default card-view  pa-0">
                 <div class="panel-wrapper collapse in">
@@ -222,4 +257,21 @@ Accueil
     <!-- /Footer -->
 </div>
 <!-- /Main Content -->
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+  function myFunction() {
+   /* Get the text field */
+   var copyText = document.getElementById("lien");
+
+   /* Select the text field */
+   copyText.select();
+
+   /* Copy the text inside the text field */
+   document.execCommand("Copy");
+
+ };
+</script>
 {% endblock %}
