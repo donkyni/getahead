@@ -213,7 +213,7 @@ def compte(request):
 @login_required
 def mongroupe(request):
     if request.user.nom_d_utilisateur == "syd":
-        request.user.profil = 2
+        request.user.profil.id = 2
 
     groupe = request.user.groupe
     # parrain = request.user
