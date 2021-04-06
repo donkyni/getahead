@@ -117,7 +117,7 @@ class UserChangeForm(forms.ModelForm):
         model = User
         fields = (
             'nom_d_utilisateur', 'nom_du_parent', 'nom', 'prenom', 'adresse',
-            'pays_de_residence', 'telephone', 'groupe',
+            'pays_de_residence', 'telephone',
             'avatar', 'sexe', 'is_active', 'is_admin')
 
     def clean_password(self):

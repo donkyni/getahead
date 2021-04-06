@@ -86,8 +86,8 @@ class Profils(models.Model):
     archive = models.BooleanField(default=False, null=True)
     droits = models.ManyToManyField(Droits, through="DroitsProfils")
 
-    """def __str__(self):
-        return self.nom"""
+    def __str__(self):
+        return self.nom
 
 
 class DroitsProfils(models.Model):
@@ -101,25 +101,23 @@ class DroitsProfils(models.Model):
 
 class UserManager(auth_models.BaseUserManager):
 
-    def create_user(self, nom_d_utilisateur, adresse, nom, prenom, profil, password=None):
+    def create_user(self, nom_d_utilisateur, adresse, nom, prenom, password=None):
         if not nom_d_utilisateur:
             raise ValueError('Users must have an telephone number')
         user = self.model(nom_d_utilisateur=nom_d_utilisateur)
         user.adresse = adresse
         user.nom = nom
         user.prenom = prenom
-        user.profil = profil
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, nom_d_utilisateur, adresse, nom, prenom, profil, password):
+    def create_superuser(self, nom_d_utilisateur, adresse, nom, prenom, password):
         user = self.create_user(
             nom_d_utilisateur,
             adresse=adresse,
             nom=nom,
             prenom=prenom,
-            profil=profil,
             password=password,
         )
         user.is_admin = True
@@ -204,7 +202,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'nom_d_utilisateur'
-    REQUIRED_FIELDS = ['nom', 'prenom', 'adresse', 'profil']
+    REQUIRED_FIELDS = ['nom', 'prenom', 'adresse']
 
     class Meta:
         verbose_name = 'Utilisateur'
