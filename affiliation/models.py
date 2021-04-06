@@ -70,7 +70,7 @@ class CodePays(models.Model):
     archive = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.code_pays
+        return self.pays
 
 
 class Droits(models.Model):
