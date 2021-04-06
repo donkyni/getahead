@@ -112,6 +112,7 @@ active
                                             {% endif %}
                                             <br><br>
                                             {% if module.video6 %}
+                                            <div class="col-12 col-12">
                                             <video id="my-video" class="video-js" controls preload="auto" width="100%" height="500" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                 <source src="{{module.video6.url}}" type="video/mp4" />
                                                 <p class="vjs-no-js">
@@ -120,6 +121,7 @@ active
                                                     <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                                                 </p>
                                             </video>
+                                            </div>
                                             <!--<video width="100%" height="100%" controls="controls">
                                                 <source src="{{module.video6.url}}" type="video/mp4">
                                             </video>-->
