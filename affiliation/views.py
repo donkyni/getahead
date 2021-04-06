@@ -212,9 +212,6 @@ def compte(request):
 
 @login_required
 def mongroupe(request):
-    if request.user.nom_d_utilisateur == "syd":
-        if request.user.profil is None:
-            request.user.profil.nom = "Administrateur"
 
     groupe = request.user.groupe
     # parrain = request.user
@@ -255,6 +252,11 @@ def mongroupe(request):
     import uuid
 
     utilisateur = request.user
+
+    if utilisateur.profil is None:
+        utilisateur.profil = 2
+        utilisateur.save()
+
     if utilisateur.unique_id is None:
         utilisateur.unique_id = uuid.uuid4()
         utilisateur.save()
