@@ -254,7 +254,7 @@ def mongroupe(request):
     utilisateur = request.user
 
     if utilisateur.profil is None:
-        utilisateur.profil = 2
+        utilisateur.profil.id = 2
         utilisateur.save()
 
     if utilisateur.unique_id is None:
