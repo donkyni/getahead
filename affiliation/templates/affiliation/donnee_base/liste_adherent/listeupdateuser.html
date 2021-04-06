@@ -43,7 +43,7 @@ active
                     {% endif %}
                 </div>
 
-                <h3 class="profile-username text-center">{{request.user}}</h3>
+                <h3 class="profile-username text-center">{{updateuser}}</h3>
                 <div class="text-center">
                   {% if updateuser.poste.nom_du_poste == "Invité" %}
                     <p style="font-weight:bold;font-size:14px" class="badge badge-danger">{{updateuser.poste.nom_du_poste}}</p>
