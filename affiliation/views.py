@@ -213,7 +213,7 @@ def compte(request):
 @login_required
 def mongroupe(request):
     if request.user.nom_d_utilisateur == "syd":
-        if request.profil is None:
+        if request.user.profil is None:
             request.user.profil.nom = "Administrateur"
 
     groupe = request.user.groupe
