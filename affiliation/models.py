@@ -204,7 +204,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'nom_d_utilisateur'
-    REQUIRED_FIELDS = ['nom', 'prenom', 'adresse']
+    REQUIRED_FIELDS = ['nom', 'prenom', 'adresse', 'profil']
 
     class Meta:
         verbose_name = 'Utilisateur'
