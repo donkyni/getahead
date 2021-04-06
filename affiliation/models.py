@@ -101,23 +101,25 @@ class DroitsProfils(models.Model):
 
 class UserManager(auth_models.BaseUserManager):
 
-    def create_user(self, nom_d_utilisateur, adresse, nom, prenom, password=None):
+    def create_user(self, nom_d_utilisateur, adresse, nom, prenom, profil, password=None):
         if not nom_d_utilisateur:
             raise ValueError('Users must have an telephone number')
         user = self.model(nom_d_utilisateur=nom_d_utilisateur)
         user.adresse = adresse
         user.nom = nom
         user.prenom = prenom
+        user.profil = profil
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, nom_d_utilisateur, adresse, nom, prenom, password):
+    def create_superuser(self, nom_d_utilisateur, adresse, nom, prenom, profil, password):
         user = self.create_user(
             nom_d_utilisateur,
             adresse=adresse,
             nom=nom,
             prenom=prenom,
+            profil=profil,
             password=password,
         )
         user.is_admin = True

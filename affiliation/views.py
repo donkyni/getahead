@@ -252,11 +252,6 @@ def mongroupe(request):
     import uuid
 
     utilisateur = request.user
-
-    if utilisateur.profil is None:
-        utilisateur.profil.id = 2
-        utilisateur.save()
-
     if utilisateur.unique_id is None:
         utilisateur.unique_id = uuid.uuid4()
         utilisateur.save()
