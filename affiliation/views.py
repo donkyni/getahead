@@ -1114,7 +1114,7 @@ def liste(request):
 def listeupdateuser(request, id):
     updateuser = get_object_or_404(User, id=id)
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST, instance=updateuser)
+        form = UserUpdateForm(request.POST, request.FILES, instance=updateuser)
         if form.is_valid():
             form.save()
             redirect('liste')
