@@ -86,8 +86,8 @@ class Profils(models.Model):
     archive = models.BooleanField(default=False, null=True)
     droits = models.ManyToManyField(Droits, through="DroitsProfils")
 
-    def __str__(self):
-        return self.nom
+    """def __str__(self):
+        return self.nom"""
 
 
 class DroitsProfils(models.Model):
