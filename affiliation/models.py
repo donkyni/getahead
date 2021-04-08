@@ -341,6 +341,11 @@ class Modules(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'Module'
+        verbose_name_plural = 'Modeles'
+        ordering = ('-id',)
+
     def __str__(self):
         return self.nom_du_module
 
