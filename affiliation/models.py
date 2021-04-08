@@ -343,8 +343,8 @@ class Modules(models.Model):
 
     class Meta:
         verbose_name = 'Module'
-        verbose_name_plural = 'Modeles'
-        ordering = ('-id',)
+        verbose_name_plural = 'Modules'
+        ordering = ('id',)
 
     def __str__(self):
         return self.nom_du_module
