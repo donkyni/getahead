@@ -207,7 +207,8 @@ admin.site.register(Versions, VersionsAdmin)
 
 class ModulesAdmin(admin.ModelAdmin):
     list_display = ('version', 'nom_du_module', 'intro_text', 'video6', 'video7', 'video8', 'video9', 'video10',
-                    'audio1', 'audio2', 'audio3', 'audio4', 'audio5', 'created', 'archive')
+                    'audio1', 'audio2', 'audio3', 'audio4', 'audio5',
+                    'pdf1', 'pdf2', 'pdf3', 'pdf4', 'pdf5', 'created', 'archive')
     list_filter = ('version',)
     date_hierarchy = 'created'
     ordering = ('version',)

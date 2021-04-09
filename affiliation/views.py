@@ -1738,6 +1738,23 @@ def vague_formation(request):
 
 
 @login_required(redirect_field_name='suivant', login_url='wlogin')
+def update_vague_by_id(request, id):
+    vague_id = get_object_or_404(Vague, id=id)
+    if request.method == 'POST':
+        form = VagueForm(request.POST, instance=vague_id)
+        if form.is_valid():
+            form.save()
+            return redirect('formation-wara')
+    else:
+        form = VagueForm(instance=vague_id)
+    context = {
+        'form': form,
+        'vague_id': vague_id
+    }
+    return render(request, 'formation-wara/wara/vagues/update_vague_by_id.html', context)
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
 def version_wara(request):
     versions = Versions.objects.filter(archive=False)
     return render(request, 'formation-wara/wara/version_wara.html', locals())

@@ -338,6 +338,21 @@ class Modules(models.Model):
     longueur_audio5 = models.FloatField(null=True, blank=True)
     temps_lu_audio5 = models.FloatField(null=True, blank=True)
 
+    pdf1 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier pdf 1")
+    texte11 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier pdf")
+
+    pdf2 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier pdf 2")
+    texte12 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier pdf")
+
+    pdf3 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier pdf 3")
+    texte13 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier pdf")
+
+    pdf4 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier pdf 4")
+    texte14 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier pdf")
+
+    pdf5 = models.FileField(null=True, blank=True, upload_to="wara/%y %m %d", verbose_name="Fichier pdf 5")
+    texte15 = models.CharField(max_length=255, null=True, blank=True, verbose_name="Intitulé du fichier pdf")
+
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)
 

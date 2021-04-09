@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}&nbsp;{% endblock %} | Wara</title>
+    <title>{% block title %}Accueil{% endblock %} | Wara</title>
     <meta name="description" content="" />
     <meta name="keywords" content="wara, wara-africa, get, ahead, getahead, affiliation, parrainage, formations, jgk, jgkec, plan, affaire," />
     <meta name="author" content="JGKEC"/>
@@ -729,6 +729,7 @@
                                     <tr>
                                         <th>Nom de vague</th>
                                         <th>Version</th>
+                                        <th style="font-weight:700">Participants</th>
                                         <th>Date de début</th>
                                         <th>Date de clôture</th>
                                         <th>Enregistrer le</th>
@@ -737,8 +738,11 @@
                                     <tbody>
                                     {% for vague in vagues %}
                                     <tr>
-                                        <td><span  style="background-color:#4834d4;color:#fff;padding:5px;border-radius:5px;font-size:13px"><a class="txt-light" href="#">{{vague.nom_de_vague}}</a></span></td>
+                                        <td><span  style="background-color:#4834d4;color:#fff;padding:5px;border-radius:5px;font-size:13px"><a class="txt-light" href="{% url 'update_vague_by_id' vague.id %}">{{vague.nom_de_vague}}</a></span></td>
                                         <td><span class="badge badge-secondary">{{vague.version}}</span></td>
+
+                                        <td><span style="font-size:14px" class="badge badge-secondary">{{vague.utilisateurs.count}}</span> <span style="font-size:14px" class="badge badge-secondary">personnes</span></td>
+
                                         <td><span class="badge badge-secondary">{{vague.date_deb}}</span></td>
                                         <td><span class="badge badge-secondary">{{vague.date_fin}}</span></td>
                                         <td class="text-center"><span style="background-color:#e58e26;color:#fff;padding:5px;border-radius:5px;">{{vague.created|date}}</span></td>
@@ -760,8 +764,8 @@
         <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
             <div class="row">
                 <div class="col-sm-12 ">
-                    <div class="pull-left text-dark pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
-                    <div class="pull-right">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank">SRGIT</a></div>
+                    <div class="pull-left text-dark pt-5 small">Copyright @ 2021. Tous droits réservés</div>
+                    <div class="pull-right">Created by <a href="http://wara-africa.com/" target="_blank">GET AHEAD</a></div>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -1135,9 +1139,9 @@
                                         {% if w == participant %}
                                         <tr>
                                             <td>
-                                                                <span class="txt-dark badge badge-warning">
-                                                                    <a href="{% url 'voir_modules' v.version.id %}">{{v.version}}</a>
-                                                                </span>
+                                                <span class="txt-dark badge badge-warning">
+                                                    <a href="{% url 'voir_modules' v.version.id %}">{{v.version}}</a>
+                                                </span>
                                                 <br>
                                                 <a href="{% url 'voir_modules' v.version.id %}">
                                                     <span style="font-style:italic">Cliquez pour voir les modules de cette formation</span>
