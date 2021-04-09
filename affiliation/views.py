@@ -2252,6 +2252,12 @@ def menu(request):
 @login_required
 def menu_user(request):
     packs = Packs.objects.filter(archive=False)
+    import uuid
+
+    utilisateur = request.user
+    if utilisateur.unique_id is None:
+        utilisateur.unique_id = uuid.uuid4()
+        utilisateur.save()
     return render(request, 'investissement/menu_user.html', locals())
 
 
