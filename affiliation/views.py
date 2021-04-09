@@ -1755,6 +1755,11 @@ def update_vague_by_id(request, id):
 
 
 @login_required(redirect_field_name='suivant', login_url='wlogin')
+def lire_pdf(request):
+    return render(request, 'formation-wara/wara/versions/lire_pdf.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
 def version_wara(request):
     versions = Versions.objects.filter(archive=False)
     return render(request, 'formation-wara/wara/version_wara.html', locals())
