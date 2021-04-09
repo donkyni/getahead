@@ -112,6 +112,20 @@ Accueil
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
                                     {% endif %}
+
+                                    {% if module.pdf1 %}
+                                    <tr>
+                                        <td>
+                                            <span class="txt-dark">
+                                            <a href="{% url 'lire_pdf' %}">
+                                                &nbsp;&nbsp;<i style="color:red;color:purple" class="fa fa-file"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span id="mon_hover">{{module.texte11}}</span>
+                                            </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
                                     {% if module.video7 %}
                                     <tr>
                                         <td>
@@ -679,6 +693,51 @@ Accueil
                                         <td><span style="padding:5px;background-color:#3f48cc;color:#fff;border-radius:7px">0 %</span></td>
                                     </tr>
                                     {% endif %}
+
+                                    {% if module.pdf2 %}
+                                    <tr>
+                                        <td class="txt-dark">
+                                            <a href="{{module.pdf2.url}}">
+                                                 &nbsp;&nbsp;<i style="color:red;color:purple" class="fa fa-file"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{module.texte12}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
+                                    {% if module.pdf3 %}
+                                    <tr>
+                                        <td class="txt-dark">
+                                            <a href="{{module.pdf3.url}}">
+                                                 &nbsp;&nbsp;<i style="color:red;color:purple" class="fa fa-file"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{module.texte13}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
+                                    {% if module.pdf4 %}
+                                    <tr>
+                                        <td class="txt-dark">
+                                            <a href="{{module.pdf4.url}}">
+                                                 &nbsp;&nbsp;<i style="color:red;color:purple" class="fa fa-file"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{module.texte14}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
+                                    {% if module.pdf5 %}
+                                    <tr>
+                                        <td class="txt-dark">
+                                            <a href="{{module.pdf5.url}}">
+                                                 &nbsp;&nbsp;<i style="color:red;color:purple" class="fa fa-file"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{module.texte15}}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
                                     </tbody>
                                 </table>
                                 <br>
