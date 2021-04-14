@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import models as auth_models
-
+from mutagen._util import total_ordering
 
 """
 ###########################################    GET AHEAD 2.0      ###################################################
@@ -375,3 +375,62 @@ class Vague(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)
 
+
+class CategorieForum(models.Model):
+    nom = models.CharField(max_length=100, null=True, verbose_name="Nom de la catégorie")
+    archive = models.BooleanField(default=False)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Catégorie du forum"
+        verbose_name_plural = "Catégories des forums"
+        ordering = ('id',)
+
+    def __str__(self):
+        return self.nom
+
+
+class Forums(models.Model):
+    libelle = models.CharField(max_length=255, null=True, verbose_name='Titre du forum')
+    intitule = models.TextField(null=True, verbose_name='Description du forum')
+    categorie = models.ForeignKey(CategorieForum, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    archive = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Forum"
+        verbose_name_plural = "Forums"
+        ordering = ('id',)
+
+    def __str__(self):
+        return self.libelle
+
+
+class SujetForum(models.Model):
+    auteur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    forum = models.ForeignKey(Forums, on_delete=models.SET_NULL, null=True, blank=True)
+    titre = models.CharField(max_length=255, null=True, verbose_name='Titre du sujet')
+    messages = models.TextField(null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    archive = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Sujet du forum"
+        verbose_name_plural = "Sujets des forums"
+        ordering = ('id',)
+
+    def __str__(self):
+        return self.titre
+
+
+class MessagesSujetsForums(models.Model):
+    auteur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    sujet = models.ForeignKey(SujetForum, on_delete=models.SET_NULL, null=True, blank=True)
+    message = models.TextField(null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    archive = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Message pour ce sujet"
+        verbose_name_plural = "Messages pour les sujets"
+        ordering = ('id',)

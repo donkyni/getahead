@@ -1739,6 +1739,7 @@ def vague_formation(request):
 
 @login_required(redirect_field_name='suivant', login_url='wlogin')
 def update_vague_by_id(request, id):
+    versions = Versions.objects.filter(archive=False)
     vague_id = get_object_or_404(Vague, id=id)
     if request.method == 'POST':
         form = VagueForm(request.POST, instance=vague_id)
@@ -1749,7 +1750,8 @@ def update_vague_by_id(request, id):
         form = VagueForm(instance=vague_id)
     context = {
         'form': form,
-        'vague_id': vague_id
+        'vague_id': vague_id,
+        'versions': versions,
     }
     return render(request, 'formation-wara/wara/vagues/update_vague_by_id.html', context)
 
@@ -1793,6 +1795,11 @@ def create_version(request):
 
     return save_all_wara(request, form, 'formation-wara/wara/create-version.html',
                          'version', 'formation-wara/wara/liste-version.html', mycontext)
+
+
+def liste_forum(request):
+    versions = Versions.objects.filter(archive=False)
+    return render(request, 'formation-wara/wara/forum/liste_forum.html', locals())
 
 
 #######################################################################################################################
@@ -1858,8 +1865,8 @@ def generate_lien(request, unique_id):
                                 if groupe == membre.groupe:
                                     if membre.palier.nom_du_palier == "Bamiléké":
                                         if membre.dix_milles:
-                                            membre.point += 5  # ce n'est qu'a ce palier qu'on donne du point aux
-                                            # parents lors de l'enregistrement de l'un de ses filleuls
+                                            membre.point_a_affecter += 5  # ce n'est qu'a ce palier qu'on donne du
+                                            # point aux parents lors de l'enregistrement de l'un de ses filleuls
                                         elif not membre.dix_milles:
                                             membre.point_a_affecter += 5  # On stocke le point dans une variable
                                             # pour tous les utilisateurs qui n'ont pas encore payé leur frais de
@@ -1912,7 +1919,7 @@ def generate_lien(request, unique_id):
                                     elif membre.palier.nom_du_palier == "Zoulou":
 
                                         if membre.dix_milles:
-                                            membre.point += 5
+                                            membre.point_a_affecter += 5
                                         elif not membre.dix_milles:
                                             membre.point_a_affecter += 5
 
@@ -1961,7 +1968,7 @@ def generate_lien(request, unique_id):
                                     elif membre.palier.nom_du_palier == "Maya":
 
                                         if membre.dix_milles:
-                                            membre.point += 5
+                                            membre.point_a_affecter += 5
                                         elif not membre.dix_milles:
                                             membre.point_a_affecter += 5
 
@@ -2010,7 +2017,7 @@ def generate_lien(request, unique_id):
                                     elif membre.palier.nom_du_palier == "Mandingue":
 
                                         if membre.dix_milles:
-                                            membre.point += 5
+                                            membre.point_a_affecter += 5
                                         elif not membre.dix_milles:
                                             membre.point_a_affecter += 5
 
@@ -2045,8 +2052,8 @@ def generate_lien(request, unique_id):
                                             poste_manageur = get_object_or_404(Poste, nom_du_poste="Manageur")
                                             membre.poste = poste_manageur
                                             print(
-                                                "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous continuer "
-                                                "pour le palier suviant ou arreter ?")
+                                                "Vous etes manageur reconnu et avez fini ce palier, Voulez-vous "
+                                                "continuer pour le palier suviant ou arreter ?")
                                             membre.point_fictive_manag = 30
                                         elif membre.point == 1925:
                                             membre.point = membre.stock_point
@@ -2058,7 +2065,7 @@ def generate_lien(request, unique_id):
                                 if membre.palier.nom_du_palier == "Bamiléké":
 
                                     if membre.dix_milles:
-                                        membre.point += 5
+                                        membre.point_a_affecter += 5
                                     elif not membre.dix_milles:
                                         membre.point_a_affecter += 5
 
@@ -2110,7 +2117,7 @@ def generate_lien(request, unique_id):
                                 elif membre.palier.nom_du_palier == "Zoulou":
 
                                     if membre.dix_milles:
-                                        membre.point += 5
+                                        membre.point_a_affecter += 5
                                     elif not membre.dix_milles:
                                         membre.point_a_affecter += 5
 
@@ -2164,7 +2171,7 @@ def generate_lien(request, unique_id):
                                 elif membre.palier.nom_du_palier == "Maya":
 
                                     if membre.dix_milles:
-                                        membre.point += 5
+                                        membre.point_a_affecter += 5
                                     elif not membre.dix_milles:
                                         membre.point_a_affecter += 5
 
@@ -2213,7 +2220,7 @@ def generate_lien(request, unique_id):
                                 elif membre.palier.nom_du_palier == "Mandingue":
 
                                     if membre.dix_milles:
-                                        membre.point += 5
+                                        membre.point_a_affecter += 5
                                     elif not membre.dix_milles:
                                         membre.point_a_affecter += 5
 
@@ -2317,7 +2324,7 @@ def save_activation(request, form, template_name, template_name2, mycontext):
 
             palier = compte.palier
 
-            if palier == bamileke:
+            if palier == bamileke or palier == zoulou or palier == maya or palier == mandingue:
                 if 0 <= compte.point_a_affecter <= 35:
                     if 0 <= compte.point_a_affecter < 5:
                         compte.dix_milles = True

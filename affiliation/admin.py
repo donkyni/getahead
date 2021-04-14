@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from affiliation.models import Poste, Niveau, Palier, Groupe, CodePays, Droits, Profils, Payement, Wara, Message, User, \
-    DroitsProfils, Versions, Modules, Vague, Packs
+    DroitsProfils, Versions, Modules, Vague, Packs, CategorieForum, Forums, SujetForum, MessagesSujetsForums
 
 
 class PosteAdmin(admin.ModelAdmin):
@@ -227,6 +227,50 @@ class VagueAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Vague, VagueAdmin)
+
+
+class CategorieForumAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'archive', 'date')
+    list_filter = ('nom',)
+    date_hierarchy = 'date'
+    ordering = ('nom',)
+    search_fields = ('nom',)
+
+
+admin.site.register(CategorieForum, CategorieForumAdmin)
+
+
+class ForumsAdmin(admin.ModelAdmin):
+    list_display = ('libelle', 'intitule', 'categorie', 'date', 'archive')
+    list_filter = ('libelle',)
+    date_hierarchy = 'date'
+    ordering = ('libelle',)
+    search_fields = ('libelle',)
+
+
+admin.site.register(Forums, ForumsAdmin)
+
+
+class SujetForumAdmin(admin.ModelAdmin):
+    list_display = ('auteur', 'forum', 'titre', 'messages', 'date', 'archive')
+    list_filter = ('titre',)
+    date_hierarchy = 'date'
+    ordering = ('forum',)
+    search_fields = ('auteur',)
+
+
+admin.site.register(SujetForum, SujetForumAdmin)
+
+
+class MessagesSujetsForumsAdmin(admin.ModelAdmin):
+    list_display = ('auteur', 'sujet', 'message', 'date', 'archive')
+    list_filter = ('sujet',)
+    date_hierarchy = 'date'
+    ordering = ('sujet',)
+    search_fields = ('auteur',)
+
+
+admin.site.register(MessagesSujetsForums, MessagesSujetsForumsAdmin)
 
 
 class PacksAdmin(admin.ModelAdmin):

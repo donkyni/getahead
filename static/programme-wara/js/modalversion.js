@@ -33,7 +33,7 @@ $(document).ready(function(){
     };
 
 // Create a form
-$(".show-form").click(ShowForm);
+$(".show-version-form").click(ShowForm);
 $('#modal-version').on("submit", ".create-form", SaveForm);
 
 // Update form

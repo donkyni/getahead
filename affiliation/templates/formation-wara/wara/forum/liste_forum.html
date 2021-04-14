@@ -1,0 +1,136 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+{% block link %}
+<!-- Favicon -->
+<link rel="shortcut icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}">
+<link rel="icon" href="{% static 'programme-wara/plugins/assets/img/favicon/favicon.png' %}" type="image/x-icon">
+<!-- Custom CSS -->
+<link href="{% static 'programme-wara/plugins/assets/css/default.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'programme-wara/css/style.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block title %}
+Version
+{% endblock %}
+
+{% block active-page-forum %}
+active-page
+{% endblock %}
+
+{% block active-forum %}
+active
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">Forums</h5>
+      </div>
+      <!-- Breadcrumb -->
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="{% url 'base' %}">Tableau de bord</a></li>
+          <li>Forum</li>
+          <li class="active"><span>Accédez aux forum</span></li>
+        </ol>
+      </div>
+      <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    <a href="{% url 'base' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-primary mb-3">accueil</a>
+    <br><br>
+
+    <h3>Liste des forums</h3>
+    <br>
+
+    <h5><span>Entreprise</span></h5>
+    <br>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="panel panel-default card-view panel-refresh">
+          <div class="refresh-container">
+            <div class="preloader">
+              <div class="circles-1">
+                <div class="circles-1-center"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-heading">
+            <div class="pull-left">
+              <h6 class="panel-title txt-dark"><i class="mdi mdi-email text-success mr-10"></i>Entrepreneuriat</h6>
+            </div>
+            <div class="pull-right"> <a class="pull-left inline-block mr-15" data-toggle="collapse" href="#collapse_1" aria-expanded="true"> <i class="mdi mdi-chevron-down"></i> <i class="mdi mdi-chevron-up"></i> </a>
+              <div class="pull-left inline-block dropdown mr-15"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="mdi mdi-more-vert"></i></a>
+                <ul class="dropdown-menu bullet dropdown-menu-right"  role="menu">
+                  <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>option 1</a></li>
+                  <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-share" aria-hidden="true"></i>option 2</a></li>
+                  <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-trash" aria-hidden="true"></i>option 3</a></li>
+                </ul>
+              </div>
+              <a href="#" class="pull-left inline-block refresh mr-15"> <i class="mdi mdi-replay"></i> </a> <a href="#" class="pull-left inline-block full-screen mr-15"> <i class="mdi mdi-fullscreen"></i> </a> <a class="pull-left inline-block close-panel" href="#" data-effect="fadeOut"> <i class="mdi mdi-close"></i> </a> </div>
+            <div class="clearfix"></div>
+          </div>
+          <div  id="collapse_1" class="panel-wrapper collapse in">
+            <div  class="panel-body">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan.
+              </p>
+              <hr>
+              <a href="#">
+                <div id="forum">
+                  <b style="font-weight:700">Dernier message :</b>
+                  <br>
+                  <i class="mdi mdi-chevron-double-right text-primary mr-5"></i><span style="text-decoration:underline" class="mess">Comment écouter sur le serveur à tout moment</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Row -->
+  </div>
+  <!-- Footer -->
+  <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+    <div class="row">
+      <div class="col-sm-12 ">
+        <div class="pull-left text-dark pt-5 small">Copyright @ 2021. Tous droits réservés</div>
+        <div class="pull-right">Created by <a href="http://wara-africa.com/" target="_blank">GET AHEAD</a></div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </footer>
+  <!-- /Footer -->
+</div>
+<!-- /Main Content -->
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<!-- Slimscroll JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/jquery.slimscroll.js' %}"></script>
+<!-- Fancy Dropdown JS -->
+<script src="{% static 'programme-wara/plugins/assets/js/dropdown-bootstrap-extended.js' %}"></script>
+<!-- Switchery JavaScript -->
+<script src="{% static 'programme-wara/plugins/vendors/bower_components/switchery/dist/switchery.min.js' %}"></script>
+<!-- Init JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/init.js' %}"></script>
+<!-- Toggle JavaScript -->
+<script src="{% static 'programme-wara/plugins/assets/js/toggle.js' %}"></script>
+{% endblock %}
+

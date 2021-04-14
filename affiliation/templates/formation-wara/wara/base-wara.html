@@ -116,7 +116,8 @@
                     <div class="clearfix"></div>
                 </a>
                 <ul id="forum" class="collapse collapse-level-1">
-                    <li><a href="javascript:void(0)">Accédez aux forums</a></li>
+                    <!-- <li><a href="{% url 'liste_forum' %}" class="{% block active-forum %}{% endblock %}">Accédez aux forums</a></li> -->
+                    <li><a href="javascript:void(0)" class="{% block active-forum %}{% endblock %}">Accédez aux forums</a></li>
                 </ul>
             </li>
             <li>
@@ -907,10 +908,10 @@
                         </div>
                     </li>
                     <li style="padding-right:30px" class="nav-item">
-                        <a target="_blank" class="nav-link" href="documentation/index.html"> Forums </a>
+                        <a class="nav-link" href="#"> Forums </a>
                     </li>
                     <li style="padding-right:30px" class="nav-item">
-                        <a target="_blank" class="nav-link" href="documentation/index.html"> Attestation </a>
+                        <a class="nav-link" href="#"> Attestation </a>
                     </li>
                 </ul>
             </div>
