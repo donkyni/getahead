@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
     UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm, \
-    UserCreation20Form, ActivationForm, SujetForumForm, MessagesSujetsForumsForm
+    UserCreation20Form, ActivationForm, SujetForumForm, MessagesSujetsForumsForm, ForumForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
     Wara, Versions, Modules, Vague, Packs, Forums, SujetForum, MessagesSujetsForums
 
@@ -1848,6 +1848,24 @@ def creer_sujet(request, id):
         s_form = SujetForumForm()
 
     return render(request, 'formation-wara/wara/forum/creer_sujet.html', locals())
+
+
+def creer_forum(request):
+    versions = Versions.objects.filter(archive=False)
+    forums = Forums.objects.filter(archive=False)
+
+    if request.method == 'POST':
+        f_form = ForumForm(request.POST)
+
+        if f_form.is_valid():
+            f_form.save()
+
+            return redirect('liste_forum')
+
+    else:
+        f_form = ForumForm()
+
+    return render(request, 'formation-wara/wara/forum/creer_forum.html', locals())
 
 
 def page_discussion(request, id):

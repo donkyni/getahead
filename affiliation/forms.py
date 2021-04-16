@@ -1,7 +1,7 @@
 from django import forms
 
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message, Versions, \
-    Modules, Vague, SujetForum, MessagesSujetsForums
+    Modules, Vague, SujetForum, MessagesSujetsForums, Forums
 
 
 class DateInput(forms.DateInput):
@@ -155,6 +155,18 @@ class VagueForm(forms.ModelForm):
             'nom_de_vague': forms.TextInput(attrs={'class': 'form-control'}),
             'version': forms.Select(attrs={'class': 'selectpicker', 'data-live-search': 'true'}),
             'utilisateurs': forms.SelectMultiple(attrs={'class': 'selectpicker', 'multiple data-live-search': 'true'}),
+        }
+
+
+class ForumForm(forms.ModelForm):
+    class Meta:
+        model = Forums
+        exclude = ('date', 'archive',)
+
+        widgets = {
+            'libelle': forms.TextInput(attrs={'class': 'form-control'}),
+            'intitule': forms.Textarea(attrs={'class': 'form-control'}),
+            'vague': forms.Select(attrs={'class': 'form-control'}),
         }
 
 

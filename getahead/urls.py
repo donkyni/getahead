@@ -23,7 +23,7 @@ from affiliation.views import acceuil, cabinet, presentation, programme, WaraLog
     create_version, version_module, version_module_detail, module_formation, vague_formation, \
     formation_wara_utilisateur, base, voir_modules, voir_modules_detail, menu, generate_lien, activation_compte, \
     packs, menu_user, gestion_investissement, formulaire_activation, mall_achat, update_vague_by_id, lire_pdf, \
-    liste_forum, liste_sujet, creer_sujet, page_discussion, liste_sujet_user
+    liste_forum, liste_sujet, creer_sujet, page_discussion, liste_sujet_user, creer_forum
 
 urlpatterns = [
     # url concernant la connexion pour le programme GET AHEAD
@@ -67,6 +67,7 @@ urlpatterns = [
     path('liste-des-forums/', liste_forum, name="liste_forum"),
     path(r'^(?P<id>\d+)/liste-des-sujets-du-forum/', liste_sujet, name="liste_sujet"),
     path(r'liste-des-sujets-du-forum/', liste_sujet_user, name="liste_sujet_user"),
+    path(r'creer-un-forum/', creer_forum, name="creer_forum"),
     path(r'^(?P<id>\d+)/creer-un-sujet-pour-ce-forum/', creer_sujet, name="creer_sujet"),
     path(r'^(?P<id>\d+)/page-de-discussion/', page_discussion, name="page_discussion"),
 
