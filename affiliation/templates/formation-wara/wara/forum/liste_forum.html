@@ -46,8 +46,14 @@ active
     <a href="{% url 'base' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-primary mb-3">accueil</a>
     <br><br>-->
 
-    <h3>Liste des forums</h3>
-    <br>
+    <div style="margin:0;padding:0">
+      <h3 style="float:left">Liste des forums</h3>
+      <a href="" style="float:right; background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-success mb-3">
+        <i class="fa fa-pencil"></i>&nbsp;&nbsp;Créer un forum
+      </a>
+      <br><br>
+    </div>
+    <br><br>
 
     <div class="row">
       {% for forum in forums %}
@@ -99,7 +105,7 @@ active
                 <div id="forum">
                   <b style="font-weight:700">Dernier message :</b>
                   <br>
-                  <i class="mdi mdi-chevron-double-right text-primary mr-5"></i><span style="text-decoration:underline" class="mess">Comment écouter sur le serveur à tout moment</span>
+                  <i class="mdi mdi-chevron-double-right text-primary mr-5"></i><span style="text-decoration:underline" class="mess">Non disponible</span>
                 </div>
               </a>
             </div>
@@ -107,7 +113,61 @@ active
         </div>
       </div>
       {% empty %}
-      <p>RIEN DU TOUT</p>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="panel panel-default card-view panel-refresh">
+          <div class="refresh-container">
+            <div class="preloader">
+              <div class="circles-1">
+                <div class="circles-1-center"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+                <div class="circles-1"></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-heading">
+            <div class="pull-left">
+              <h6 class="panel-title txt-dark"><a>PAS DE FORUM EN COURS&nbsp;&nbsp;</a></h6>
+            </div>
+            <div class="pull-right"> <a class="pull-left inline-block mr-15" data-toggle="collapse" href="#collapse_1" aria-expanded="true"> <i class="mdi mdi-chevron-down"></i> <i class="mdi mdi-chevron-up"></i> </a>
+              <div class="pull-left inline-block dropdown mr-15"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="mdi mdi-more-vert"></i></a>
+                <ul class="dropdown-menu bullet dropdown-menu-right"  role="menu">
+                  <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-reply" aria-hidden="true"></i>option 1</a></li>
+                  <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-share" aria-hidden="true"></i>option 2</a></li>
+                  <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-trash" aria-hidden="true"></i>option 3</a></li>
+                </ul>
+              </div>
+              <a href="#" class="pull-left inline-block refresh mr-15">
+                <i class="mdi mdi-replay"></i>
+              </a>
+              <a href="#" class="pull-left inline-block full-screen mr-15">
+                <i class="mdi mdi-fullscreen"></i>
+              </a>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div  id="collapse_1" class="panel-wrapper collapse in">
+            <div  class="panel-body">
+              <a>
+                <div>
+                  <span style="color:#2C2C54}">AUCUN FORUM POUR LE MOMENT</span>
+                </div>
+              </a>
+              <hr>
+              <a href="#">
+                <div id="forum">
+                  <b style="font-weight:700">Dernier message :</b>
+                  <br>
+                  <i class="mdi mdi-chevron-double-right text-primary mr-5"></i><span style="text-decoration:underline" class="mess">Non disponible</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       {% endfor %}
     </div>
     <!-- /Row -->
