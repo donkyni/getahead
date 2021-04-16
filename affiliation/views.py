@@ -13,9 +13,9 @@ from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
     UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm, \
-    UserCreation20Form, ActivationForm
+    UserCreation20Form, ActivationForm, SujetForumForm, MessagesSujetsForumsForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
-    Wara, Versions, Modules, Vague, Packs
+    Wara, Versions, Modules, Vague, Packs, Forums, SujetForum, MessagesSujetsForums
 
 
 def acceuil(request):
@@ -1709,7 +1709,7 @@ def module_formation(request):
         form = ModulesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            redirect('module_formation')
+            return redirect('module_formation')
     else:
         form = ModulesForm()
     context = {
@@ -1799,7 +1799,79 @@ def create_version(request):
 
 def liste_forum(request):
     versions = Versions.objects.filter(archive=False)
+    forums = Forums.objects.filter(archive=False)
     return render(request, 'formation-wara/wara/forum/liste_forum.html', locals())
+
+
+def liste_sujet(request, id):
+    versions = Versions.objects.filter(archive=False)
+    forum = get_object_or_404(Forums, id=id)
+    auteur = request.user
+
+    sujets = SujetForum.objects.filter(archive=False, forum=forum)
+    for sujet in sujets:
+        tous_les_messages_du_sujet = MessagesSujetsForums.objects.filter(archive=False, sujet=sujet)
+
+    return render(request, 'formation-wara/wara/forum/liste_sujet.html', locals())
+
+
+def liste_sujet_user(request):
+    versions = Versions.objects.filter(archive=False)
+    auteur = request.user
+
+    vagues_auteur = Vague.objects.filter(archive=False, utilisateurs=auteur)
+    for vague_auteur in vagues_auteur:
+        forum = get_object_or_404(Forums, vague=vague_auteur)
+
+    return render(request, 'formation-wara/wara/users/liste_sujet.html', locals())
+
+
+def creer_sujet(request, id):
+    versions = Versions.objects.filter(archive=False)
+    auteur = request.user   # information a ajouter automatiquement au formulaire
+    forum = get_object_or_404(Forums, id=id)    # donnée a ajouter automatiquement au formulaire
+
+    sujets = SujetForum.objects.filter(archive=False, forum=forum)
+
+    if request.method == 'POST':
+        s_form = SujetForumForm(request.POST)
+
+        if s_form.is_valid():
+            systeme = s_form.save(commit=False)
+            systeme.auteur = auteur
+            systeme.forum = forum
+            systeme.save()
+
+            return redirect('liste_sujet', forum.id)
+
+    else:
+        s_form = SujetForumForm()
+
+    return render(request, 'formation-wara/wara/forum/creer_sujet.html', locals())
+
+
+def page_discussion(request, id):
+    versions = Versions.objects.filter(archive=False)
+    auteur = request.user
+    sujet = get_object_or_404(SujetForum, id=id)
+
+    messages = MessagesSujetsForums.objects.filter(archive=False, sujet=sujet)
+
+    if request.method == 'POST':
+        m_form = MessagesSujetsForumsForm(request.POST)
+
+        if m_form.is_valid():
+            systeme = m_form.save(commit=False)
+            systeme.auteur = auteur
+            systeme.sujet = sujet
+            systeme.save()
+
+            return redirect('page_discussion', sujet.id)
+
+    else:
+        m_form = MessagesSujetsForumsForm()
+
+    return render(request, 'formation-wara/wara/forum/page_discussion.html', locals())
 
 
 #######################################################################################################################

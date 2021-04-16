@@ -42,17 +42,15 @@ active
       </div>
       <!-- /Breadcrumb -->
     </div>
-    <!-- /Title -->
+    <!-- /Title
     <a href="{% url 'base' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-primary mb-3">accueil</a>
-    <br><br>
+    <br><br>-->
 
     <h3>Liste des forums</h3>
     <br>
 
-    <h5><span>Entreprise</span></h5>
-    <br>
-
     <div class="row">
+      {% for forum in forums %}
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <div class="panel panel-default card-view panel-refresh">
           <div class="refresh-container">
@@ -70,7 +68,7 @@ active
           </div>
           <div class="panel-heading">
             <div class="pull-left">
-              <h6 class="panel-title txt-dark"><i class="mdi mdi-email text-success mr-10"></i>Entrepreneuriat</h6>
+              <h6 class="panel-title txt-dark"><a href="{% url 'liste_sujet' forum.id %}">{{forum.libelle}}&nbsp;&nbsp;</a></h6>
             </div>
             <div class="pull-right"> <a class="pull-left inline-block mr-15" data-toggle="collapse" href="#collapse_1" aria-expanded="true"> <i class="mdi mdi-chevron-down"></i> <i class="mdi mdi-chevron-up"></i> </a>
               <div class="pull-left inline-block dropdown mr-15"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" role="button"><i class="mdi mdi-more-vert"></i></a>
@@ -80,14 +78,22 @@ active
                   <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="icon wb-trash" aria-hidden="true"></i>option 3</a></li>
                 </ul>
               </div>
-              <a href="#" class="pull-left inline-block refresh mr-15"> <i class="mdi mdi-replay"></i> </a> <a href="#" class="pull-left inline-block full-screen mr-15"> <i class="mdi mdi-fullscreen"></i> </a> <a class="pull-left inline-block close-panel" href="#" data-effect="fadeOut"> <i class="mdi mdi-close"></i> </a> </div>
+              <a href="#" class="pull-left inline-block refresh mr-15">
+                <i class="mdi mdi-replay"></i>
+              </a>
+              <a href="#" class="pull-left inline-block full-screen mr-15">
+                <i class="mdi mdi-fullscreen"></i>
+              </a>
+            </div>
             <div class="clearfix"></div>
           </div>
           <div  id="collapse_1" class="panel-wrapper collapse in">
             <div  class="panel-body">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan.
-              </p>
+              <a href="{% url 'liste_sujet' forum.id %}">
+                <div>
+                  <span style="color:#2C2C54}">{{forum.intitule}}</span>
+                </div>
+              </a>
               <hr>
               <a href="#">
                 <div id="forum">
@@ -100,6 +106,9 @@ active
           </div>
         </div>
       </div>
+      {% empty %}
+      <p>RIEN DU TOUT</p>
+      {% endfor %}
     </div>
     <!-- /Row -->
   </div>

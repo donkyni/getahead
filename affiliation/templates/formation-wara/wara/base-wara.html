@@ -110,14 +110,14 @@
                 </ul>
             </li>
             <li>
-                <a class="{% block active-page-forum %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#forum">
+                <a class="{% block active-page-forum %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#forum2">
                     <div class="pull-left"><i class="mdi mdi-cube-outline mr-20"></i><span class="right-nav-text">Forum</span></div>
                     <div class="pull-right"><i class="mdi mdi-chevron-down"></i></div>
                     <div class="clearfix"></div>
                 </a>
-                <ul id="forum" class="collapse collapse-level-1">
-                    <!-- <li><a href="{% url 'liste_forum' %}" class="{% block active-forum2 %}{% endblock %}">Accédez aux forums</a></li> -->
-                    <li><a href="javascript:void(0)" class="{% block active-forum %}{% endblock %}">Accédez aux forums</a></li>
+                <ul id="forum2" class="collapse collapse-level-1">
+                    <li><a href="{% url 'liste_forum' %}" class="{% block active-forum %}{% endblock %}">Accédez aux forums</a></li>
+                    <!-- <li><a href="javascript:void(0)" class="{% block active-forum2 %}{% endblock %}">Accédez aux forums</a></li> -->
                 </ul>
             </li>
             <li>
@@ -908,7 +908,7 @@
                         </div>
                     </li>
                     <li style="padding-right:30px" class="nav-item">
-                        <a class="nav-link" href="#"> Forums </a>
+                        <a class="nav-link" href="{% url 'liste_sujet_user' %}"> Forums </a>
                     </li>
                     <li style="padding-right:30px" class="nav-item">
                         <a class="nav-link" href="#"> Attestation </a>
@@ -928,9 +928,9 @@
                         <span class="user-online-status"></span>
                     </a>
                     <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                        <li> <a href="profile.html"><i class="mdi mdi-account"></i><span>Profil</span></a> </li>
+                        <li> <a href="javascript:void(0)"><i class="mdi mdi-account"></i><span>Profil</span></a> </li>
                         <li class="divider"></li>
-                        <li> <a href="profile.html"><i class="mdi mdi-account"></i><span>Forum</span></a> </li>
+                        <li> <a href="javascript:void(0)"><i class="mdi mdi-account"></i><span>Forum</span></a> </li>
                         <li class="divider"></li>
                         <li class="sub-menu show-on-hover"> <a href="#" class="dropdown-toggle pr-0 level-2-drp"><i class="mdi mdi-check text-success"></i> En ligne</a></li>
                         <li class="divider"></li>
@@ -1197,8 +1197,8 @@
         <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
             <div class="row">
                 <div class="col-sm-12 ">
-                    <div class="pull-left txt-light pt-5 small">Copyright @ 2018  Hyrax UX  Panel. All Rights Reserved</div>
-                    <div class="pull-right txt-light">Created with by <img src="{% static 'programme-wara/plugins/assets/img/heartbeat.svg' %}" alt="srgit" class="heart"> <a href="http://www.srgit.com/" target="_blank" class="txt-light">SRGIT</a></div>
+                    <div class="pull-left text-dark pt-5 small">Copyright @ 2021. Tous droits réservés</div>
+                    <div class="pull-right">Created by <a href="http://wara-africa.com/" style="color:#fff" target="_blank">GET AHEAD</a></div>
                     <div class="clearfix"></div>
                 </div>
             </div>

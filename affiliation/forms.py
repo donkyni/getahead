@@ -1,7 +1,7 @@
 from django import forms
 
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Wara, Message, Versions, \
-    Modules, Vague
+    Modules, Vague, SujetForum, MessagesSujetsForums
 
 
 class DateInput(forms.DateInput):
@@ -158,6 +158,31 @@ class VagueForm(forms.ModelForm):
         }
 
 
+class SujetForumForm(forms.ModelForm):
+    class Meta:
+        model = SujetForum
+        exclude = ('date', 'archive',)
+
+        widgets = {
+            'auteur': forms.Select(attrs={'class': 'form-control'}),
+            'forum': forms.Select(attrs={'class': 'form-control'}),
+            'titre': forms.TextInput(attrs={'class': 'form-control'}),
+            'messages': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+
+class MessagesSujetsForumsForm(forms.ModelForm):
+    class Meta:
+        model = MessagesSujetsForums
+        exclude = ('date', 'archive',)
+
+        widgets = {
+            'auteur': forms.Select(attrs={'class': 'form-control'}),
+            'sujet': forms.Select(attrs={'class': 'form-control'}),
+            'message': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+
 ############################################### GET AHEAD 2.0 #######################################################
 
 
@@ -209,6 +234,7 @@ class ActivationForm(forms.ModelForm):
         widgets = {
             'dix-milles': forms.CheckboxInput(attrs={'class': 'form-control'})
         }
+
 
 """
 class InvestissementForm(forms.ModelForm):

@@ -1,0 +1,84 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+
+{% block title %}
+Version
+{% endblock %}
+
+{% block active-page-forum %}
+active-page
+{% endblock %}
+
+{% block active-forum %}
+active
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">Forums</h5>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'base' %}">Tableau de bord</a></li>
+                    <li>Forum</li>
+                    <li class="active"><span>Accédez aux forum</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+        <!-- /Title
+        <a href="{% url 'base' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-primary mb-3">accueil</a>
+        <br><br>-->
+
+        <!-- Row -->
+        <h5 style="font-style:italic">Créer un sujet</h5>
+        <br>
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="panel panel-default card-view">
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body pt-0">
+                            <div class="form-wrap">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% load crispy_forms_tags %}
+                                    {% csrf_token %}
+                                    {{s_form.titre|as_crispy_field}}
+                                    {{s_form.messages|as_crispy_field}}
+                                    <button type="submit" class="btn btn-primary btn-block btn-anim mt-10">
+                                        <i class="fa fa-pencil"></i><span class="btn-text">Poster votre sujet</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row -->
+        <div class="clearfix"></div>
+        <!-- /Row -->
+    </div>
+    <!-- Footer -->
+    <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="pull-left text-dark pt-5 small">Copyright @ 2021. Tous droits réservés</div>
+                <div class="pull-right">Created by <a href="http://wara-africa.com/" target="_blank">GET AHEAD</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</div>
+<!-- /Main Content -->
+{% endblock %}
+
+

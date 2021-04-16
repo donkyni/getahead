@@ -375,6 +375,14 @@ class Vague(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     archive = models.BooleanField(default=False, null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'Vague'
+        verbose_name_plural = 'Vagues'
+        ordering = ('id',)
+
+    def __str__(self):
+        return self.nom_de_vague
+
 
 class CategorieForum(models.Model):
     nom = models.CharField(max_length=100, null=True, verbose_name="Nom de la catégorie")
@@ -393,7 +401,9 @@ class CategorieForum(models.Model):
 class Forums(models.Model):
     libelle = models.CharField(max_length=255, null=True, verbose_name='Titre du forum')
     intitule = models.TextField(null=True, verbose_name='Description du forum')
-    categorie = models.ForeignKey(CategorieForum, on_delete=models.SET_NULL, null=True)
+    # categorie = models.ForeignKey(CategorieForum, on_delete=models.SET_NULL, null=True)
+    # version = models.ForeignKey(Versions, on_delete=models.SET_NULL, null=True)
+    vague = models.ForeignKey(Vague, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(auto_now_add=True)
     archive = models.BooleanField(default=False)
 

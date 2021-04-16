@@ -241,7 +241,7 @@ admin.site.register(CategorieForum, CategorieForumAdmin)
 
 
 class ForumsAdmin(admin.ModelAdmin):
-    list_display = ('libelle', 'intitule', 'categorie', 'date', 'archive')
+    list_display = ('libelle', 'intitule', 'vague', 'date', 'archive')
     list_filter = ('libelle',)
     date_hierarchy = 'date'
     ordering = ('libelle',)
