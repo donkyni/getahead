@@ -50,7 +50,7 @@ active
                             <div class="panel panel-default">
                                 <!-- Sujet : Auteur Titre Messages -->
                                 <div class="panel-heading" style="background-color:#fff">
-                                    {% if request.user.avatar %}
+                                    {% if sujet.avatar %}
                                     <div class="row">
                                         <div class="col-md-6 col-xs-12"> <img style="width:80px; height:70px" src="{{sujet.auteur.avatar.url}}" class="panel-title-image" alt="{{sujet.auteur}}">
                                             <h3 class="panel-title pt-10">{{sujet.auteur}}</h3>
@@ -58,14 +58,14 @@ active
                                         </div>
                                     </div>
                                     {% else %}
-                                    {% if request.user.sexe == "Homme" %}
+                                    {% if sujet.sexe == "Homme" %}
                                     <div class="row">
                                         <div class="col-md-6 col-xs-12"> <img style="width:80px; height:70px" src="{% static 'programme-wara/img/user-male-2.png' %}" class="panel-title-image" alt="{{sujet.auteur}}">
                                             <h3 class="panel-title pt-10">{{sujet.auteur}}</h3>
                                             <small style="font-weight:700" class="col-md-3 col-xs-6">{{sujet.titre}}</small>
                                         </div>
                                     </div>
-                                    {% elif request.user.sexe == "Femme" %}
+                                    {% elif sujet.sexe == "Femme" %}
                                     <div class="row">
                                         <div class="col-md-6 col-xs-12"> <img style="width:80px; height:70px" src="{% static 'programme-wara/img/user-female.png' %}" class="panel-title-image" alt="{{sujet.auteur}}">
                                             <h3 class="panel-title pt-10">{{sujet.auteur}}</h3>
