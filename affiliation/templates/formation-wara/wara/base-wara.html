@@ -951,6 +951,17 @@
         <div class="container-fluid pt-25">
             <!-- Row-->
 
+            <div class="col">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-6">
+                        <a href="{% url 'liste_sujet_user' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-block btn-primary mb-3">Vers <i class="fas fa-angle-right"></i> Forum</a>
+                    </div>
+                    <div class="col-lg-6 col-lg-6">
+                        <a href="" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-block btn-primary mb-3">Vers <i class="fas fa-angle-right"></i> Attestation</a>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% if request.user.profil.nom == "Utilisateur" %}
             <div class="row">
                 <div class="col-lg-4 col-12">

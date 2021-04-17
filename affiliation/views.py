@@ -1815,13 +1815,23 @@ def liste_sujet(request, id):
     return render(request, 'formation-wara/wara/forum/liste_sujet.html', locals())
 
 
+@login_required(redirect_field_name='suivant', login_url='wlogin')
 def liste_sujet_user(request):
     versions = Versions.objects.filter(archive=False)
     auteur = request.user
 
-    vagues_auteur = Vague.objects.filter(archive=False, utilisateurs=auteur)
-    for vague_auteur in vagues_auteur:
-        forum = get_object_or_404(Forums, vague=vague_auteur)
+    """ Pour les versions dans la base_wara"""
+    participant = request.user
+    dict = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+    """ End """
+
+    vague_utilisateur = get_object_or_404(Vague, utilisateurs=auteur)
+
+    forum_auteur = get_object_or_404(Forums, vague=vague_utilisateur)
+
+    sujets_auteur = SujetForum.objects.filter(archive=False, forum=forum_auteur).order_by('-id')
 
     return render(request, 'formation-wara/wara/users/liste_sujet.html', locals())
 
@@ -1848,6 +1858,41 @@ def creer_sujet(request, id):
         s_form = SujetForumForm()
 
     return render(request, 'formation-wara/wara/forum/creer_sujet.html', locals())
+
+
+@login_required(redirect_field_name='suivant', login_url='wlogin')
+def creer_sujet_user(request, id):
+    versions = Versions.objects.filter(archive=False)
+    auteur = request.user
+
+    """ Pour les versions dans la base_wara"""
+    participant = request.user
+    dict = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+    """ End """
+
+    vague_utilisateur = get_object_or_404(Vague, utilisateurs=auteur)
+
+    forum = get_object_or_404(Forums, id=id)    # donnée a ajouter automatiquement au formulaire
+
+    sujets = SujetForum.objects.filter(archive=False, forum=forum)
+
+    if request.method == 'POST':
+        s_form = SujetForumForm(request.POST)
+
+        if s_form.is_valid():
+            systeme = s_form.save(commit=False)
+            systeme.auteur = auteur
+            systeme.forum = forum
+            systeme.save()
+
+            return redirect('liste_sujet_user')
+
+    else:
+        s_form = SujetForumForm()
+
+    return render(request, 'formation-wara/wara/users/creer_sujet.html', locals())
 
 
 def creer_forum(request):
@@ -1890,6 +1935,40 @@ def page_discussion(request, id):
         m_form = MessagesSujetsForumsForm()
 
     return render(request, 'formation-wara/wara/forum/page_discussion.html', locals())
+
+
+def page_discussion_user(request, id):
+    versions = Versions.objects.filter(archive=False)
+    auteur = request.user
+
+    """ Pour les versions dans la base_wara"""
+    participant = request.user
+    dict = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+    """ End """
+
+    vague_utilisateur = get_object_or_404(Vague, utilisateurs=auteur)
+
+    sujet = get_object_or_404(SujetForum, id=id)
+
+    messages = MessagesSujetsForums.objects.filter(archive=False, sujet=sujet)
+
+    if request.method == 'POST':
+        m_form = MessagesSujetsForumsForm(request.POST)
+
+        if m_form.is_valid():
+            systeme = m_form.save(commit=False)
+            systeme.auteur = auteur
+            systeme.sujet = sujet
+            systeme.save()
+
+            return redirect('page_discussion_user', sujet.id)
+
+    else:
+        m_form = MessagesSujetsForumsForm()
+
+    return render(request, 'formation-wara/wara/users/page_discussion.html', locals())
 
 
 #######################################################################################################################

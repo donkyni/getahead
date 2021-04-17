@@ -1,0 +1,123 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+{% block title2 %}
+Accueil
+{% endblock %}
+
+{% block content2 %}
+<!-- Main Content -->
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">Forums</h5>
+      </div>
+      <!-- Breadcrumb -->
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+          <li><a href="{% url 'base' %}">Tableau de bord</a></li>
+          <li>Forum</li>
+          <li class="active"><span>Accédez aux forum</span></li>
+        </ol>
+      </div>
+      <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title
+    <a href="{% url 'base' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-primary mb-3">accueil</a>
+    <br><br>-->
+    <div style="font-style: italic;margin:0;padding:0">
+      <h5 style="float:left">{{forum_auteur}} &nbsp;&nbsp;>  &nbsp;&nbsp;Sujets</h5>
+      <a href="{% url 'creer_sujet_user' forum_auteur.id %}" style="float:right; background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-success mb-3">
+        <i class="fa fa-pencil"></i>&nbsp;&nbsp;Créer un sujet
+      </a>
+      <br><br><br>
+    </div>
+    <br><br>
+
+    <div class="col-lg-12 col-md-12 ">
+      <div class="panel panel-default card-view">
+        <div class="panel-heading">
+          <div class="pull-left">
+            <h6 class="panel-title txt-dark">Sujets de forum</h6>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-wrapper">
+          <div class="panel-body row pa-0">
+            <div class="table-wrapper">
+              <div class="table-responsive">
+                <table class="table table-hover table-striped" id="data_table_employee">
+                  <thead>
+                  <tr>
+                    <th style="width:40%">A propos du sujet</th>
+                    <th style="width:30%">Total des messages</th>
+                    <th style="width:30%">Informations supplémentaires</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for sujet_auteur in sujets_auteur %}
+                  <tr>
+                    <td>
+                      <a href="{% url 'page_discussion_user' sujet_auteur.id %}">
+                        <p>
+                          <span style="font-size:20px;margin-bottom:35px">
+                            {{sujet_auteur.titre}}
+                          </span>
+                        </p>
+                        <p style="font-style:italic;">
+                          <span style="font-size:13px">
+                            <span style="top:3px">Par <span style="font-weight:700">{{auteur}}</span></span> <span>{{sujet_auteur.date|date:"d N Y"}} à {{sujet_auteur.date|date:"H:i"}}</span>
+                          </span>
+                        </p>
+                      </a>
+                    </td>
+                    <td>
+                      <span style="font-size:16px">0 messages</span>
+                    </td>
+                    <td>
+                      <span style="font-size:14px">Dernier message par <span style="font-weight:700">Cypher</span></span>
+                      <br>
+                      <span style="font-size:14px">24 Mars 2021</span>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr style="text-align:center">
+                    <td colspan="3">Aucun sujet n'est disponible.
+                      <a href="{% url 'creer_sujet_user' forum_auteur.id %}" data-target="#creer_sujet" style="background-color: #2C2C54; border:1px solid #2C2C54" class="badge badge-success mb-2">
+                        <i class="fa fa-pencil"></i>&nbsp;&nbsp;Ajouter un sujet
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- /Row -->
+  </div>
+  <!-- Footer -->
+  <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+    <div class="row">
+      <div class="col-sm-12 ">
+        <div class="pull-left text-dark pt-5 small">Copyright @ 2021. Tous droits réservés</div>
+        <div class="pull-right">Created by <a href="http://wara-africa.com/" style="color:#fff" target="_blank">GET AHEAD</a></div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </footer>
+  <!-- /Footer -->
+</div>
+<!-- /Main Content -->
+{% endblock %}
+
+
