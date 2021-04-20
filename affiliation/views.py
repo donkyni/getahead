@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from decimal import Decimal
 
 from random import shuffle
@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 
 from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauForm, PalierForm, GroupeForm, \
     UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm, \
-    UserCreation20Form, ActivationForm, SujetForumForm, MessagesSujetsForumsForm, ForumForm
+    UserCreation20Form, ActivationForm, SujetForumForm, MessagesSujetsForumsForm, ForumForm, VendreEspaceForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
     Wara, Versions, Modules, Vague, Packs, Forums, SujetForum, MessagesSujetsForums
 
@@ -2716,7 +2716,34 @@ def formulaire_activation(request, id):
 @login_required
 def packs(request):
     packs = Packs.objects.filter(archive=False)
+    utilisateurs = User.objects.filter(is_active=True)
+
     return render(request, 'investissement/nos_packs/packs.html', locals())
+
+
+def vendre_espace(request, id):
+    data = dict()
+    acheteur = get_object_or_404(User, id=id)
+
+    if request.method == 'POST':
+        form = VendreEspaceForm(request.POST, instance=acheteur)
+        if form.is_valid:
+            system = form.save(commit=False)
+            system.date_achat_espace = datetime.now()
+            system.save()
+            data['form_is_valid'] = True
+            utilisateurs = User.objects.filter(is_active=True)
+            data['utilisateur'] = render_to_string('investissement/nos_packs/liste_packs.html',
+                                                   {'utilisateurs': utilisateurs, 'form': form})
+    else:
+        form = VendreEspaceForm(instance=acheteur)
+        context = {
+            'acheteur': acheteur,
+            'form': form
+        }
+        data['html_form'] = render_to_string('investissement/nos_packs/vendre_espace.html', context, request=request)
+
+    return JsonResponse(data)
 
 
 @login_required

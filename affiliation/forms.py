@@ -248,6 +248,15 @@ class ActivationForm(forms.ModelForm):
         }
 
 
+class VendreEspaceForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('nom', 'prenom', 'espace', 'date_achat_espace',)
+        widgets = {
+            'espace': forms.Select(attrs={'class': 'form-control selectpicker', 'data-live-search': 'true'})
+        }
+
+
 """
 class InvestissementForm(forms.ModelForm):
     class Meta:

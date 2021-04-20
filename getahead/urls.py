@@ -24,7 +24,7 @@ from affiliation.views import acceuil, cabinet, presentation, programme, WaraLog
     formation_wara_utilisateur, base, voir_modules, voir_modules_detail, menu, generate_lien, activation_compte, \
     packs, menu_user, gestion_investissement, formulaire_activation, mall_achat, update_vague_by_id, lire_pdf, \
     liste_forum, liste_sujet, creer_sujet, page_discussion, liste_sujet_user, creer_forum, creer_sujet_user, \
-    page_discussion_user
+    page_discussion_user, vendre_espace
 
 urlpatterns = [
     # url concernant la connexion pour le programme GET AHEAD
@@ -47,6 +47,7 @@ urlpatterns = [
     path('gestion_investissement', gestion_investissement,  name="gestion_investissement"),
     path(r'^(?P<id>\d+)/formulaire_activation$', formulaire_activation, name="formulaire_activation"),
     path('packs', packs,  name="packs"),
+    path(r'^(?P<id>\d+)/achat-d-un-espace$', vendre_espace, name="vendre_espace"),
     path('mall_achat', mall_achat,  name="mall_achat"),
 
 

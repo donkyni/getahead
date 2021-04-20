@@ -4,6 +4,7 @@
 {% block head %}
 <!-- DataTables -->
 <link rel="stylesheet" href="{% static 'affiliation/plugins/datatables-bs4/css/dataTables.bootstrap4.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 {% endblock %}
 
 {% block head-title %}Nos Packs{% endblock %}
@@ -72,7 +73,8 @@ Nos Espaces
                             <li class="nav-item">
                                 <a style="color:#2C2C54" class="nav-link text-center" href="#">
                                     <!-- <i class="far fa-circle" ></i> -->
-                                    Aucun espace à venir pour le moment</a>
+                                    Aucun espace à venir pour le moment
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -98,25 +100,33 @@ Nos Espaces
                                 {% for pack in packs %}
                                 {% if pack.ancien_nom == "Mercure" %}
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img style="width:198px;height:132px" src="{% static 'investissement/img/mercure.jpg' %}" alt="Attachment"></span>
-
+                                    <a style="cursor:pointer" href="#espace">
+                                        <span class="mailbox-attachment-icon has-img">
+                                            <img style="width:198px;height:132px" src="{% static 'investissement/img/mercure.jpg' %}" alt="Attachment">
+                                        </span>
+                                    </a>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name">
-                                            {{pack.nouveau_nom|truncatechars:20}}</a>
+                                        <a href="#espace" class="mailbox-attachment-name">
+                                            <span style="color:#000">{{pack.nouveau_nom|truncatechars:20}}</span>
+                                        </a>
                                         <span class="mailbox-attachment-size clearfix mt-1">
                                               <span>0 inscrits</span>
                                               <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-boxes"></i></a>
-                                            </span>
+                                        </span>
                                     </div>
                                 </li>
                                 {% endif %}
                                 {% if pack.ancien_nom == "Venus" %}
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img style="width:198px;height:132px" src="{% static 'investissement/img/venus.jpg' %}" alt="Attachment"></span>
-
+                                    <a style="cursor:pointer" href="#espace">
+                                        <span class="mailbox-attachment-icon has-img">
+                                            <img style="width:198px;height:132px" src="{% static 'investissement/img/venus.jpg' %}" alt="Attachment">
+                                        </span>
+                                    </a>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name">
-                                            {{pack.nouveau_nom}}</a>
+                                        <a href="#espace" class="mailbox-attachment-name">
+                                            <span style="color:#000">{{pack.nouveau_nom}}</span>
+                                        </a>
                                         <span class="mailbox-attachment-size clearfix mt-1">
                                               <span>0 inscrits</span>
                                               <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-boxes"></i></a>
@@ -126,11 +136,15 @@ Nos Espaces
                                 {% endif %}
                                 {% if pack.ancien_nom == "Mars" %}
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img style="width:198px;height:132px" src="{% static 'investissement/img/mars.jpg' %}" alt="Attachment"></span>
-
+                                    <a style="cursor:pointer" href="#espace">
+                                        <span class="mailbox-attachment-icon has-img">
+                                            <img style="width:198px;height:132px" src="{% static 'investissement/img/mars.jpg' %}" alt="Attachment">
+                                        </span>
+                                    </a>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name">
-                                            {{pack.nouveau_nom}}</a>
+                                        <a href="#espace" class="mailbox-attachment-name">
+                                            <span style="color:#000">{{pack.nouveau_nom}}</span>
+                                        </a>
                                         <span class="mailbox-attachment-size clearfix mt-1">
                                               <span>0 inscrits</span>
                                               <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-boxes"></i></a>
@@ -140,11 +154,15 @@ Nos Espaces
                                 {% endif %}
                                 {% if pack.ancien_nom == "Jupiter" %}
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img style="width:198px;height:132px" src="{% static 'investissement/img/jupiter.jpg' %}" alt="Attachment"></span>
-
+                                    <a style="cursor:pointer" href="#espace">
+                                        <span class="mailbox-attachment-icon has-img">
+                                            <img style="width:198px;height:132px" src="{% static 'investissement/img/jupiter.jpg' %}" alt="Attachment">
+                                        </span>
+                                    </a>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name">
-                                            {{pack.nouveau_nom}}</a>
+                                        <a href="#espace" class="mailbox-attachment-name">
+                                            <span style="color:#000">{{pack.nouveau_nom}}</span>
+                                        </a>
                                         <span class="mailbox-attachment-size clearfix mt-1">
                                               <span>0 inscrits</span>
                                               <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-boxes"></i></a>
@@ -154,11 +172,15 @@ Nos Espaces
                                 {% endif %}
                                 {% if pack.ancien_nom == "Saturne" %}
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img style="width:198px;height:132px" src="{% static 'investissement/img/saturne.jpeg' %}" alt="Attachment"></span>
-
+                                    <a style="cursor:pointer" href="#espace">
+                                        <span class="mailbox-attachment-icon has-img">
+                                            <img style="width:198px;height:132px" src="{% static 'investissement/img/saturne.jpeg' %}" alt="Attachment">
+                                        </span>
+                                    </a>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name">
-                                            {{pack.nouveau_nom}}</a>
+                                        <a href="#espace" class="mailbox-attachment-name">
+                                            <span style="color:#000">{{pack.nouveau_nom}}</span>
+                                        </a>
                                         <span class="mailbox-attachment-size clearfix mt-1">
                                               <span>0 inscrits</span>
                                               <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-boxes"></i></a>
@@ -168,11 +190,15 @@ Nos Espaces
                                 {% endif %}
                                 {% if pack.ancien_nom == "Uranus" %}
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img style="width:198px;height:132px" src="{% static 'investissement/img/uranus.jpg' %}" alt="Attachment"></span>
-
+                                    <a style="cursor:pointer" href="#espace">
+                                        <span class="mailbox-attachment-icon has-img">
+                                            <img style="width:198px;height:132px" src="{% static 'investissement/img/uranus.jpg' %}" alt="Attachment">
+                                        </span>
+                                    </a>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name">
-                                            {{pack.nouveau_nom}}</a>
+                                        <a href="#espace" class="mailbox-attachment-name">
+                                            <span style="color:#000">{{pack.nouveau_nom}}</span>
+                                        </a>
                                         <span class="mailbox-attachment-size clearfix mt-1">
                                               <span>0 inscrits</span>
                                               <a href="#" class="btn btn-default btn-sm float-right"><i class="fas fa-boxes"></i></a>
@@ -184,11 +210,77 @@ Nos Espaces
                             </div>
                         </ul>
                     </div>
+
                     <!-- /.card-footer -->
                 </div>
                 <!-- /.card -->
             </div>
             <!-- /.col -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title text-center" style="font-size:17px" id="espace">Fiche des acheteurs potentiels</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-2">
+                        <table id="table-liste-acheteur" class="text-center table-primary table-bordered table-striped table-hover projects">
+                            <br>
+                            <thead>
+                            <tr>
+                                <th style="width: 15%;font-size:14px">
+                                    Nom
+                                </th>
+                                <th style="width: 10%;font-size:14px">
+                                    Groupe
+                                </th>
+                                <th style="width: 15%;font-size:14px">
+                                    Contact
+                                </th>
+                                <th style="width: 10%;font-size:14px">
+                                    Pays
+                                </th>
+                                <th style="width: 12%;font-size:14px">
+                                    Progression
+                                </th>
+                                <th style="font-size:14px">
+                                    Sexe
+                                </th>
+                                <th style="width: 10%;font-size:15px">
+                                    Date d'ajout
+                                </th>
+                                <th style="width: 12%;font-size:15px">
+                                    Espace
+                                </th>
+                                <th style="width: 10%;font-size:14px">
+                                    Actions
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% include "investissement/nos_packs/liste_packs.html" %}
+                            </tbody>
+                        </table>
+                        <!-- Popup enregistrer un nouvel achat -->
+                        <div class="modal fade" id="modal-acheter-espace">
+                            <div class="modal-dialog">
+                                <div class="modal-content"></div>
+                            </div>
+                        </div>
+                        <!-- End Popup enregistrer un nouvel achat -->
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
         </div>
     </div>
     <!-- /.row -->
@@ -198,4 +290,32 @@ Nos Espaces
 
 
 {% block javascript %}
+<script src="{% static 'investissement/js/vendre_espace.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<!-- DataTables -->
+<script src="{% static 'affiliation/plugins/datatables/jquery.dataTables.js' %}"></script>
+<script src="{% static 'affiliation/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+<script>
+    $('select').selectpicker();
+</script>
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%"
+        });
+    });
+</script>
+<script>
+    // Material Select Initialization
+    $(document).ready(function() {
+    $('.mdb-select').materialSelect();
+    });
+</script>
+<script>
+  $(function () {
+    $("#table-liste-acheteur").DataTable();
+  });
+</script>
 {% endblock %}

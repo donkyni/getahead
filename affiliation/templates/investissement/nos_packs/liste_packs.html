@@ -1,0 +1,72 @@
+{% for utilisateur in utilisateurs %}
+<tr>
+  <td>
+    <a href="{% url 'voirplus' utilisateur.id %}" class="btn btn-sm btn-primary text-light" style="font-weight:700">
+      <i class="fa fa-user" aria-hidden="true"></i> {{utilisateur}}
+    </a>
+    <br>
+    {% if utilisateur.nom_du_parent is None %}
+    <small><i>Parrain : <span class="badge badge-info">Aucun</span></i></small>
+    {% elif utilisateur.nom_du_parent is not None %}
+    <small><i>Parrain : <span class="badge badge-success">{{ utilisateur.nom_du_parent }}</span></i></small>
+    {% endif %}
+  </td>
+  <td>
+    {% if utilisateur.groupe is not None%}
+    <b class="badge badge-warning" style="font-size:14px;"><i>{{utilisateur.groupe}}</i></b>
+    <small class="badge badge-secondary">Manageur : {{utilisateur.groupe.manageur_du_groupe}}</small>
+    {% elif utilisateur.groupe is None %}
+    <small class="badge badge-secondary">Aucun</small>
+    {% endif %}
+  </td>
+  <td>
+    <b style="font-size:14px;">{{utilisateur.telephone}}</b><br>
+    <small class="badge badge-secondary"><i>{{utilisateur.adresse}}</i></small>
+  </td>
+  <td>
+    <b style="font-size:14px;">{{utilisateur.pays_de_residence.pays}}</b>
+  </td>
+  <td>
+    {% if utilisateur.palier is not None %}
+    <b style="font-size:14px;">{{utilisateur.poste}}</b><br>
+    <small class="badge badge-secondary"><i>{{utilisateur.palier}}</i></small>
+    {% elif utilisateur.palier is None %}
+    <small class="badge badge-secondary"><i>Aucune</i></small>
+    {% endif %}
+  </td>
+  <td>
+    <b style="font-size:14px;">{{utilisateur.sexe}}</b>
+  </td>
+  <td>
+    <small><b>{{utilisateur.date_d_ajout|date:"d N Y"}} à {{utilisateur.date_d_ajout|date:"H:i"}}</b></small>
+  </td>
+  <td>
+    {% if utilisateur.espace is None %}
+      <b class="badge badge-secondary">Aucun</b>
+    {% elif utilisateur.espace is not None %}
+      <b class="badge badge-primary">{{utilisateur.espace}}</b>
+      <br>
+      {% if utilisateur.date_achat_espace %}
+    <small style="font-weight:600">Acheter le <span style="font-size:11px" class="badge badge-success">{{utilisateur.date_achat_espace|date:"d N Y"}}</span> à <span style="font-size:11px" class="badge badge-success">{{utilisateur.date_achat_espace|date:"H:i"}}</span></small>
+      {% endif %}
+    {% endif %}
+  </td>
+  <td class="">
+    {% if utilisateur.espace is None %}
+    <button type="button" data-url="{% url 'vendre_espace' utilisateur.id %}" class="btn btn-info btn-sm show-form-update">
+      <span style="font-weight:600">Acheter</span>
+      <i class="fas fa-pencil-alt"></i>
+    </button>
+    {% elif utilisateur.espace is not None %}
+    <button type="button" data-url="{% url 'vendre_espace' utilisateur.id %}" class="btn btn-warning btn-sm show-form-update">
+      <span style="font-weight:600">Modifier</span>
+      <i class="fas fa-pencil-alt"></i>
+    </button>
+    {% endif %}
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="8" class="text-center bg-primary" style="font-weight:bold;font-size:15px">Aucun utilisateur n'est disponible</td>
+</tr>
+{% endfor %}

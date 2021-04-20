@@ -1,6 +1,5 @@
-from django.db import models
 from django.contrib.auth import models as auth_models
-from mutagen._util import total_ordering
+from django.db import models
 
 """
 ###########################################    GET AHEAD 2.0      ###################################################
@@ -8,7 +7,7 @@ from mutagen._util import total_ordering
 
 
 class Packs(models.Model):
-    ancien_nom = models.CharField(null=True, max_length=100, verbose_name="Nom du pack")
+    ancien_nom = models.CharField(null=True, max_length=100, verbose_name="Ancien nom du pack")
     nouveau_nom = models.CharField(null=True, max_length=100, verbose_name="Nom du pack")
     prix = models.DecimalField(decimal_places=2, max_digits=10, null=True)
     jours = models.IntegerField(null=True, default=100)
@@ -188,8 +187,9 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     # creditation du compte
     espace = models.ForeignKey(Packs, on_delete=models.SET_NULL, null=True, blank=True)
+    date_achat_espace = models.DateTimeField(null=True, blank=True)
     # jours_ouvrable = models.DateField(auto_now_add=True, null=True)
-    jours_ouvrables = models.IntegerField(default=0, null=True, verbose_name='Durée du contrat')
+    jours_ouvrables = models.IntegerField(default=100, null=True, verbose_name='Durée du contrat')
 
     """
     Django settings

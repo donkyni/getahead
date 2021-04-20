@@ -34,8 +34,15 @@ Mon espace / Mon groupe
     <a href="{% url 'menu_user' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-primary mb-3">Retour <i class="fas fa-angle-right"></i> Menu</a>
     {% endif %}
 
+    {% if request.user.dix_milles %}
     {% if request.user.profil.nom == "Utilisateur" %}
     <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#parrainer">
+      <b>Parrainer un filleule &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
+    </button>
+    <hr>
+    {% endif %}
+    {% else %}
+    <button disabled title="PAYER LES FRAIS DE FORMATION POUR PARRAINER UN FILLEUL" type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#parrainer">
       <b>Parrainer un filleule &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
     </button>
     <hr>
@@ -557,10 +564,17 @@ Mon espace / Mon groupe
             <p class="text-muted"><i class="mr-1"></i> {{request.user.poste}} / {{request.user.palier}}</p>
 
 
+            {% if request.user.di_milles %}
             <hr>
             <a href="{% url 'voirmongroupe' %}" style="cursor:pointer;color:white;font-size:15px;" class="btn btn-success btn-block">
               <b>Mon Groupe &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
             </a>
+            {% else %}
+            <hr>
+            <button disabled title="PAYER VOS FRAIS DE FORMATION POUR POUVOIR VOIR VOTRE GROUPE" style="color:white;font-size:15px;" class="btn btn-success btn-block">
+              <b>Mon Groupe &nbsp;<i class="fa fa-arrow-circle-right"></i></b>
+            </button>
+            {% endif %}
 
             {% elif groupe is None %}
             <strong><i class="fas fa-users mr-1"></i> Pas de groupe</strong>
