@@ -24,7 +24,7 @@ from affiliation.views import acceuil, cabinet, presentation, programme, WaraLog
     formation_wara_utilisateur, base, voir_modules, voir_modules_detail, menu, generate_lien, activation_compte, \
     packs, menu_user, gestion_investissement, formulaire_activation, mall_achat, update_vague_by_id, lire_pdf, \
     liste_forum, liste_sujet, creer_sujet, page_discussion, liste_sujet_user, creer_forum, creer_sujet_user, \
-    page_discussion_user, vendre_espace
+    page_discussion_user, vendre_espace, attestation
 
 urlpatterns = [
     # url concernant la connexion pour le programme GET AHEAD
@@ -74,6 +74,7 @@ urlpatterns = [
     path(r'^(?P<id>\d+)/creer-un-sujet-pour-ce-forum2/', creer_sujet_user, name="creer_sujet_user"),
     path(r'^(?P<id>\d+)/page-de-discussion/', page_discussion, name="page_discussion"),
     path(r'^(?P<id>\d+)/page-de-discussion2/', page_discussion_user, name="page_discussion_user"),
+    path(r'generer-un-attestation/', attestation, name="attestation"),
 
 ]
 

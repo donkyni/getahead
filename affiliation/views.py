@@ -2,6 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 
 from random import shuffle
+from webbrowser import get
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -15,7 +16,9 @@ from affiliation.forms import UserCreationForm, CodePaysForm, PosteForm, NiveauF
     UserUpdateForm, PayementFormUser, PayementForm, WaraForm, MessageForm, VersionsForm, ModulesForm, VagueForm, \
     UserCreation20Form, ActivationForm, SujetForumForm, MessagesSujetsForumsForm, ForumForm, VendreEspaceForm
 from affiliation.models import User, CodePays, Poste, Niveau, Palier, Groupe, Payement, Profils, DroitsProfils, Droits, \
-    Wara, Versions, Modules, Vague, Packs, Forums, SujetForum, MessagesSujetsForums
+    Wara, Versions, Modules, Vague, Packs, Forums, SujetForum, MessagesSujetsForums, Attestion
+
+import time
 
 
 def acceuil(request):
@@ -167,9 +170,9 @@ def tableaudebord(request):
     total_pers_mand = User.objects.filter(palier=mandingue).count()
 
     # recuperer les membres selon leur dates
-    memb_janv = User.objects.filter(
+    """memb_janv = User.objects.filter(
         date_d_ajout=datetime.date(2020, 1, 1)
-    )
+    )"""
     data = [43, 65, 27, 89, 30, 12, 150]
     data2 = [34, 56, 72, 40, 13, 21, 51]
 
@@ -212,7 +215,6 @@ def compte(request):
 
 @login_required
 def mongroupe(request):
-
     groupe = request.user.groupe
     # parrain = request.user
     if request.user.nom_du_parent is not None:
@@ -740,7 +742,7 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                         membre.palier = palier_zoulou
-                                        member_pursue_bam = 700/2000
+                                        member_pursue_bam = 700 / 2000
                                         membre.gam = membre.gam + Decimal(member_pursue_bam)
                                         print("Applique Gam")
 
@@ -790,7 +792,7 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                         membre.palier = palier_maya
-                                        member_pursue_zou = 1000/2000
+                                        member_pursue_zou = 1000 / 2000
                                         membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                                 elif membre.palier.nom_du_palier == "Maya":
@@ -839,7 +841,7 @@ def ajouter(request):
                                         membre.poste = poste
                                         palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                         membre.palier = palier_mandingue
-                                        member_pursue_maya = 2000/2000
+                                        member_pursue_maya = 2000 / 2000
                                         membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                                 elif membre.palier.nom_du_palier == "Mandingue":
@@ -940,7 +942,7 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                     membre.palier = palier_zoulou
-                                    member_pursue_bam = 700/2000
+                                    member_pursue_bam = 700 / 2000
                                     membre.gam = membre.gam + Decimal(member_pursue_bam)
 
                             elif membre.palier.nom_du_palier == "Zoulou":
@@ -988,7 +990,7 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                     membre.palier = palier_maya
-                                    member_pursue_zou = 1000/2000
+                                    member_pursue_zou = 1000 / 2000
                                     membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                             elif membre.palier.nom_du_palier == "Maya":
@@ -1036,7 +1038,7 @@ def ajouter(request):
                                     membre.poste = poste
                                     palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                     membre.palier = palier_mandingue
-                                    member_pursue_maya = 2000/2000
+                                    member_pursue_maya = 2000 / 2000
                                     membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                             elif membre.palier.nom_du_palier == "Mandingue":
@@ -1149,7 +1151,7 @@ def change_password(request, id):
 
 
 @login_required
-def listesuppruser(id):
+def listesuppruser(request, id):
     user_s = get_object_or_404(User, id=id)
     user_s.is_active = False
     user_s.save()
@@ -1543,6 +1545,10 @@ def voir_modules(request, id):
     return render(request, 'formation-wara/wara/users/voir-modules.html', locals())
 
 
+start = time.time()
+
+
+# run your code
 @login_required(redirect_field_name='suivant', login_url='wlogin')
 def voir_modules_detail(request, id):
     versions = Versions.objects.filter(archive=False)
@@ -1550,7 +1556,9 @@ def voir_modules_detail(request, id):
     dict = {}
     vagues = Vague.objects.filter(archive=False)
     dict[participant] = vagues
+
     module = get_object_or_404(Modules, id=id)
+
     for vague in vagues:
         for utilisateur in vague.utilisateurs.filter(nom=participant.nom):
             if utilisateur:
@@ -1566,8 +1574,6 @@ def voir_modules_detail(request, id):
                 print(vague.utilisateurs.count(), 'personnes\n')
                 vague_utilisateur_total = vague.utilisateurs.count()
 
-    import time
-
     from mutagen.mp3 import MP3
     from mutagen.mp4 import MP4
 
@@ -1576,6 +1582,7 @@ def voir_modules_detail(request, id):
         module.longueur_video6 = audio.info.length
         module.save()
         float_time = module.longueur_video6
+        print(float_time)
         result6 = time.strftime('%H:%M:%S', time.gmtime(float_time))
 
     if module.video7:
@@ -1640,6 +1647,13 @@ def voir_modules_detail(request, id):
         module.save()
         float_time = module.longueur_audio5
         result5 = time.strftime('%H:%M:%S', time.gmtime(float_time))
+
+    end = time.time()
+    elapsed = end - start
+
+    print(time.strftime("%H:%M:%S", time.gmtime(start)))
+    print(time.strftime("%H:%M:%S", time.gmtime(end)))
+    print(time.strftime("%H:%M:%S", time.gmtime(elapsed)))
 
     return render(request, 'formation-wara/wara/users/voir-modules-detail.html', locals())
 
@@ -1838,8 +1852,8 @@ def liste_sujet_user(request):
 
 def creer_sujet(request, id):
     versions = Versions.objects.filter(archive=False)
-    auteur = request.user   # information a ajouter automatiquement au formulaire
-    forum = get_object_or_404(Forums, id=id)    # donnée a ajouter automatiquement au formulaire
+    auteur = request.user  # information a ajouter automatiquement au formulaire
+    forum = get_object_or_404(Forums, id=id)  # donnée a ajouter automatiquement au formulaire
 
     sujets = SujetForum.objects.filter(archive=False, forum=forum)
 
@@ -1874,7 +1888,7 @@ def creer_sujet_user(request, id):
 
     vague_utilisateur = get_object_or_404(Vague, utilisateurs=auteur)
 
-    forum = get_object_or_404(Forums, id=id)    # donnée a ajouter automatiquement au formulaire
+    forum = get_object_or_404(Forums, id=id)  # donnée a ajouter automatiquement au formulaire
 
     sujets = SujetForum.objects.filter(archive=False, forum=forum)
 
@@ -1969,6 +1983,32 @@ def page_discussion_user(request, id):
         m_form = MessagesSujetsForumsForm()
 
     return render(request, 'formation-wara/wara/users/page_discussion.html', locals())
+
+
+def attestation(request):
+    versions = Versions.objects.filter(archive=False)
+    auteur = request.user
+
+    """ Pour les versions dans la base_wara"""
+    participant = request.user
+    dict = {}
+    data = {}
+    vagues = Vague.objects.filter(archive=False)
+    dict[participant] = vagues
+    """ End """
+
+    for vague in vagues:
+        for utilisateur in vague.utilisateurs.filter(nom=participant.nom):
+            if utilisateur:
+                modules = Modules.objects.filter(version=vague.version, archive=False)
+                data[vague.version] = modules
+                modules_total = Modules.objects.filter(version=vague.version, archive=False).count()
+
+    vague_utilisateur = get_object_or_404(Vague, utilisateurs=auteur)
+
+    fichier = get_object_or_404(Attestion)
+
+    return render(request, 'formation-wara/wara/attestation/attestation.html', locals())
 
 
 #######################################################################################################################
@@ -2082,7 +2122,7 @@ def generate_lien(request, unique_id):
                                             membre.poste = poste
                                             palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                             membre.palier = palier_zoulou
-                                            member_pursue_zou = 700/2000
+                                            member_pursue_zou = 700 / 2000
                                             membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                                     elif membre.palier.nom_du_palier == "Zoulou":
@@ -2131,7 +2171,7 @@ def generate_lien(request, unique_id):
                                             membre.poste = poste
                                             palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                             membre.palier = palier_maya
-                                            member_pursue_maya = 1000/2000
+                                            member_pursue_maya = 1000 / 2000
                                             membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                                     elif membre.palier.nom_du_palier == "Maya":
@@ -2180,7 +2220,7 @@ def generate_lien(request, unique_id):
                                             membre.poste = poste
                                             palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                             membre.palier = palier_mandingue
-                                            member_pursue_mand = 2000/2000
+                                            member_pursue_mand = 2000 / 2000
                                             membre.gam = membre.gam + Decimal(member_pursue_mand)
 
                                     elif membre.palier.nom_du_palier == "Mandingue":
@@ -2280,7 +2320,7 @@ def generate_lien(request, unique_id):
                                         membre.poste = poste
                                         palier_zoulou = get_object_or_404(Palier, nom_du_palier="Zoulou")
                                         membre.palier = palier_zoulou
-                                        member_pursue_bam = 700/2000
+                                        member_pursue_bam = 700 / 2000
                                         membre.gam = membre.gam + Decimal(member_pursue_bam)
 
                                 elif membre.palier.nom_du_palier == "Zoulou":
@@ -2334,7 +2374,7 @@ def generate_lien(request, unique_id):
                                         membre.poste = poste
                                         palier_maya = get_object_or_404(Palier, nom_du_palier="Maya")
                                         membre.palier = palier_maya
-                                        member_pursue_zou = 1000/2000
+                                        member_pursue_zou = 1000 / 2000
                                         membre.gam = membre.gam + Decimal(member_pursue_zou)
 
                                 elif membre.palier.nom_du_palier == "Maya":
@@ -2383,7 +2423,7 @@ def generate_lien(request, unique_id):
                                         membre.poste = poste
                                         palier_mandingue = get_object_or_404(Palier, nom_du_palier="Mandingue")
                                         membre.palier = palier_mandingue
-                                        member_pursue_maya = 2000/2000
+                                        member_pursue_maya = 2000 / 2000
                                         membre.gam = membre.gam + Decimal(member_pursue_maya)
 
                                 elif membre.palier.nom_du_palier == "Mandingue":

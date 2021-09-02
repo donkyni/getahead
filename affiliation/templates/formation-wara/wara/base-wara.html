@@ -73,6 +73,8 @@
                         </li>
                         <li class="divider"></li>
                         <li> <a href="{% url 'logout' %}"><i class="mdi mdi-power"></i><span>Déconnexion</span></a> </li>
+                        <li class="divider"></li>
+                        <li> <a href="{% url 'menu_user' %}"><i class="mdi mdi-account"></i><span style="font-weight:bold">GET AHEAD</span></a> </li>
                     </ul>
                 </li>
             </ul>
@@ -120,7 +122,7 @@
                     <!-- <li><a href="javascript:void(0)" class="{% block active-forum2 %}{% endblock %}">Accédez aux forums</a></li> -->
                 </ul>
             </li>
-            <li>
+            <!--<li>
                 <a class="{% block active-page-attestation %}{% endblock %}" href="javascript:void(0);" data-toggle="collapse" data-target="#icon_list">
                     <div class="pull-left"><i class="mdi mdi-cube-outline mr-20"></i><span class="right-nav-text">Attestions</span></div>
                     <div class="pull-right"><i class="mdi mdi-chevron-down"></i></div>
@@ -129,7 +131,7 @@
                 <ul id="icon_list" class="collapse collapse-level-1">
                     <li><a href="javascript:void(0)">Voir les attestions générées</a></li>
                 </ul>
-            </li>
+            </li>-->
             <!-- Profiles -->
             <li>
                 <hr class="light-grey-hr mb-10"/>
@@ -910,8 +912,11 @@
                     <li style="padding-right:30px" class="nav-item">
                         <a class="nav-link" href="{% url 'liste_sujet_user' %}"> Forums </a>
                     </li>
+                    <!--<li style="padding-right:30px" class="nav-item">
+                        <a class="nav-link" href="{% url 'attestation' %}"> Attestation </a>
+                    </li>-->
                     <li style="padding-right:30px" class="nav-item">
-                        <a class="nav-link" href="#"> Attestation </a>
+                        <a class="nav-link" href="{% url 'mongroupe' %}"> GET AHEAD </a>
                     </li>
                 </ul>
             </div>
@@ -956,8 +961,12 @@
                     <div class="col-lg-6 col-lg-6">
                         <a href="{% url 'liste_sujet_user' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-block btn-primary mb-3">Vers <i class="fas fa-angle-right"></i> Forum</a>
                     </div>
+                    <!--<div class="col-lg-6 col-lg-6">
+                        <a href="{% url 'attestation' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-block btn-primary mb-3">Vers <i class="fas fa-angle-right"></i> Attestation</a>
+                    </div>-->
+
                     <div class="col-lg-6 col-lg-6">
-                        <a href="" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-block btn-primary mb-3">Vers <i class="fas fa-angle-right"></i> Attestation</a>
+                        <a href="{% url 'mongroupe' %}" style="background-color: #2C2C54; border:1px solid #2C2C54" class="btn btn-sm btn-block btn-primary mb-3">Vers <i class="fas fa-angle-right"></i> GET AHEAD</a>
                     </div>
                 </div>
             </div>
@@ -984,7 +993,10 @@
                         <div class="modal-body">
                             <span>Votre lien de parrainage</span>
                             <br><br>
+                            <!--
                             <input class="form-control" readonly id="lien" type="text" value="http://wara-africa.com/{{request.user.unique_id}}/lien-generer-pour-l-inscription-a-getahead-2.0/$">
+                            -->
+                            <input class="form-control" readonly id="lien" type="text" value="http://127.0.0.1:8000/{{request.user.unique_id}}/lien-generer-pour-l-inscription-a-getahead-2.0/$">
                             <br>
                             <span>Copiez le lien et envoyer le à votre ami. Une fois son inscription terminé, il sera reconnu comme votre filleule</span>
                         </div>

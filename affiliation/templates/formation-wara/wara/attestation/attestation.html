@@ -1,0 +1,87 @@
+{% extends "formation-wara/wara/base-wara.html" %}
+{% load static %}
+
+{% block title2 %}
+Accueil
+{% endblock %}
+
+{% block content2 %}
+<!-- Main Content -->
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">Attestation</h5>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'base' %}">Tableau de bord</a></li>
+                    <li>Forum</li>
+                    <li class="active"><span>Accédez à votre attestation</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        </div>
+
+        <br><br>
+        <div class="container">
+            <div class="container text-center" style="margin:0 0 0 0;padding:0 0 0 0;background-color:white;">
+                <div class="container" style="margin:0 0 0 0;padding:0 0 0 0;">
+                    <div style="margin:40px;border:5px solid #474787">
+                        <div style="margin-top:15px">
+                            <img style="height:100px;width:280px" src="{{fichier.logo_de_jgk.url}}" alt="logo de jgk">
+                        </div>
+                        <span style="font-size:30px; font-weight:bold; color:rgb(51, 103, 214);">Attestation de formation</span>
+                        <br>
+                        <p style="padding-top:20px; font-size:16px; font-weight:bold; color:black">Je soussigné, Administrateur du Cabinet JGK Entreprises & Consulting (JGK-EC) atteste que :</p>
+                        <br>
+                        <span style="font-size:24px; font-weight:bold; color:rgb(51, 103, 214);">{{request.user}}</span>
+                        <br>
+                        <p style="padding-top:15px; font-size:16px;color:black">A suivi un <b style="font-weight:bold; ">Séminaire de Formation en création d’entreprise et en élaboration de plan d’affaires,</b></p>
+                        <br>
+                        <span style="color:black;font-size:15px;font-weight:bold">Du 1er au 20 Mars 2021.</span>
+                        <br>
+                        <p class="text-left" style="padding:15px 0 0 195px; font-size:16px; font-weight:bold; color:black">Les modules abordés au cours de cette formation sont les suivants :</p>
+                        <br>
+                        {% for module in modules %}
+                        <p class="text-left" style="padding:0px 0 0 250px; color:black;font-size:15px;font-weight:bold">- {{module.nom_du_module}}</p>
+                        {% endfor %}
+                        <br>
+                        <p class="text-left" style="padding:0px 0 0 195px; font-size:16px; color:black">En foi de quoi, la présente attestation lui est délivrée pour servir et valoir ce que de droit.</p>
+                        <br>
+                        <span style="color:black;font-size:15px;font-weight:bold">Fait à Lomé le 20/03/2021</span>
+                        <br><br>
+                        <div style="margin-top:0px">
+                            <span style="color:black;font-size:15px;font-weight:bold">L’Administrateur</span>
+                            <br>
+                            <img class="float-left" style="height:55x;width:250px" src="{{fichier.signature_de_jgk.url}}" alt="logo de jgk">
+                            <img class="float-left" style="height:50x;width:150px" src="{{fichier.administrateur.url}}" alt="logo de jgk">
+                        </div>
+                        <span style="color:black;font-size:15px;font-weight:bold">Dr Jean-Gaspard KOMINA</span>
+                        <br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- /Row -->
+    </div>
+    <!-- Footer -->
+    <footer class="footer container-fluid pt-10 pb-10  pl-30 pr-30">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="pull-left text-dark pt-5 small">Copyright @ 2021. Tous droits réservés</div>
+                <div class="pull-right">Created by <a href="http://wara-africa.com/" style="color:#fff" target="_blank">GET AHEAD</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
+</div>
+<!-- /Main Content -->
+{% endblock %}
+
+

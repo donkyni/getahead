@@ -1,3 +1,5 @@
+from enum import auto
+
 from django.contrib.auth import models as auth_models
 from django.db import models
 
@@ -443,4 +445,31 @@ class MessagesSujetsForums(models.Model):
     class Meta:
         verbose_name = "Message pour ce sujet"
         verbose_name_plural = "Messages pour les sujets"
+        ordering = ('id',)
+
+
+class Attestion(models.Model):
+    logo_de_jgk = models.ImageField(null=True, blank=True, upload_to="fichier-attestation/%y %m %d",
+                                    verbose_name="logo")
+    administrateur = models.ImageField(null=True, blank=True, upload_to="fichier-attestation/%y %m %d",
+                                       verbose_name="administrateur")
+    signature_de_jgk = models.ImageField(null=True, blank=True, upload_to="fichier-attestation/%y %m %d",
+                                         verbose_name="signature")
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Attestation"
+        verbose_name_plural = "Attestations"
+        ordering = ('id',)
+
+
+class AttestionMembre(models.Model):
+    membre = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    attestation = models.ImageField(null=True, blank=True, upload_to="attestations/%y %m %d",
+                                    verbose_name="attestation")
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Attestation des membres"
+        verbose_name_plural = "Attestations des membres"
         ordering = ('id',)

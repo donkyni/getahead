@@ -9,3 +9,13 @@
     padding: 0px;
   }
 }
+
+#forum:hover {
+    background-color: grey;
+    padding:10px;
+
+}
+
+#forum:hover > span{
+    color:#fff;
+}

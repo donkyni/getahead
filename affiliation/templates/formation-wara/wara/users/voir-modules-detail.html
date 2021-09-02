@@ -8,6 +8,24 @@ Accueil
 {% block link2_suite %}
 <link href="{% static 'programme-wara/css/style.css' %}" rel="stylesheet" type="text/css"/>
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+<SCRIPT LANGUAGE="JavaScript">
+        function disableselect(e){
+        return false
+        }
+
+        function reEnable(){
+        return true
+        }
+
+        //if IE4+
+        document.onselectstart=new Function ("return false")
+        document.oncontextmenu=new Function ("return false")
+        //if NS6
+        if (window.sidebar){
+        document.onmousedown=disableselect
+        document.onclick=reEnable
+        }
+    </script>
 {% endblock %}
 
 {% block content2 %}
@@ -75,7 +93,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.video6.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -152,7 +170,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.video7.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -215,7 +233,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.video8.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -278,7 +296,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.video9.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -341,7 +359,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.video10.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -404,7 +422,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.audio1.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -467,7 +485,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.audio2.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -530,7 +548,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.audio3.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -593,7 +611,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.audio4.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a
@@ -656,7 +674,7 @@ Accueil
                                                                             <div class="panel-body pa-0">
                                                                                 <div class="col-sm-12 col-xs-12">
                                                                                     <div class="form-wrap">
-                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="300" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                                                                                        <video id="my-video" class="video-js" controls preload="auto" width="840" height="264" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                                                                                             <source src="{{module.audio5.url}}" type="video/mp4" />
                                                                                             <p class="vjs-no-js">
                                                                                                 To view this video please enable JavaScript, and consider upgrading to a

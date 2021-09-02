@@ -4,7 +4,8 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from affiliation.models import Poste, Niveau, Palier, Groupe, CodePays, Droits, Profils, Payement, Wara, Message, User, \
-    DroitsProfils, Versions, Modules, Vague, Packs, CategorieForum, Forums, SujetForum, MessagesSujetsForums
+    DroitsProfils, Versions, Modules, Vague, Packs, CategorieForum, Forums, SujetForum, MessagesSujetsForums, Attestion, \
+    AttestionMembre
 
 
 class PosteAdmin(admin.ModelAdmin):
@@ -271,6 +272,28 @@ class MessagesSujetsForumsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(MessagesSujetsForums, MessagesSujetsForumsAdmin)
+
+
+class AttestionAdmin(admin.ModelAdmin):
+    list_display = ('logo_de_jgk', 'administrateur', 'signature_de_jgk', 'date')
+    list_filter = ('date',)
+    date_hierarchy = 'date'
+    ordering = ('date',)
+    search_fields = ('date',)
+
+
+admin.site.register(Attestion, AttestionAdmin)
+
+
+class AttestionMembreAdmin(admin.ModelAdmin):
+    list_display = ('membre', 'attestation', 'date')
+    list_filter = ('membre',)
+    date_hierarchy = 'date'
+    ordering = ('membre',)
+    search_fields = ('membre',)
+
+
+admin.site.register(AttestionMembre, AttestionMembreAdmin)
 
 
 class PacksAdmin(admin.ModelAdmin):

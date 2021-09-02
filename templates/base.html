@@ -83,6 +83,7 @@
             </div>
           </div>
           <div class="dropdown-divider"></div>
+
           <a href="{% url 'compte' %}" style="color:white;" class="nav-link {% block active-conn %}{% endblock %}">
             <i class="nav-icon fas fa-user-cog"></i>
             &nbsp;<b style="font-size:15px">Modifer vos informations</b>
@@ -91,7 +92,14 @@
             <i class="nav-icon fas fa-users"></i>
             &nbsp;<b style="font-size:15px">Faites un tour dans votre groupe</b>
           </a>
+          {% if request.user.profil.id == 2 %}
+          <a href="{% url 'base' %}" style="color:white;" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            &nbsp;<b style="font-size:15px;color:lightblue">Plateforme de formation WARA</b>
+          </a>
+          {% endif %}
           <div class="dropdown-divider"></div>
+
           <a href="{% url 'logout' %}" style="color:white;" class="nav-link text-danger">
             <i class="nav-icon fas fa-sign-out-alt"></i>
             &nbsp;<b style="font-size:16px">Déconnexion</b>
@@ -161,7 +169,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
               <li class="nav-item">
+                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-espace-groupe %}{% endblock %}">
+                  <i class="fas fa-hand-holding-usd nav-icon"></i>
+                  <p><b>Mes gains GET AHEAD</b></p>
+                </a>
+              </li>
+              <!--<li class="nav-item">
                 <a href="{% url 'mongroupe' %}" class="nav-link {% block active-getahead2-menu-mall %}{% endblock %}">
                   <i class="fas fa-box-open nav-icon"></i>
                   <p><b>Mon espace commercial</b></p>
@@ -180,7 +195,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-espace-groupe %}{% endblock %}">
+                <a href="{% url 'mongroupe' %}" class="nav-link {% block active-espace-groupee %}{% endblock %}">
                   <i class="fas fa-wallet nav-icon"></i>
                   <p><b>2è système de bonus</b></p>
                 </a>
@@ -193,7 +208,7 @@
               </li>
               <li class="nav-item has-treeview">
                 <hr style="background-color:#fff">
-              </li>
+              </li>-->
               <li class="nav-item">
                 <a href="{% url 'compte' %}" class="nav-link {% block active-espace-compte %}{% endblock %}">
                   <i class="fas fa-user-cog nav-icon"></i>
